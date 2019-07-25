@@ -66,10 +66,10 @@ alter table if exists instance_note
     drop constraint if exists FK_f6s94njexmutjxjv8t5dy1ugt;
 
 alter table if exists instance_resources
-    drop constraint if exists FK_49ic33s4xgbdoa4p5j107rtpf;
+    drop constraint if exists FK_8mal9hru5u3ypaosfoju8ulpd;
 
 alter table if exists instance_resources
-    drop constraint if exists FK_8mal9hru5u3ypaosfoju8ulpd;
+    drop constraint if exists FK_49ic33s4xgbdoa4p5j107rtpf;
 
 alter table if exists name
     drop constraint if exists FK_airfjupm6ohehj1lj82yqkwdx;
@@ -465,8 +465,8 @@ create table instance_note_key (
 );
 
 create table instance_resources (
-                                    resource_id int8 not null,
                                     instance_id int8 not null,
+                                    resource_id int8 not null,
                                     primary key (instance_id, resource_id)
 );
 
@@ -1166,14 +1166,14 @@ alter table if exists instance_note
             references namespace;
 
 alter table if exists instance_resources
-    add constraint FK_49ic33s4xgbdoa4p5j107rtpf
-        foreign key (instance_id)
-            references instance;
-
-alter table if exists instance_resources
     add constraint FK_8mal9hru5u3ypaosfoju8ulpd
         foreign key (resource_id)
             references resource;
+
+alter table if exists instance_resources
+    add constraint FK_49ic33s4xgbdoa4p5j107rtpf
+        foreign key (instance_id)
+            references instance;
 
 alter table if exists name
     add constraint FK_airfjupm6ohehj1lj82yqkwdx
@@ -2918,9 +2918,11 @@ ALTER TABLE tree
 -- make sure a set of distributions only contains a region once
 alter table dist_entry add constraint de_unique_region unique (region_id, tree_element_id);
 
-INSERT INTO db_version (id, version) VALUES (1, 33);
-
+-- make sure iso_publication_date is a date
 alter table reference add constraint check_iso_date check(is_iso8601(iso_publication_date));
+
+INSERT INTO db_version (id, version) VALUES (1, 34);
+
 -- populate-lookup-tables.sql
 -- Populate lookup tables (currently botanical)
 --namespace

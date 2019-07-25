@@ -10,7 +10,7 @@ buildscript {
     }
 }
 
-version "1.17-SNAPSHOT"
+version "1.18-SNAPSHOT"
 group "au.org.biodiversity.grails.plugins"
 
 apply plugin:"eclipse"
