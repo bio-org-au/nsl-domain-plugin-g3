@@ -22,7 +22,7 @@ import org.hibernate.SessionFactory
 class NslDomainService {
     def pluginManager
     def grailsApplication
-    SessionFactory sessionFactory_nsl
+    SessionFactory sessionFactory
 
     static final Integer currentVersion = 34
 
@@ -57,13 +57,13 @@ class NslDomainService {
             return false
         }
 
-        sessionFactory_nsl.getCurrentSession().flush()
-        sessionFactory_nsl.getCurrentSession().clear()
+        sessionFactory.getCurrentSession().flush()
+        sessionFactory.getCurrentSession().clear()
         for (Integer versionNumber in ((dbVersion + 1)..currentVersion)) {
             log.info "updating to version $versionNumber"
-            File updateFile = getUpdateFile(versionNumber)
+            URL updateFile = getUpdateFile(versionNumber)
             params.putAll(getParamsFile(versionNumber))
-            if (updateFile?.exists()) {
+            if (updateFile) {
                 String sqlSource = replaceParams(updateFile, params)
                 runSqlBits(splitSql(sqlSource), sql)
             }
@@ -71,8 +71,8 @@ class NslDomainService {
         if (params.postUpgradeScript) {
             runPostUpgradeScript(params.postUpgradeScript)
         }
-        sessionFactory_nsl.getCurrentSession().flush()
-        sessionFactory_nsl.getCurrentSession().clear()
+        sessionFactory.getCurrentSession().flush()
+        sessionFactory.getCurrentSession().clear()
         log.info "Update complete"
         return checkUpToDate()
     }
@@ -107,7 +107,7 @@ class NslDomainService {
         return ('-- Start\n' + source).split(/\n--/)
     }
 
-    private static replaceParams(File file, Map params) {
+    private static replaceParams(URL file, Map params) {
         String sqlSource = file.text
         params.each {k,v ->
             String match = '\\$\\{' + k + '\\}'
@@ -128,16 +128,9 @@ class NslDomainService {
         return [:]
     }
 
-    File getUpdateFile(Integer versionNumber) {
-        File pluginDir = getPluginDirectory()
-        File file = new File(pluginDir, "sql/update-to-${versionNumber}.sql")
-        log.info "nsl-ddl.sql file path $file.absolutePath"
-        return file
-    }
-
-    private File getPluginDirectory() {
-        GrailsPlugin plugin = pluginManager.allPlugins.find { it.name.startsWith('nslDomain') }
-        log.info "found $plugin.name with path ${plugin.pluginPath}"
-        return grailsApplication.mainContext.getResource(plugin.pluginPath).file
+    URL getUpdateFile(Integer versionNumber) {
+        URL resource = this.class.classLoader.getResource("sql/update-to-${versionNumber}.sql")
+        log.info "nsl-ddl.sql file path $resource.file"
+        return resource
     }
 }
