@@ -22,15 +22,6 @@ hibernate {
     }
 }
 
-//dataSource {
-//    pooled = true
-//    jmxExport = true
-//    driverClassName = "org.postgresql.Driver"
-//    dialect = "au.org.biodiversity.nsl.ExtendedPostgreSQLDialect"
-//    formatSql = false
-//    logSql = false
-//}
-
 dataSource {
     pooled = true
     jmxExport = true

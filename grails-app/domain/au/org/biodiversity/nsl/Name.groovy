@@ -71,13 +71,14 @@ class Name {
     Map apniJson
 
     static hasMany = [
-            instances     : Instance,
-            comments      : Comment,
-            tags          : NameTagName
+            instances: Instance,
+            comments : Comment,
+            tags     : NameTagName,
+            resources: Resource
     ]
 
     static mappedBy = [
-            comments      : "name"
+            comments: "name"
     ]
 
     static belongsTo = [NameRank, NameStatus, NameType, Namespace]

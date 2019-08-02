@@ -14,9 +14,10 @@ class Resource {
     Timestamp createdAt
 
     static hasMany = [
-            instances: Instance
+            instances: Instance,
+            names    : Name
     ]
-    static belongsTo = [Instance]
+    static belongsTo = [Instance, Name]
 
     static mapping = {
         //datasource 'nsl'
