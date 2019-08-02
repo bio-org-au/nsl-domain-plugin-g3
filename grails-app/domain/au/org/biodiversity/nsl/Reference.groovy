@@ -79,7 +79,6 @@ class Reference {
     ]
 
     static mapping = {
-        //datasource 'nsl'
 
         id generator: 'native', params: [sequence: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"
@@ -114,6 +113,7 @@ class Reference {
         verbatimCitation nullable: true, maxSize: 2000
         verbatimAuthor nullable: true, maxSize: 1000
         notes nullable: true, maxSize: 1000
+        parent nullable: true
         publisher nullable: true, maxSize: 1000
         publishedLocation nullable: true, maxSize: 1000
         publicationDate nullable: true, maxSize: 50
@@ -132,7 +132,7 @@ class Reference {
     }
 
     String getIsoYear() {
-        isoPublicationDate?.substring(0,4)
+        isoPublicationDate?.substring(0, 4)
     }
 
     @Override

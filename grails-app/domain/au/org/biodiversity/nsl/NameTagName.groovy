@@ -31,7 +31,7 @@ class NameTagName implements Serializable {
     String createdBy
 
     static mapping = {
-        //datasource 'nsl'
+
         id composite: ['name', 'tag']
         version(false)
         name index: 'Name_Tag_Name_Index'

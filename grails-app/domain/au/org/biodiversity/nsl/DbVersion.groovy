@@ -25,7 +25,7 @@ class DbVersion {
     Integer version
 
     static mapping = {
-        //datasource 'nsl'
+
     }
 
     static constraints = {

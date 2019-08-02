@@ -65,7 +65,6 @@ class Instance {
     ]
 
     static mapping = {
-        //datasource 'nsl'
 
         id generator: 'native', params: [sequence: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"
@@ -97,6 +96,10 @@ class Instance {
         pageQualifier nullable: true
         nomenclaturalStatus nullable: true, maxSize: 50
         bhlUrl nullable: true, maxSize: 4000
+
+        parent nullable: true
+        cites nullable: true
+        citedBy nullable: true
 
         updatedBy maxSize: 1000
         createdBy maxSize: 50

@@ -22,7 +22,7 @@ class TreeVersionElement {
     static belongsTo = [TreeVersion, TreeElement]
 
     static mapping = {
-        //datasource 'nsl'
+
         id generator: 'assigned', name: 'elementLink', type: 'string'
         version false
 
@@ -40,7 +40,7 @@ class TreeVersionElement {
     }
 
     static constraints = {
-
+        parent nullable: true
     }
 
     String toString() {

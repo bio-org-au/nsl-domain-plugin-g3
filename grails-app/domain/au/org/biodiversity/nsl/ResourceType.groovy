@@ -12,7 +12,6 @@ class ResourceType {
     String rdfId
 
     static mapping = {
-        //datasource 'nsl'
 
         id generator: 'native', params: [sequence: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"

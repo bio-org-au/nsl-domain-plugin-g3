@@ -34,7 +34,7 @@ class Comment {
 
 
     static mapping = {
-        //datasource 'nsl'
+
 
         id generator: 'native', params: [sequence: 'hibernate_sequence'], defaultValue: "nextval('hibernate_sequence')"
         version column: 'lock_version', defaultValue: "0"

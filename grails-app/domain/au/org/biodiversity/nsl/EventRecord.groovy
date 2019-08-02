@@ -29,7 +29,7 @@ class EventRecord {
     Timestamp createdAt
 
     static mapping = {
-        //datasource 'nsl'
+
         type sqlType: 'text', index: 'event_record_type_index,event_record_index'
         data type: JsonbMapType
         updatedAt sqlType: 'timestamp with time zone'

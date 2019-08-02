@@ -26,7 +26,6 @@ class NameTag {
     static hasMany = [names: NameTagName]
 
     static mapping = {
-        //datasource 'nsl'
         version column: 'lock_version', defaultValue: "0"
 
         id generator: 'native', params: [sequence: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"

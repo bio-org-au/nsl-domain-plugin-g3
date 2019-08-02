@@ -26,11 +26,7 @@ class DistRegion {
     String  def_link //link to the definition of this region
     Integer sortOrder
 
-//    static hasMany = []
-//    static belongsTo = []
-
     static mapping = {
-        //datasource 'nsl'
 
         id generator: 'native', params: [sequence: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"

@@ -7,7 +7,7 @@ class Media {
     String description
     String mimeType
     static mapping = {
-        //datasource 'nsl'
+
         id generator: 'native', params: [sequence: 'hibernate_sequence'], defaultValue: "nextval('hibernate_sequence')"
 
         fileName sqlType: 'text'

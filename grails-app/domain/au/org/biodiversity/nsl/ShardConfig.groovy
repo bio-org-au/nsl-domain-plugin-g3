@@ -8,7 +8,6 @@ class ShardConfig {
     boolean deprecated = false
 
     static mapping = {
-        //datasource 'nsl'
         version(false)
         id generator: 'native', params: [sequence: 'hibernate_sequence'], defaultValue: "nextval('hibernate_sequence')"
         deprecated defaultvalue: "false"

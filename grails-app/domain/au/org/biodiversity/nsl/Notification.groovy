@@ -21,7 +21,6 @@ class Notification {
     Long objectId
 
     static mapping = {
-        //datasource 'nsl'
     }
 
     static constraints = {

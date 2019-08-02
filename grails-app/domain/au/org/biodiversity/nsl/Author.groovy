@@ -59,7 +59,6 @@ class Author {
     ]
 
     static mapping = {
-        //datasource 'nsl'
 
         id generator: 'native', params: [sequence: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"
@@ -75,7 +74,6 @@ class Author {
         name index: 'Author_Name_Index'
         updatedAt sqlType: 'timestamp with time zone'
         createdAt sqlType: 'timestamp with time zone'
-
     }
 
     static constraints = {
@@ -89,10 +87,11 @@ class Author {
         sourceSystem nullable: true, maxSize: 50
         sourceIdString nullable: true, maxSize: 100
         sourceId nullable: true
+        duplicateOf nullable: true
     }
 
     @Override
-    public String toString() {
+    String toString() {
         return "Author $id: ${name ?: abbrev}"
     }
 }

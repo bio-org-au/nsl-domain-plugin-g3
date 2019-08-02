@@ -18,6 +18,7 @@ package au.org.biodiversity.nsl
 import java.sql.Clob
 import java.sql.Timestamp
 
+//todo is this used at all?
 class DelayedJobs {
 
     BigDecimal priority
@@ -33,7 +34,6 @@ class DelayedJobs {
     Timestamp updatedAt
 
     static mapping = {
-        //datasource 'nsl'
 
         id generator: 'native', params: [sequence: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"

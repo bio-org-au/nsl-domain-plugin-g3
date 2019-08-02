@@ -34,7 +34,6 @@ class IdMapper {
     Long toId
 
     static mapping = {
-        //datasource 'nsl'
 
         version false
 
