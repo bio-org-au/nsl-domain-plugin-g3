@@ -41,4 +41,25 @@ class Tree {
         referenceId nullable: true
         linkToHomePage nullable: true
     }
+
+    boolean equals(o) {
+        if (this.is(o)) return true
+        if (!(o instanceof Tree)) return false
+
+        Tree tree = (Tree) o
+
+        if (groupName != tree.groupName) return false
+        if (id != tree.id) return false
+        if (name != tree.name) return false
+
+        return true
+    }
+
+    int hashCode() {
+        int result
+        result = (name != null ? name.hashCode() : 0)
+        result = 31 * result + (groupName != null ? groupName.hashCode() : 0)
+        result = 31 * result + (id != null ? id.hashCode() : 0)
+        return result
+    }
 }

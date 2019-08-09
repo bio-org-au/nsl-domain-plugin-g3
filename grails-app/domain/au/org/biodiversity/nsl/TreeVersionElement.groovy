@@ -43,6 +43,21 @@ class TreeVersionElement {
         parent nullable: true
     }
 
+    boolean equals(o) {
+        if (this.is(o)) return true
+        if (!(o instanceof TreeVersionElement)) return false
+
+        TreeVersionElement that = (TreeVersionElement) o
+
+        if (elementLink != that.elementLink) return false
+
+        return true
+    }
+
+    int hashCode() {
+        return elementLink ? elementLink.hashCode() : 0
+    }
+
     String toString() {
         "TreeVersionElement ${treeElement?.simpleName} v: ${treeVersion?.id} e:${treeElement?.id} ($elementLink) t: $taxonId"
     }

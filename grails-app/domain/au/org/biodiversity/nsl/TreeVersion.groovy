@@ -42,4 +42,17 @@ class TreeVersion {
     String hostPart() {
         tree.hostName
     }
+
+    boolean equals(o) {
+        if (this.is(o)) return true
+        if (!(o instanceof TreeVersion)) return false
+
+        TreeVersion that = (TreeVersion) o
+
+        return id == that.id
+    }
+
+    int hashCode() {
+        id ? id.hashCode() : 0
+    }
 }

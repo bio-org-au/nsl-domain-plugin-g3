@@ -60,6 +60,32 @@ class TreeElement {
         nameElement maxSize: 255
     }
 
+    boolean equals(o) {
+        if (this.is(o)) return true
+        if (!(o instanceof TreeElement)) return false
+
+        TreeElement that = (TreeElement) o
+
+        if (excluded != that.excluded) return false
+        if (id != that.id) return false
+        if (instanceId != that.instanceId) return false
+        if (instanceLink != that.instanceLink) return false
+        if (nameId != that.nameId) return false
+        if (nameLink != that.nameLink) return false
+
+        return true
+    }
+
+    int hashCode() {
+        int result
+        result = (instanceId != null ? instanceId.hashCode() : 0)
+        result = 31 * result + (nameId != null ? nameId.hashCode() : 0)
+        result = 31 * result + (excluded != null ? excluded.hashCode() : 0)
+        result = 31 * result + (nameLink != null ? nameLink.hashCode() : 0)
+        result = 31 * result + (instanceLink != null ? instanceLink.hashCode() : 0)
+        result = 31 * result + (id != null ? id.hashCode() : 0)
+        return result
+    }
     static transients = ['name', 'instance']
 
     /**
