@@ -24,7 +24,7 @@ class NslDomainService {
     def grailsApplication
     SessionFactory sessionFactory
 
-    static final Integer currentVersion = 34
+    static final Integer currentVersion = 35
 
     File getDdlFile() {
         File pluginDir = getPluginDirectory()
@@ -53,7 +53,7 @@ class NslDomainService {
             return false
         }
         if (dbVersion > currentVersion) {
-            log.error "Database version is ahead of the services. Exiting to prevent bad things."
+            log.error "Database version $dbVersion is ahead of the services $currentVersion. Exiting to prevent bad things."
             return false
         }
 
