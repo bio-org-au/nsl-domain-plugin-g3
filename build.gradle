@@ -10,7 +10,7 @@ buildscript {
     }
 }
 
-version "1.19-SNAPSHOT"
+version "1.19.SNAPSHOT"
 group "au.org.biodiversity.grails.plugins"
 
 apply plugin:"eclipse"
@@ -72,9 +72,10 @@ bootRun {
 // enable if you wish to package this plugin as a standalone application
 bootRepackage.enabled = false
 grailsPublish {
-    // TODO: Provide values here
-    user = 'user'
-    key = 'key'
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    userOrg = 'bio-org-au'
+    repo = 'plugins'
     githubSlug = 'bio-org-au/nsl-domain-plugin-g3'
     license {
         name = 'Apache-2.0'
@@ -83,7 +84,6 @@ grailsPublish {
     desc = "The NSL Domian class definitions and package"
     developers = [pmcneil:"Peter McNeil"]
 }
-
 
 assets {
     packagePlugin = true
