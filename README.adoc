@@ -54,7 +54,9 @@ Make sure the version number you are working on is **not the currently released 
 version and update the default version number in `sql/views/other-setup.sql` as well as 
 `grails-app/services/au/org/biodiversity/nsl/NslDomainService.groovy`.
 
-==Notes
+== Notes
+
+WARNING: This no longer works
 
 The simplest way to make the update sql is the re-generate the DDL from grails using the script:
 
