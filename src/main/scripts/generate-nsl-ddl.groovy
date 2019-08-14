@@ -5,9 +5,9 @@ description "This generates the NSL DDL from the domain objects and sql sources 
 println "Generating NSL DDL from domain objects and sql sources"
 
 try {
-    runCommand('schema-export --datasource=nsl')
+    runCommand('schema-export')
 
-    File ddl = new File(ExecutionContext.targetDir, "ddl.sql")
+    File ddl = new File("build/ddl.sql")
     String text = ddl.text
             .replaceAll(/alter table/, 'alter table if exists')
             .replaceAll(/drop table/, 'drop table if exists')
@@ -17,7 +17,7 @@ try {
             .replaceAll(/create sequence hibernate_sequence;/, '')
             .replaceAll(/drop sequence hibernate_sequence;/, 'drop sequence hibernate_sequence;\n    create sequence hibernate_sequence;')
 
-    File dataDir = new File("${grailsSettings.baseDir}/web-app/sql")
+    File dataDir = new File("src/main/resources/sql")
     File viewsDir = new File(dataDir, 'views')
     File nslDdl = new File(dataDir, "nsl-ddl.sql")
     nslDdl.write(text)
