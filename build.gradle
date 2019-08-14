@@ -43,7 +43,7 @@ dependencies {
     compile "org.grails.plugins:async"
     compile "org.grails.plugins:scaffolding"
     compile "org.grails.plugins:gsp"
-    compile "org.grails.plugins:hibernate5:6.1.12"
+    compile "org.grails.plugins:hibernate5:${gormVersion-".RELEASE"}"
     compile "org.hibernate:hibernate-ehcache"
     compile "com.google.code.gson:gson:2.8.5"
     compile 'org.postgresql:postgresql:42.2.1.jre7'

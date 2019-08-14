@@ -16,21 +16,19 @@
 package au.org.biodiversity.nsl
 
 import groovy.sql.Sql
-import grails.plugins.GrailsPlugin
 import org.hibernate.SessionFactory
 
 class NslDomainService {
-    def pluginManager
     def grailsApplication
     SessionFactory sessionFactory
 
     static final Integer currentVersion = 35
 
+    @SuppressWarnings("unused")
     File getDdlFile() {
-        File pluginDir = getPluginDirectory()
-        File file = new File(pluginDir, "sql/nsl-ddl.sql")
-        log.info "nsl-ddl.sql file path $file.absolutePath"
-        return file
+        URL resource = this.class.classLoader.getResource("sql/nsl-ddl.sql")
+        log.info "nsl-ddl.sql file path $resource.file"
+        return new File(resource.toURI())
     }
 
     Boolean checkUpToDate() {
@@ -46,6 +44,7 @@ class NslDomainService {
      * update the database to the current version using update scripts
      * @return true if worked
      */
+    @SuppressWarnings("unused")
     Boolean updateToCurrentVersion(Sql sql, Map params) {
         Integer dbVersion = DbVersion.get(1)?.version
         if (!dbVersion) {
@@ -69,7 +68,7 @@ class NslDomainService {
             }
         }
         if (params.postUpgradeScript) {
-            runPostUpgradeScript(params.postUpgradeScript)
+            runPostUpgradeScript((String)params.postUpgradeScript)
         }
         sessionFactory.getCurrentSession().flush()
         sessionFactory.getCurrentSession().clear()
@@ -109,8 +108,8 @@ class NslDomainService {
 
     private static replaceParams(URL file, Map params) {
         String sqlSource = file.text
-        params.each {k,v ->
-            String match = '\\$\\{' + k + '\\}'
+        params.each { k, v ->
+            String match = /\\u0024\{/ + k + /}/
             log.debug "Replacing $match with $v"
             sqlSource = sqlSource.replaceAll(match, v as String)
         }
