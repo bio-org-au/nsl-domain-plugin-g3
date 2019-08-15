@@ -78,8 +78,7 @@ This code is Licensed under the Apache 2 License and we welcome contributions fr
 
 Please use Github issues for any bug reports.
 
-Shard ID ranges
-====
+== Shard ID ranges
 
 For Australian NSL infrastructure we are splitting the ID ranges used across different known shards. This is *not* essential
 but it does mean we have a means to discriminate data sources on IDs if somehow we manage to loose track.
@@ -98,3 +97,26 @@ There is a confluence page for the NSL infrastructure as well at https://www.anb
 You need to **set the shard sequence rang in the nsl-ddl.sql script before running it**. e.g.
 
 `create sequence nsl_global_seq minvalue 80000001 maxvalue 90000000;`
+
+== Publishing the plugin (maven repo)
+
+=== Snapshots
+
+We publish the plugin to a oss.jfrog.org. To  do this we need to set the BINTRAY_USER and BINTRAY_KEY environment
+variables and the call `./gradlew publish` to publish to 'OJO'.
+
+To use the snapshot you need to include the snapshot repository by adding this to your gradle repositories block:
+
+[source,groovy]
+.build.gradle
+----
+repositories {
+    maven {
+            url "https://oss.jfrog.org/artifactory/oss-snapshot-local"
+        }
+}
+----
+
+to consume the snapshot add the following to the dependencies:
+
+`compile "au.org.biodiversity.grails.plugins:nsl-domain-plugin-g3:3.1.19-SNAPSHOT"`

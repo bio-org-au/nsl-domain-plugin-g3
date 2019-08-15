@@ -94,7 +94,7 @@ assets {
 jar {
     exclude "grails-app/views/error.gsp"
 }
-
+println "user ${System.getenv('BINTRAY_USER')}"
 publishing {
     repositories {
         maven {
