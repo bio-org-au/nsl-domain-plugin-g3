@@ -7,6 +7,7 @@ buildscript {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.14.2"
         classpath "org.grails.plugins:hibernate5:${gormVersion-".RELEASE"}"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.9.8"
     }
 }
 
@@ -92,4 +93,20 @@ assets {
 
 jar {
     exclude "grails-app/views/error.gsp"
+}
+
+publishing {
+    repositories {
+        maven {
+            credentials {
+                username System.getenv('BINTRAY_USER')
+                password System.getenv('BINTRAY_KEY')
+            }
+            if (version.endsWith('SNAPSHOT')) {
+                url artifactory_snapshotUrl
+            } else {
+                url artifactory_releaseUrl
+            }
+        }
+    }
 }
