@@ -19,17 +19,33 @@ select coalesce(
                 limit 1), nameid);
 $$;
 
+-- ref.year from iso publication date
+drop function if exists ref_year(text);
+create function ref_year(iso_publication_date text)
+    returns integer
+    language sql
+as
+$$
+select cast(substring(iso_publication_date from 1 for 4) AS integer)
+$$;
+
 -- Find earliest local instance for a name.
 drop function if exists first_ref(bigint);
 create function first_ref(nameid bigint)
-    returns table(group_id bigint, group_name text, group_year integer)
+    returns table
+            (
+                group_id           bigint,
+                group_name         text,
+                group_iso_pub_date text
+            )
     language sql
-as $$
-select n.id group_id, n.sort_name group_name, min(r.year)
+as
+$$
+select n.id group_id, n.sort_name group_name, min(r.iso_publication_date)
 from name n
          join instance i
          join reference r on i.reference_id = r.id
-              on n.id  = i.name_id
+              on n.id = i.name_id
 where n.id = nameid
 group by n.id, sort_name
 $$;
@@ -53,39 +69,44 @@ select coalesce((select alt_of_inst.name_id
 $$;
 
 -- get the synonyms of a name in flora order for apni
-
 drop function if exists apni_ordered_nom_synonymy(bigint);
 create function apni_ordered_nom_synonymy(instanceid bigint)
-    returns TABLE(instance_id      bigint,
-                  instance_uri     text,
-                  instance_type    text,
-                  instance_type_id bigint,
-                  name_id          bigint,
-                  name_uri         text,
-                  full_name        text,
-                  full_name_html   text,
-                  name_status      text,
-                  citation         text,
-                  citation_html    text,
-                  year             int,
-                  page             text,
-                  sort_name        text,
-                  misapplied       boolean,
-                  ref_id           bigint)
+    returns TABLE
+            (
+                instance_id          bigint,
+                instance_uri         text,
+                instance_type        text,
+                instance_type_id     bigint,
+                name_id              bigint,
+                name_uri             text,
+                full_name            text,
+                full_name_html       text,
+                name_status          text,
+                citation             text,
+                citation_html        text,
+                year                 int,
+                iso_publication_date text,
+                page                 text,
+                sort_name            text,
+                misapplied           boolean,
+                ref_id               bigint
+            )
     language sql
-as $$
+as
+$$
 select i.id,
        i.uri,
-       it.has_label as instance_type,
-       it.id        as instance_type_id,
-       n.id         as name_id,
+       it.has_label                     as instance_type,
+       it.id                            as instance_type_id,
+       n.id                             as name_id,
        n.uri,
        n.full_name,
        n.full_name_html,
-       ns.name      as name_status,
+       ns.name                          as name_status,
        r.citation,
        r.citation_html,
-       r.year,
+       ref_year(r.iso_publication_date) as year,
+       r.iso_publication_date,
        cites.page,
        n.sort_name,
        false,
@@ -99,7 +120,7 @@ from instance i
 where i.cited_by_id = instanceid
 order by (it.sort_order < 20) desc,
          it.nomenclatural desc,
-         r.year,
+         r.iso_publication_date,
          n.sort_name,
          it.pro_parte,
          it.doubtful,
@@ -109,54 +130,60 @@ $$;
 
 drop function if exists apni_ordered_other_synonymy(bigint);
 create function apni_ordered_other_synonymy(instanceid bigint)
-    returns TABLE(instance_id      bigint,
-                  instance_uri     text,
-                  instance_type    text,
-                  instance_type_id bigint,
-                  name_id          bigint,
-                  name_uri         text,
-                  full_name        text,
-                  full_name_html   text,
-                  name_status      text,
-                  citation         text,
-                  citation_html    text,
-                  year             int,
-                  page             text,
-                  sort_name        text,
-                  group_name       text,
-                  group_head       boolean,
-                  group_year       integer,
-                  misapplied       boolean,
-                  ref_id           bigint,
-                  og_id            bigint,
-                  og_head          boolean,
-                  og_name text,
-                  og_year integer)
+    returns TABLE
+            (
+                instance_id          bigint,
+                instance_uri         text,
+                instance_type        text,
+                instance_type_id     bigint,
+                name_id              bigint,
+                name_uri             text,
+                full_name            text,
+                full_name_html       text,
+                name_status          text,
+                citation             text,
+                citation_html        text,
+                year                 int,
+                iso_publication_date text,
+                page                 text,
+                sort_name            text,
+                group_name           text,
+                group_head           boolean,
+                group_iso_pub_date   text,
+                misapplied           boolean,
+                ref_id               bigint,
+                og_id                bigint,
+                og_head              boolean,
+                og_name              text,
+                og_year              text
+            )
     language sql
-as $$
-select i.id                            as instance_id,
-       i.uri                           as instance_uri,
-       it.has_label                    as instance_type,
-       it.id                           as instance_type_id,
-       n.id                            as name_id,
-       n.uri                           as name_uri,
+as
+$$
+select i.id                                                            as instance_id,
+       i.uri                                                           as instance_uri,
+       it.has_label                                                    as instance_type,
+       it.id                                                           as instance_type_id,
+       n.id                                                            as name_id,
+       n.uri                                                           as name_uri,
        n.full_name,
        n.full_name_html,
-       ns.name                         as name_status,
+       ns.name                                                         as name_status,
        r.citation,
        r.citation_html,
-       r.year,
+       ref_year(r.iso_publication_date)                                as year,
+       r.iso_publication_date,
        cites.page,
        n.sort_name,
-       ng.group_name                   as group_name,
-       ng.group_id = n.id              as group_head,
-       coalesce(ng.group_year, r.year) as group_year,
+       ng.group_name                                                   as group_name,
+       ng.group_id = n.id                                              as group_head,
+       coalesce(ng.group_iso_pub_date, r.iso_publication_date) :: text as group_iso_pub_date,
        it.misapplied,
-       r.id                            as ref_id,
-       og_id                           as og_id,
-       og_id = n.id                    as og_head,
-       coalesce(ogn.sort_name, n.sort_name) as og_name,
-       coalesce(ogr.year,r.year)       as og_year
+       r.id                                                            as ref_id,
+       og_id                                                           as og_id,
+       og_id = n.id                                                    as og_head,
+       coalesce(ogn.sort_name, n.sort_name)                            as og_name,
+       coalesce(ogr.iso_publication_date, r.iso_publication_date)      as og_iso_pub_date
 from instance i
          join instance_type it on i.instance_type_id = it.id and not it.nomenclatural and it.relationship
          join name n on i.name_id = n.id
@@ -173,13 +200,13 @@ from instance i
 where i.cited_by_id = instanceid
 order by (it.sort_order < 20) desc,
          it.taxonomic desc,
-         group_year,
+         group_iso_pub_date,
          group_name,
          group_head desc,
-         og_year,
+         og_iso_pub_date,
          og_name,
          og_head desc,
-         r.year,
+         r.iso_publication_date,
          n.sort_name,
          it.pro_parte,
          it.misapplied desc,
@@ -189,33 +216,64 @@ order by (it.sort_order < 20) desc,
 $$;
 
 drop function if exists apni_ordered_synonymy(bigint);
-
 create function apni_ordered_synonymy(instanceid bigint)
-    returns TABLE(instance_id      bigint,
-                  instance_uri     text,
-                  instance_type    text,
-                  instance_type_id bigint,
-                  name_id          bigint,
-                  name_uri         text,
-                  full_name        text,
-                  full_name_html   text,
-                  name_status      text,
-                  citation         text,
-                  citation_html    text,
-                  year             int,
-                  page             text,
-                  sort_name        text,
-                  misapplied       boolean,
-                  ref_id           bigint)
+    returns TABLE
+            (
+                instance_id          bigint,
+                instance_uri         text,
+                instance_type        text,
+                instance_type_id     bigint,
+                name_id              bigint,
+                name_uri             text,
+                full_name            text,
+                full_name_html       text,
+                name_status          text,
+                citation             text,
+                citation_html        text,
+                iso_publication_date text,
+                page                 text,
+                sort_name            text,
+                misapplied           boolean,
+                ref_id               bigint
+            )
     language sql
-as $$
+as
+$$
 
-select instance_id, instance_uri, instance_type, instance_type_id, name_id, name_uri, full_name, full_name_html,
-       name_status, citation, citation_html, year, page, sort_name, misapplied, ref_id
+select instance_id,
+       instance_uri,
+       instance_type,
+       instance_type_id,
+       name_id,
+       name_uri,
+       full_name,
+       full_name_html,
+       name_status,
+       citation,
+       citation_html,
+       iso_publication_date,
+       page,
+       sort_name,
+       misapplied,
+       ref_id
 from apni_ordered_nom_synonymy(instanceid)
 union all
-select instance_id, instance_uri, instance_type, instance_type_id, name_id, name_uri, full_name, full_name_html,
-       name_status, citation, citation_html, year, page, sort_name, misapplied, ref_id
+select instance_id,
+       instance_uri,
+       instance_type,
+       instance_type_id,
+       name_id,
+       name_uri,
+       full_name,
+       full_name_html,
+       name_status,
+       citation,
+       citation_html,
+       iso_publication_date,
+       page,
+       sort_name,
+       misapplied,
+       ref_id
 from apni_ordered_other_synonymy(instanceid)
 $$;
 
@@ -262,26 +320,30 @@ from apni_ordered_synonymy(instanceid) syn;
 $$;
 
 -- if this is a relationship instance what are we a synonym of
-
 drop function if exists apni_synonym(bigint);
 create function apni_synonym(instanceid bigint)
-    returns TABLE(instance_id    bigint,
-                  instance_uri   text,
-                  instance_type  text,
-                  instance_type_id bigint,
-                  name_id        bigint,
-                  name_uri       text,
-                  full_name      text,
-                  full_name_html text,
-                  name_status    text,
-                  citation       text,
-                  citation_html  text,
-                  year           int,
-                  page           text,
-                  misapplied     boolean,
-                  sort_name      text)
+    returns TABLE
+            (
+                instance_id          bigint,
+                instance_uri         text,
+                instance_type        text,
+                instance_type_id     bigint,
+                name_id              bigint,
+                name_uri             text,
+                full_name            text,
+                full_name_html       text,
+                name_status          text,
+                citation             text,
+                citation_html        text,
+                year                 int,
+                iso_publication_date text,
+                page                 text,
+                misapplied           boolean,
+                sort_name            text
+            )
     language sql
-as $$
+as
+$$
 select i.id,
        i.uri,
        it.of_label as instance_type,
@@ -293,7 +355,8 @@ select i.id,
        ns.name,
        r.citation,
        r.citation_html,
-       r.year,
+       ref_year(r.iso_publication_date),
+       r.iso_publication_date,
        i.page,
        it.misapplied,
        n.sort_name
@@ -350,51 +413,67 @@ from apni_synonym(instanceid) syn;
 $$;
 
 -- apni ordered references for a name
-
 drop function if exists apni_ordered_references(bigint);
 create function apni_ordered_references(nameid bigint)
-    returns TABLE(instance_id   bigint,
-                  instance_uri text,
-                  instance_type text,
-                  citation      text,
-                  citation_html text,
-                  year          int,
-                  pages         text,
-                  page          text)
+    returns TABLE
+            (
+                instance_id          bigint,
+                instance_uri         text,
+                instance_type        text,
+                citation             text,
+                citation_html        text,
+                year                 int,
+                iso_publication_date text,
+                pages                text,
+                page                 text
+            )
     language sql
-as $$
-select i.id, i.uri, it.name, r.citation, r.citation_html, r.year, r.pages, coalesce(i.page, citedby.page, '-')
+as
+$$
+select i.id,
+       i.uri,
+       it.name,
+       r.citation,
+       r.citation_html,
+       ref_year(r.iso_publication_date),
+       r.iso_publication_date,
+       r.pages,
+       coalesce(i.page, citedby.page, '-')
 from instance i
          join reference r on i.reference_id = r.id
          join instance_type it on i.instance_type_id = it.id
          left outer join instance citedby on i.cited_by_id = citedby.id
 where i.name_id = nameid
 group by r.id, i.id, it.id, citedby.id
-order by r.year, it.protologue, it.primary_instance, r.citation, r.pages, i.page, r.id;
+order by r.iso_publication_date, it.protologue, it.primary_instance, r.citation, r.pages, i.page, r.id;
 $$;
 
 -- get the synonyms of an instance as html to store in the tree in apni synonymy order
-
 drop function if exists synonym_as_html(bigint);
 create function synonym_as_html(instanceid bigint)
-    returns TABLE(html text)
+    returns TABLE
+            (
+                html text
+            )
     language sql
 as
 $$
 SELECT CASE
            WHEN it.nomenclatural
                THEN '<nom>' || full_name_html || '<name-status class="' || name_status || '">, ' || name_status ||
-                    '</name-status> <year>(' || year || ')<year> <type>' || instance_type || '</type></nom>'
+                    '</name-status> <year>(' || iso_publication_date || ')</year> <type>' || instance_type ||
+                    '</type></nom>'
            WHEN it.taxonomic
                THEN '<tax>' || full_name_html || '<name-status class="' || name_status || '">, ' || name_status ||
-                    '</name-status> <year>(' || year || ')<year> <type>' || instance_type || '</type></tax>'
+                    '</name-status> <year>(' || iso_publication_date || ')</year> <type>' || instance_type ||
+                    '</type></tax>'
            WHEN it.misapplied
                THEN '<mis>' || full_name_html || '<name-status class="' || name_status || '">, ' || name_status ||
                     '</name-status><type>' || instance_type || '</type> by <citation>' ||
                     citation_html || '</citation></mis>'
            WHEN it.synonym
                THEN '<syn>' || full_name_html || '<name-status class="' || name_status || '">, ' || name_status ||
-                    '</name-status> <year>(' || year || ')<year> <type>' || it.name || '</type></syn>'
+                    '</name-status> <year>(' || iso_publication_date || ')</year> <type>' || it.name || '</type></syn>'
            ELSE '<oth>' || full_name_html || '<name-status class="' || name_status || '">, ' || name_status ||
                 '</name-status> <type>' || it.name || '</type></oth>'
            END

@@ -60,3 +60,5 @@ alter table dist_entry add constraint de_unique_region unique (region_id, tree_e
 alter table reference add constraint check_iso_date check(is_iso8601(iso_publication_date));
 
 INSERT INTO db_version (id, version) VALUES (1, 35);
+
+create index iso_pub_index on reference (iso_publication_date asc);
