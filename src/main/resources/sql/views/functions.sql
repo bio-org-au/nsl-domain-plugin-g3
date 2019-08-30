@@ -19,6 +19,23 @@ select coalesce(
                 limit 1), nameid);
 $$;
 
+drop function if exists ref_parent_date(bigint);
+create function ref_parent_date(ref_id BIGINT)
+    returns text
+    language sql
+as
+$$
+select case
+           when rt.use_parent_details = true
+               then coalesce(r.iso_publication_date, pr.iso_publication_date)
+           else r.iso_publication_date
+           end
+from reference r
+         join ref_type rt on r.ref_type_id = rt.id
+         left outer join reference pr on r.parent_id = pr.id
+where r.id = ref_id;
+$$;
+
 -- ref.year from iso publication date
 drop function if exists ref_year(text);
 create function ref_year(iso_publication_date text)
@@ -105,8 +122,8 @@ select i.id,
        ns.name                          as name_status,
        r.citation,
        r.citation_html,
-       ref_year(r.iso_publication_date) as year,
-       r.iso_publication_date,
+       ref_year(iso_date) as year,
+       coalesce(iso_date, '-'),
        cites.page,
        n.sort_name,
        false,
@@ -117,10 +134,11 @@ from instance i
          join name_status ns on n.name_status_id = ns.id
          left outer join instance cites on i.cites_id = cites.id
          left outer join reference r on cites.reference_id = r.id
+         left outer join ref_parent_date(r.id) iso_date on true
 where i.cited_by_id = instanceid
 order by (it.sort_order < 20) desc,
          it.nomenclatural desc,
-         r.iso_publication_date,
+         iso_date,
          n.sort_name,
          it.pro_parte,
          it.doubtful,
@@ -171,8 +189,8 @@ select i.id                                                            as instan
        ns.name                                                         as name_status,
        r.citation,
        r.citation_html,
-       ref_year(r.iso_publication_date)                                as year,
-       r.iso_publication_date,
+       ref_year(iso_date)                                as year,
+       coalesce(iso_date,'-'),
        cites.page,
        n.sort_name,
        ng.group_name                                                   as group_name,
@@ -197,6 +215,7 @@ from instance i
          join name_status ns on n.name_status_id = ns.id
          left outer join instance cites on i.cites_id = cites.id
          left outer join reference r on cites.reference_id = r.id
+         left outer join ref_parent_date(r.id) iso_date on true
 where i.cited_by_id = instanceid
 order by (it.sort_order < 20) desc,
          it.taxonomic desc,
@@ -206,7 +225,7 @@ order by (it.sort_order < 20) desc,
          og_iso_pub_date,
          og_name,
          og_head desc,
-         r.iso_publication_date,
+         iso_date,
          n.sort_name,
          it.pro_parte,
          it.misapplied desc,
@@ -355,8 +374,8 @@ select i.id,
        ns.name,
        r.citation,
        r.citation_html,
-       ref_year(r.iso_publication_date),
-       r.iso_publication_date,
+       ref_year(iso_date),
+       iso_date,
        i.page,
        it.misapplied,
        n.sort_name
@@ -366,6 +385,7 @@ from instance i
          join name n on cites.name_id = n.id
          join name_status ns on n.name_status_id = ns.id
          join reference r on i.reference_id = r.id
+         left outer join ref_parent_date(r.id) iso_date on true
 where i.id = instanceid
   and it.relationship;
 $$;
@@ -435,17 +455,18 @@ select i.id,
        it.name,
        r.citation,
        r.citation_html,
-       ref_year(r.iso_publication_date),
-       r.iso_publication_date,
+       ref_year(iso_date),
+       iso_date,
        r.pages,
        coalesce(i.page, citedby.page, '-')
 from instance i
          join reference r on i.reference_id = r.id
          join instance_type it on i.instance_type_id = it.id
          left outer join instance citedby on i.cited_by_id = citedby.id
+         left outer join ref_parent_date(r.id) iso_date on true
 where i.name_id = nameid
-group by r.id, i.id, it.id, citedby.id
-order by r.iso_publication_date, it.protologue, it.primary_instance, r.citation, r.pages, i.page, r.id;
+group by r.id, iso_date, i.id, it.id, citedby.id
+order by iso_date, it.protologue, it.primary_instance, r.citation, r.pages, i.page, r.id;
 $$;
 
 -- get the synonyms of an instance as html to store in the tree in apni synonymy order
