@@ -104,6 +104,9 @@ You need to **set the shard sequence rang in the nsl-ddl.sql script before runni
 
 === Snapshots
 
+This repository is automatically built by Travis CI (https://travis-ci.org/bio-org-au/nsl-domain-plugin-g3) and deployed
+to 'OJO' (http://oss.jfrog.org), which is an artifact (maven) repository for open source projects.
+
 We publish the plugin to a oss.jfrog.org. To  do this we need to set the BINTRAY_USER and BINTRAY_KEY environment
 variables and the call `./gradlew publish` to publish to 'OJO'.
 
@@ -122,3 +125,11 @@ repositories {
 to consume the snapshot add the following to the dependencies:
 
 `compile "au.org.biodiversity.grails.plugins:nsl-domain-plugin-g3:3.1.19-SNAPSHOT"`
+
+=== Release
+
+To release the plugin we merge master into the release branch and remove the SNAPSHOT status from the plugin version. Then
+run the bintrayUpload gradle command to upload the released plugin to bintray
+https://bintray.com/beta/#/bio-org-au/plugins/nsl-domain-plugin-g3?tab=overview
+
+NOTE: No releases have been pushed yet for G3. We will add a separate travis.yml in the release branch to build the release.
