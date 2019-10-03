@@ -14,9 +14,11 @@
 This is a grails plugin for the NSL project that maps the Domain objects of NSL. It is used to generate and update the
 schema for the NSL.
 
-= Grails 3 nsl-domain-plugin
+image:https://travis-ci.org/bio-org-au/nsl-domain-plugin-g3.svg?branch=master["Build status", "https://travis-ci.org/bio-org-au/nsl-domain-plugin-g3"]
 
-== Considerations
+== Grails 3 nsl-domain-plugin
+
+=== Considerations
 
 When making schema changes we have to consider two cases:
 
@@ -25,9 +27,9 @@ When making schema changes we have to consider two cases:
 
 and this means your changes need to appear in an update script and the nsl-ddl.sql file.
  
-== Where to make your changes.
+=== Where to make your changes.
 
-=== Adding/Changing a view, trigger, index or default data 
+==== Adding/Changing a view, trigger, index or default data
 
 If you are adding a view, trigger, index or default data:
  1. first add your changes to an appropriate file in the `/web-app/sql/views` directory
@@ -37,7 +39,7 @@ If you are adding a view, trigger, index or default data:
 Remember the update-to-nn script is updating a database from the previous version, so you must take into account existing
 views and **not loose data**.
 
-=== Adding or changing tables (domain objects)
+==== Adding or changing tables (domain objects)
 
 If you are changing a table or tables you **must** make those changes in the Grails domain classes which will 
 generate the appropriate sql when the `grails generate-nsl-ddl` command is run. This keeps the grails domain
@@ -48,13 +50,13 @@ classes,sql and DB schema in sync.
  1. run `grails generate-nsl-ddl` to regenerate the /src/main/resources/nsl-ddl.sql file with your changes included
  1. diff nsl-ddl.sql to extract changes to put into the latest `update-to-nn.sql` file in the `/src/main/resources/sql` directory
 
-== What version number
+=== What version number
 
 Make sure the version number you are working on is **not the currently released version**, if necessary create a new
 version and update the default version number in `sql/views/other-setup.sql` as well as 
 `grails-app/services/au/org/biodiversity/nsl/NslDomainService.groovy`.
 
-== Notes
+=== Notes
 
 The simplest way to make the update sql is the re-generate the DDL from grails using the script:
 
@@ -69,7 +71,7 @@ When writing `update-to-nn.sql` scripts we **try to make the update script idemp
 deliberately or accidentaly) it results in the same thing. Note data loss is possible it the scripts are run again after 
 a while.
 
-== What is this?
+=== What is this?
 
 This is part of the NSL (National Species List) Services Application developed at the Australian National Botanic Gardens in
 association with CHAH, the ALA and the IBIS team.
@@ -78,7 +80,7 @@ This code is Licensed under the Apache 2 License and we welcome contributions fr
 
 Please use Github issues for any bug reports.
 
-== Shard ID ranges
+=== Shard ID ranges
 
 For Australian NSL infrastructure we are splitting the ID ranges used across different known shards. This is *not* essential
 but it does mean we have a means to discriminate data sources on IDs if somehow we manage to loose track.
