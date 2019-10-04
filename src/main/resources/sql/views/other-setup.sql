@@ -61,4 +61,4 @@ alter table reference add constraint check_iso_date check(is_iso8601(iso_publica
 
 create index iso_pub_index on reference (iso_publication_date asc);
 
-INSERT INTO db_version (id, version) VALUES (1, 36);
+INSERT INTO db_version (id, version) VALUES (1, 37);
