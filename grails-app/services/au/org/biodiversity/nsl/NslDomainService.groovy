@@ -109,7 +109,7 @@ class NslDomainService {
     private static replaceParams(URL file, Map params) {
         String sqlSource = file.text
         params.each { k, v ->
-            String match = /\\u0024\{/ + k + /}/
+            String match = '\\$\\{' + k + '\\}'
             log.debug "Replacing $match with $v"
             sqlSource = sqlSource.replaceAll(match, v as String)
         }
