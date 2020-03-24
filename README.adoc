@@ -134,3 +134,10 @@ run the bintrayUpload gradle command to upload the released plugin to bintray
 https://bintray.com/beta/#/bio-org-au/plugins/nsl-domain-plugin-g3?tab=overview
 
 NOTE: No releases have been pushed yet for G3. We will add a separate travis.yml in the release branch to build the release.
+
+== Create a clean Database
+
+* Create a clean DB
+* use psql to run the nsl-ddl.sql command (in `src/main/resources/sql`)
+
+`creatdb mynsl && psql -f nsl-ddl.sql mynsl`
