@@ -1,623 +1,662 @@
 -- Populate lookup tables (currently botanical)
 --namespace
-INSERT INTO public.namespace (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'APNI', '(description of <b>APNI</b>)', 'apni');
-INSERT INTO public.namespace (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'ANHSIR', '(description of <b>ANHSIR</b>)', 'anhsir');
-INSERT INTO public.namespace (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'AusMoss', '(description of <b>AusMoss</b>)', 'ausmoss');
-INSERT INTO public.namespace (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Algae', '(description of <b>Algae</b>)', 'algae');
-INSERT INTO public.namespace (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Lichen', '(description of <b>Lichen</b>)', 'lichen');
-INSERT INTO public.namespace (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Fungi', '(description of <b>Fungi</b>)', 'fungi');
+INSERT INTO public.namespace (id, lock_version, name, description_html, rdf_id) VALUES
+(nextval('nsl_global_seq'), 0, 'APNI', '(description of <b>APNI</b>)', 'apni'),
+(nextval('nsl_global_seq'), 0, 'ANHSIR', '(description of <b>ANHSIR</b>)', 'anhsir'),
+(nextval('nsl_global_seq'), 0, 'AusMoss', '(description of <b>AusMoss</b>)', 'ausmoss'),
+(nextval('nsl_global_seq'), 0, 'Algae', '(description of <b>Algae</b>)', 'algae'),
+(nextval('nsl_global_seq'), 0, 'Lichen', '(description of <b>Lichen</b>)', 'lichen'),
+(nextval('nsl_global_seq'), 0, 'Fungi', '(description of <b>Fungi</b>)', 'fungi');
 --language
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mul', 'Multiple languages');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'zxx', 'No linguistic content');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mis', 'Uncoded languages');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'und', 'Undetermined');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'aa', 'aar', 'Afar');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ab', 'abk', 'Abkhazian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ace', 'Achinese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ach', 'Acoli');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ada', 'Adangme');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ady', 'Adyghe');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'af', 'afr', 'Afrikaans');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ain', 'Ainu');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ale', 'Aleut');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'alt', 'Southern Altai');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'am', 'amh', 'Amharic');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'anp', 'Angika');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'an', 'arg', 'Aragonese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'arn', 'Mapudungun');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'arp', 'Arapaho');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'arw', 'Arawak');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'as', 'asm', 'Assamese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ast', 'Asturian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'av', 'ava', 'Avaric');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'awa', 'Awadhi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ba', 'bak', 'Bashkir');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'bm', 'bam', 'Bambara');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ban', 'Balinese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'bas', 'Basa');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'bej', 'Beja');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'be', 'bel', 'Belarusian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'bem', 'Bemba');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'bn', 'ben', 'Bengali');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'bho', 'Bhojpuri');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'bin', 'Bini');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'bi', 'bis', 'Bislama');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'bla', 'Siksika');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'bo', 'bod', 'Tibetan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'bs', 'bos', 'Bosnian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'bra', 'Braj');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'br', 'bre', 'Breton');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'bug', 'Buginese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'bg', 'bul', 'Bulgarian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'byn', 'Bilin');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'cad', 'Caddo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'car', 'Galibi Carib');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ca', 'cat', 'Catalan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ceb', 'Cebuano');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'cs', 'ces', 'Czech');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ch', 'cha', 'Chamorro');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ce', 'che', 'Chechen');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'chk', 'Chuukese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'chn', 'Chinook jargon');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'cho', 'Choctaw');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'chp', 'Chipewyan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'chr', 'Cherokee');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'cv', 'chv', 'Chuvash');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'chy', 'Cheyenne');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'kw', 'cor', 'Cornish');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'co', 'cos', 'Corsican');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'crh', 'Crimean Tatar');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'csb', 'Kashubian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'cy', 'cym', 'Welsh');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'dak', 'Dakota');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'da', 'dan', 'Danish');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'dar', 'Dargwa');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'de', 'deu', 'German');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'dgr', 'Dogrib');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'dv', 'div', 'Dhivehi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'dsb', 'Lower Sorbian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'dua', 'Duala');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'dyu', 'Dyula');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'dz', 'dzo', 'Dzongkha');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'efi', 'Efik');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'eka', 'Ekajuk');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'el', 'ell', 'Greek');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'en', 'eng', 'English');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'eu', 'eus', 'Basque');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ee', 'ewe', 'Ewe');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ewo', 'Ewondo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'fan', 'Fang');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'fo', 'fao', 'Faroese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'fat', 'Fanti');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'fj', 'fij', 'Fijian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'fil', 'Filipino');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'fi', 'fin', 'Finnish');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'fon', 'Fon');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'fr', 'fra', 'French');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'frr', 'Northern Frisian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'frs', 'Eastern Frisian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'fy', 'fry', 'Western Frisian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'fur', 'Friulian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'gaa', 'Ga');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'gay', 'Gayo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'gil', 'Gilbertese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'gd', 'gla', 'Scottish Gaelic');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ga', 'gle', 'Irish');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'gl', 'glg', 'Galician');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'gv', 'glv', 'Manx');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'gor', 'Gorontalo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'gsw', 'Swiss German');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'gu', 'guj', 'Gujarati');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'gwi', 'Gwichʼin');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ht', 'hat', 'Haitian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ha', 'hau', 'Hausa');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'haw', 'Hawaiian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'he', 'heb', 'Hebrew');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'hz', 'her', 'Herero');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'hil', 'Hiligaynon');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'hi', 'hin', 'Hindi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ho', 'hmo', 'Hiri Motu');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'hr', 'hrv', 'Croatian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'hsb', 'Upper Sorbian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'hu', 'hun', 'Hungarian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'hup', 'Hupa');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'hy', 'hye', 'Armenian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'iba', 'Iban');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ig', 'ibo', 'Igbo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ii', 'iii', 'Sichuan Yi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ilo', 'Iloko');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'id', 'ind', 'Indonesian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'inh', 'Ingush');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'is', 'isl', 'Icelandic');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'it', 'ita', 'Italian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'jv', 'jav', 'Javanese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ja', 'jpn', 'Japanese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'jpr', 'Judeo-Persian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kaa', 'Kara-Kalpak');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kab', 'Kabyle');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kac', 'Kachin');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'kl', 'kal', 'Kalaallisut');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kam', 'Kamba');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'kn', 'kan', 'Kannada');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ks', 'kas', 'Kashmiri');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ka', 'kat', 'Georgian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'kk', 'kaz', 'Kazakh');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kbd', 'Kabardian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kha', 'Khasi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'km', 'khm', 'Central Khmer');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ki', 'kik', 'Kikuyu');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'rw', 'kin', 'Kinyarwanda');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ky', 'kir', 'Kirghiz');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kmb', 'Kimbundu');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ko', 'kor', 'Korean');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kos', 'Kosraean');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'krc', 'Karachay-Balkar');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'krl', 'Karelian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kru', 'Kurukh');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'kj', 'kua', 'Kuanyama');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kum', 'Kumyk');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kut', 'Kutenai');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'lad', 'Ladino');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'lam', 'Lamba');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'la', 'lat', 'Latin');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'lo', 'lao', 'Lao');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'lez', 'Lezghian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'li', 'lim', 'Limburgan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ln', 'lin', 'Lingala');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'lt', 'lit', 'Lithuanian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'lol', 'Mongo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'loz', 'Lozi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'lb', 'ltz', 'Luxembourgish');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'lua', 'Luba-Lulua');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'lu', 'lub', 'Luba-Katanga');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'lg', 'lug', 'Ganda');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'lui', 'Luiseno');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'lun', 'Lunda');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'luo', 'Luo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'lus', 'Lushai');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mad', 'Madurese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mag', 'Magahi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'mh', 'mah', 'Marshallese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mai', 'Maithili');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mak', 'Makasar');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ml', 'mal', 'Malayalam');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'mr', 'mar', 'Marathi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mas', 'Masai');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mdf', 'Moksha');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mdr', 'Mandar');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'men', 'Mende');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mic', 'Mi''kmaq');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'min', 'Minangkabau');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'mk', 'mkd', 'Macedonian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'mt', 'mlt', 'Maltese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mnc', 'Manchu');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mni', 'Manipuri');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'moh', 'Mohawk');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mos', 'Mossi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'mi', 'mri', 'Maori');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mus', 'Creek');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mwl', 'Mirandese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'my', 'mya', 'Burmese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'myv', 'Erzya');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'nap', 'Neapolitan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'na', 'nau', 'Nauru');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'nv', 'nav', 'Navajo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'nr', 'nbl', 'South Ndebele');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'nd', 'nde', 'North Ndebele');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ng', 'ndo', 'Ndonga');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'nds', 'Low German');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'new', 'Newari');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'nia', 'Nias');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'niu', 'Niuean');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'nl', 'nld', 'Dutch');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'nn', 'nno', 'Norwegian Nynorsk');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'nb', 'nob', 'Norwegian Bokmål');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'nog', 'Nogai');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'nqo', 'N''Ko');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'nso', 'Pedi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ny', 'nya', 'Nyanja');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'nym', 'Nyamwezi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'nyn', 'Nyankole');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'nyo', 'Nyoro');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'nzi', 'Nzima');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'oc', 'oci', 'Occitan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'osa', 'Osage');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'os', 'oss', 'Ossetian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'pag', 'Pangasinan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'pam', 'Pampanga');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'pa', 'pan', 'Panjabi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'pap', 'Papiamento');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'pau', 'Palauan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'pl', 'pol', 'Polish');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'pon', 'Pohnpeian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'pt', 'por', 'Portuguese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'rap', 'Rapanui');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'rar', 'Rarotongan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'rm', 'roh', 'Romansh');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ro', 'ron', 'Romanian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'rn', 'run', 'Rundi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'rup', 'Macedo-Romanian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ru', 'rus', 'Russian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'sad', 'Sandawe');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'sg', 'sag', 'Sango');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'sah', 'Yakut');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'sas', 'Sasak');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'sat', 'Santali');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'scn', 'Sicilian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'sco', 'Scots');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'sel', 'Selkup');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'shn', 'Shan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'sid', 'Sidamo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'si', 'sin', 'Sinhala');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'sk', 'slk', 'Slovak');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'sl', 'slv', 'Slovenian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'sma', 'Southern Sami');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'se', 'sme', 'Northern Sami');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'smj', 'Lule Sami');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'smn', 'Inari Sami');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'sm', 'smo', 'Samoan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'sms', 'Skolt Sami');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'sn', 'sna', 'Shona');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'sd', 'snd', 'Sindhi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'snk', 'Soninke');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'so', 'som', 'Somali');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'st', 'sot', 'Southern Sotho');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'es', 'spa', 'Spanish');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'srn', 'Sranan Tongo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'sr', 'srp', 'Serbian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'srr', 'Serer');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ss', 'ssw', 'Swati');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'suk', 'Sukuma');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'su', 'sun', 'Sundanese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'sus', 'Susu');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'sv', 'swe', 'Swedish');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ty', 'tah', 'Tahitian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ta', 'tam', 'Tamil');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'tt', 'tat', 'Tatar');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'te', 'tel', 'Telugu');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tem', 'Timne');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'ter', 'Tereno');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tet', 'Tetum');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'tg', 'tgk', 'Tajik');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'tl', 'tgl', 'Tagalog');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'th', 'tha', 'Thai');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tig', 'Tigre');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ti', 'tir', 'Tigrinya');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tiv', 'Tiv');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tkl', 'Tokelau');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tli', 'Tlingit');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tog', 'Tonga (Nyasa)');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'to', 'ton', 'Tonga (Tonga Islands)');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tpi', 'Tok Pisin');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tsi', 'Tsimshian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'tn', 'tsn', 'Tswana');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ts', 'tso', 'Tsonga');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'tk', 'tuk', 'Turkmen');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tum', 'Tumbuka');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'tr', 'tur', 'Turkish');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tvl', 'Tuvalu');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'tw', 'twi', 'Twi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tyv', 'Tuvinian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'udm', 'Udmurt');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ug', 'uig', 'Uighur');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'uk', 'ukr', 'Ukrainian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'umb', 'Umbundu');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ur', 'urd', 'Urdu');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'vai', 'Vai');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 've', 'ven', 'Venda');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'vi', 'vie', 'Vietnamese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'vot', 'Votic');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'wal', 'Wolaytta');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'war', 'Waray');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'was', 'Washo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'wa', 'wln', 'Walloon');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'wo', 'wol', 'Wolof');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'xal', 'Kalmyk');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'xh', 'xho', 'Xhosa');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'yao', 'Yao');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'yap', 'Yapese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'yo', 'yor', 'Yoruba');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'zen', 'Zenaga');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'zu', 'zul', 'Zulu');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'zun', 'Zuni');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ak', 'aka', 'Akan');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ar', 'ara', 'Arabic');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ay', 'aym', 'Aymara');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'az', 'aze', 'Azerbaijani');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'bal', 'Baluchi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'bik', 'Bikol');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'bua', 'Buriat');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'chm', 'Mari');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'cr', 'cre', 'Cree');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'del', 'Delaware');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'den', 'Slave');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'din', 'Dinka');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'doi', 'Dogri');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'et', 'est', 'Estonian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'fa', 'fas', 'Persian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ff', 'ful', 'Fulah');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'gba', 'Gbaya');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'gon', 'Gondi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'grb', 'Grebo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'gn', 'grn', 'Guarani');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'hai', 'Haida');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'hmn', 'Hmong');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'iu', 'iku', 'Inuktitut');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ik', 'ipk', 'Inupiaq');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'jrb', 'Judeo-Arabic');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'kr', 'kau', 'Kanuri');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kok', 'Konkani');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'kv', 'kom', 'Komi');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'kg', 'kon', 'Kongo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'kpe', 'Kpelle');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ku', 'kur', 'Kurdish');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'lah', 'Lahnda');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'lv', 'lav', 'Latvian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'man', 'Mandingo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'mg', 'mlg', 'Malagasy');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'mn', 'mon', 'Mongolian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ms', 'msa', 'Malay');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'mwr', 'Marwari');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ne', 'nep', 'Nepali');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'no', 'nor', 'Norwegian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'oj', 'oji', 'Ojibwa');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'or', 'ori', 'Oriya');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'om', 'orm', 'Oromo');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'ps', 'pus', 'Pushto');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'qu', 'que', 'Quechua');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'raj', 'Rajasthani');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'rom', 'Romany');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'sq', 'sqi', 'Albanian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'sc', 'srd', 'Sardinian');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'sw', 'swa', 'Swahili');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'syr', 'Syriac');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'tmh', 'Tamashek');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'uz', 'uzb', 'Uzbek');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'yi', 'yid', 'Yiddish');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'zap', 'Zapotec');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'za', 'zha', 'Zhuang');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, 'zh', 'zho', 'Chinese');
-INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES (nextval('nsl_global_seq'), 0, null, 'zza', 'Zaza');
+INSERT INTO public.language (id, lock_version, iso6391code, iso6393code, name) VALUES
+(nextval('nsl_global_seq'), 0, null, 'mul', 'Multiple languages'),
+(nextval('nsl_global_seq'), 0, null, 'zxx', 'No linguistic content'),
+(nextval('nsl_global_seq'), 0, null, 'mis', 'Uncoded languages'),
+(nextval('nsl_global_seq'), 0, null, 'und', 'Undetermined'),
+(nextval('nsl_global_seq'), 0, 'aa', 'aar', 'Afar'),
+(nextval('nsl_global_seq'), 0, 'ab', 'abk', 'Abkhazian'),
+(nextval('nsl_global_seq'), 0, null, 'ace', 'Achinese'),
+(nextval('nsl_global_seq'), 0, null, 'ach', 'Acoli'),
+(nextval('nsl_global_seq'), 0, null, 'ada', 'Adangme'),
+(nextval('nsl_global_seq'), 0, null, 'ady', 'Adyghe'),
+(nextval('nsl_global_seq'), 0, 'af', 'afr', 'Afrikaans'),
+(nextval('nsl_global_seq'), 0, null, 'ain', 'Ainu'),
+(nextval('nsl_global_seq'), 0, null, 'ale', 'Aleut'),
+(nextval('nsl_global_seq'), 0, null, 'alt', 'Southern Altai'),
+(nextval('nsl_global_seq'), 0, 'am', 'amh', 'Amharic'),
+(nextval('nsl_global_seq'), 0, null, 'anp', 'Angika'),
+(nextval('nsl_global_seq'), 0, 'an', 'arg', 'Aragonese'),
+(nextval('nsl_global_seq'), 0, null, 'arn', 'Mapudungun'),
+(nextval('nsl_global_seq'), 0, null, 'arp', 'Arapaho'),
+(nextval('nsl_global_seq'), 0, null, 'arw', 'Arawak'),
+(nextval('nsl_global_seq'), 0, 'as', 'asm', 'Assamese'),
+(nextval('nsl_global_seq'), 0, null, 'ast', 'Asturian'),
+(nextval('nsl_global_seq'), 0, 'av', 'ava', 'Avaric'),
+(nextval('nsl_global_seq'), 0, null, 'awa', 'Awadhi'),
+(nextval('nsl_global_seq'), 0, 'ba', 'bak', 'Bashkir'),
+(nextval('nsl_global_seq'), 0, 'bm', 'bam', 'Bambara'),
+(nextval('nsl_global_seq'), 0, null, 'ban', 'Balinese'),
+(nextval('nsl_global_seq'), 0, null, 'bas', 'Basa'),
+(nextval('nsl_global_seq'), 0, null, 'bej', 'Beja'),
+(nextval('nsl_global_seq'), 0, 'be', 'bel', 'Belarusian'),
+(nextval('nsl_global_seq'), 0, null, 'bem', 'Bemba'),
+(nextval('nsl_global_seq'), 0, 'bn', 'ben', 'Bengali'),
+(nextval('nsl_global_seq'), 0, null, 'bho', 'Bhojpuri'),
+(nextval('nsl_global_seq'), 0, null, 'bin', 'Bini'),
+(nextval('nsl_global_seq'), 0, 'bi', 'bis', 'Bislama'),
+(nextval('nsl_global_seq'), 0, null, 'bla', 'Siksika'),
+(nextval('nsl_global_seq'), 0, 'bo', 'bod', 'Tibetan'),
+(nextval('nsl_global_seq'), 0, 'bs', 'bos', 'Bosnian'),
+(nextval('nsl_global_seq'), 0, null, 'bra', 'Braj'),
+(nextval('nsl_global_seq'), 0, 'br', 'bre', 'Breton'),
+(nextval('nsl_global_seq'), 0, null, 'bug', 'Buginese'),
+(nextval('nsl_global_seq'), 0, 'bg', 'bul', 'Bulgarian'),
+(nextval('nsl_global_seq'), 0, null, 'byn', 'Bilin'),
+(nextval('nsl_global_seq'), 0, null, 'cad', 'Caddo'),
+(nextval('nsl_global_seq'), 0, null, 'car', 'Galibi Carib'),
+(nextval('nsl_global_seq'), 0, 'ca', 'cat', 'Catalan'),
+(nextval('nsl_global_seq'), 0, null, 'ceb', 'Cebuano'),
+(nextval('nsl_global_seq'), 0, 'cs', 'ces', 'Czech'),
+(nextval('nsl_global_seq'), 0, 'ch', 'cha', 'Chamorro'),
+(nextval('nsl_global_seq'), 0, 'ce', 'che', 'Chechen'),
+(nextval('nsl_global_seq'), 0, null, 'chk', 'Chuukese'),
+(nextval('nsl_global_seq'), 0, null, 'chn', 'Chinook jargon'),
+(nextval('nsl_global_seq'), 0, null, 'cho', 'Choctaw'),
+(nextval('nsl_global_seq'), 0, null, 'chp', 'Chipewyan'),
+(nextval('nsl_global_seq'), 0, null, 'chr', 'Cherokee'),
+(nextval('nsl_global_seq'), 0, 'cv', 'chv', 'Chuvash'),
+(nextval('nsl_global_seq'), 0, null, 'chy', 'Cheyenne'),
+(nextval('nsl_global_seq'), 0, 'kw', 'cor', 'Cornish'),
+(nextval('nsl_global_seq'), 0, 'co', 'cos', 'Corsican'),
+(nextval('nsl_global_seq'), 0, null, 'crh', 'Crimean Tatar'),
+(nextval('nsl_global_seq'), 0, null, 'csb', 'Kashubian'),
+(nextval('nsl_global_seq'), 0, 'cy', 'cym', 'Welsh'),
+(nextval('nsl_global_seq'), 0, null, 'dak', 'Dakota'),
+(nextval('nsl_global_seq'), 0, 'da', 'dan', 'Danish'),
+(nextval('nsl_global_seq'), 0, null, 'dar', 'Dargwa'),
+(nextval('nsl_global_seq'), 0, 'de', 'deu', 'German'),
+(nextval('nsl_global_seq'), 0, null, 'dgr', 'Dogrib'),
+(nextval('nsl_global_seq'), 0, 'dv', 'div', 'Dhivehi'),
+(nextval('nsl_global_seq'), 0, null, 'dsb', 'Lower Sorbian'),
+(nextval('nsl_global_seq'), 0, null, 'dua', 'Duala'),
+(nextval('nsl_global_seq'), 0, null, 'dyu', 'Dyula'),
+(nextval('nsl_global_seq'), 0, 'dz', 'dzo', 'Dzongkha'),
+(nextval('nsl_global_seq'), 0, null, 'efi', 'Efik'),
+(nextval('nsl_global_seq'), 0, null, 'eka', 'Ekajuk'),
+(nextval('nsl_global_seq'), 0, 'el', 'ell', 'Greek'),
+(nextval('nsl_global_seq'), 0, 'en', 'eng', 'English'),
+(nextval('nsl_global_seq'), 0, 'eu', 'eus', 'Basque'),
+(nextval('nsl_global_seq'), 0, 'ee', 'ewe', 'Ewe'),
+(nextval('nsl_global_seq'), 0, null, 'ewo', 'Ewondo'),
+(nextval('nsl_global_seq'), 0, null, 'fan', 'Fang'),
+(nextval('nsl_global_seq'), 0, 'fo', 'fao', 'Faroese'),
+(nextval('nsl_global_seq'), 0, null, 'fat', 'Fanti'),
+(nextval('nsl_global_seq'), 0, 'fj', 'fij', 'Fijian'),
+(nextval('nsl_global_seq'), 0, null, 'fil', 'Filipino'),
+(nextval('nsl_global_seq'), 0, 'fi', 'fin', 'Finnish'),
+(nextval('nsl_global_seq'), 0, null, 'fon', 'Fon'),
+(nextval('nsl_global_seq'), 0, 'fr', 'fra', 'French'),
+(nextval('nsl_global_seq'), 0, null, 'frr', 'Northern Frisian'),
+(nextval('nsl_global_seq'), 0, null, 'frs', 'Eastern Frisian'),
+(nextval('nsl_global_seq'), 0, 'fy', 'fry', 'Western Frisian'),
+(nextval('nsl_global_seq'), 0, null, 'fur', 'Friulian'),
+(nextval('nsl_global_seq'), 0, null, 'gaa', 'Ga'),
+(nextval('nsl_global_seq'), 0, null, 'gay', 'Gayo'),
+(nextval('nsl_global_seq'), 0, null, 'gil', 'Gilbertese'),
+(nextval('nsl_global_seq'), 0, 'gd', 'gla', 'Scottish Gaelic'),
+(nextval('nsl_global_seq'), 0, 'ga', 'gle', 'Irish'),
+(nextval('nsl_global_seq'), 0, 'gl', 'glg', 'Galician'),
+(nextval('nsl_global_seq'), 0, 'gv', 'glv', 'Manx'),
+(nextval('nsl_global_seq'), 0, null, 'gor', 'Gorontalo'),
+(nextval('nsl_global_seq'), 0, null, 'gsw', 'Swiss German'),
+(nextval('nsl_global_seq'), 0, 'gu', 'guj', 'Gujarati'),
+(nextval('nsl_global_seq'), 0, null, 'gwi', 'Gwichʼin'),
+(nextval('nsl_global_seq'), 0, 'ht', 'hat', 'Haitian'),
+(nextval('nsl_global_seq'), 0, 'ha', 'hau', 'Hausa'),
+(nextval('nsl_global_seq'), 0, null, 'haw', 'Hawaiian'),
+(nextval('nsl_global_seq'), 0, 'he', 'heb', 'Hebrew'),
+(nextval('nsl_global_seq'), 0, 'hz', 'her', 'Herero'),
+(nextval('nsl_global_seq'), 0, null, 'hil', 'Hiligaynon'),
+(nextval('nsl_global_seq'), 0, 'hi', 'hin', 'Hindi'),
+(nextval('nsl_global_seq'), 0, 'ho', 'hmo', 'Hiri Motu'),
+(nextval('nsl_global_seq'), 0, 'hr', 'hrv', 'Croatian'),
+(nextval('nsl_global_seq'), 0, null, 'hsb', 'Upper Sorbian'),
+(nextval('nsl_global_seq'), 0, 'hu', 'hun', 'Hungarian'),
+(nextval('nsl_global_seq'), 0, null, 'hup', 'Hupa'),
+(nextval('nsl_global_seq'), 0, 'hy', 'hye', 'Armenian'),
+(nextval('nsl_global_seq'), 0, null, 'iba', 'Iban'),
+(nextval('nsl_global_seq'), 0, 'ig', 'ibo', 'Igbo'),
+(nextval('nsl_global_seq'), 0, 'ii', 'iii', 'Sichuan Yi'),
+(nextval('nsl_global_seq'), 0, null, 'ilo', 'Iloko'),
+(nextval('nsl_global_seq'), 0, 'id', 'ind', 'Indonesian'),
+(nextval('nsl_global_seq'), 0, null, 'inh', 'Ingush'),
+(nextval('nsl_global_seq'), 0, 'is', 'isl', 'Icelandic'),
+(nextval('nsl_global_seq'), 0, 'it', 'ita', 'Italian'),
+(nextval('nsl_global_seq'), 0, 'jv', 'jav', 'Javanese'),
+(nextval('nsl_global_seq'), 0, 'ja', 'jpn', 'Japanese'),
+(nextval('nsl_global_seq'), 0, null, 'jpr', 'Judeo-Persian'),
+(nextval('nsl_global_seq'), 0, null, 'kaa', 'Kara-Kalpak'),
+(nextval('nsl_global_seq'), 0, null, 'kab', 'Kabyle'),
+(nextval('nsl_global_seq'), 0, null, 'kac', 'Kachin'),
+(nextval('nsl_global_seq'), 0, 'kl', 'kal', 'Kalaallisut'),
+(nextval('nsl_global_seq'), 0, null, 'kam', 'Kamba'),
+(nextval('nsl_global_seq'), 0, 'kn', 'kan', 'Kannada'),
+(nextval('nsl_global_seq'), 0, 'ks', 'kas', 'Kashmiri'),
+(nextval('nsl_global_seq'), 0, 'ka', 'kat', 'Georgian'),
+(nextval('nsl_global_seq'), 0, 'kk', 'kaz', 'Kazakh'),
+(nextval('nsl_global_seq'), 0, null, 'kbd', 'Kabardian'),
+(nextval('nsl_global_seq'), 0, null, 'kha', 'Khasi'),
+(nextval('nsl_global_seq'), 0, 'km', 'khm', 'Central Khmer'),
+(nextval('nsl_global_seq'), 0, 'ki', 'kik', 'Kikuyu'),
+(nextval('nsl_global_seq'), 0, 'rw', 'kin', 'Kinyarwanda'),
+(nextval('nsl_global_seq'), 0, 'ky', 'kir', 'Kirghiz'),
+(nextval('nsl_global_seq'), 0, null, 'kmb', 'Kimbundu'),
+(nextval('nsl_global_seq'), 0, 'ko', 'kor', 'Korean'),
+(nextval('nsl_global_seq'), 0, null, 'kos', 'Kosraean'),
+(nextval('nsl_global_seq'), 0, null, 'krc', 'Karachay-Balkar'),
+(nextval('nsl_global_seq'), 0, null, 'krl', 'Karelian'),
+(nextval('nsl_global_seq'), 0, null, 'kru', 'Kurukh'),
+(nextval('nsl_global_seq'), 0, 'kj', 'kua', 'Kuanyama'),
+(nextval('nsl_global_seq'), 0, null, 'kum', 'Kumyk'),
+(nextval('nsl_global_seq'), 0, null, 'kut', 'Kutenai'),
+(nextval('nsl_global_seq'), 0, null, 'lad', 'Ladino'),
+(nextval('nsl_global_seq'), 0, null, 'lam', 'Lamba'),
+(nextval('nsl_global_seq'), 0, 'la', 'lat', 'Latin'),
+(nextval('nsl_global_seq'), 0, 'lo', 'lao', 'Lao'),
+(nextval('nsl_global_seq'), 0, null, 'lez', 'Lezghian'),
+(nextval('nsl_global_seq'), 0, 'li', 'lim', 'Limburgan'),
+(nextval('nsl_global_seq'), 0, 'ln', 'lin', 'Lingala'),
+(nextval('nsl_global_seq'), 0, 'lt', 'lit', 'Lithuanian'),
+(nextval('nsl_global_seq'), 0, null, 'lol', 'Mongo'),
+(nextval('nsl_global_seq'), 0, null, 'loz', 'Lozi'),
+(nextval('nsl_global_seq'), 0, 'lb', 'ltz', 'Luxembourgish'),
+(nextval('nsl_global_seq'), 0, null, 'lua', 'Luba-Lulua'),
+(nextval('nsl_global_seq'), 0, 'lu', 'lub', 'Luba-Katanga'),
+(nextval('nsl_global_seq'), 0, 'lg', 'lug', 'Ganda'),
+(nextval('nsl_global_seq'), 0, null, 'lui', 'Luiseno'),
+(nextval('nsl_global_seq'), 0, null, 'lun', 'Lunda'),
+(nextval('nsl_global_seq'), 0, null, 'luo', 'Luo'),
+(nextval('nsl_global_seq'), 0, null, 'lus', 'Lushai'),
+(nextval('nsl_global_seq'), 0, null, 'mad', 'Madurese'),
+(nextval('nsl_global_seq'), 0, null, 'mag', 'Magahi'),
+(nextval('nsl_global_seq'), 0, 'mh', 'mah', 'Marshallese'),
+(nextval('nsl_global_seq'), 0, null, 'mai', 'Maithili'),
+(nextval('nsl_global_seq'), 0, null, 'mak', 'Makasar'),
+(nextval('nsl_global_seq'), 0, 'ml', 'mal', 'Malayalam'),
+(nextval('nsl_global_seq'), 0, 'mr', 'mar', 'Marathi'),
+(nextval('nsl_global_seq'), 0, null, 'mas', 'Masai'),
+(nextval('nsl_global_seq'), 0, null, 'mdf', 'Moksha'),
+(nextval('nsl_global_seq'), 0, null, 'mdr', 'Mandar'),
+(nextval('nsl_global_seq'), 0, null, 'men', 'Mende'),
+(nextval('nsl_global_seq'), 0, null, 'mic', 'Mi''kmaq'),
+(nextval('nsl_global_seq'), 0, null, 'min', 'Minangkabau'),
+(nextval('nsl_global_seq'), 0, 'mk', 'mkd', 'Macedonian'),
+(nextval('nsl_global_seq'), 0, 'mt', 'mlt', 'Maltese'),
+(nextval('nsl_global_seq'), 0, null, 'mnc', 'Manchu'),
+(nextval('nsl_global_seq'), 0, null, 'mni', 'Manipuri'),
+(nextval('nsl_global_seq'), 0, null, 'moh', 'Mohawk'),
+(nextval('nsl_global_seq'), 0, null, 'mos', 'Mossi'),
+(nextval('nsl_global_seq'), 0, 'mi', 'mri', 'Maori'),
+(nextval('nsl_global_seq'), 0, null, 'mus', 'Creek'),
+(nextval('nsl_global_seq'), 0, null, 'mwl', 'Mirandese'),
+(nextval('nsl_global_seq'), 0, 'my', 'mya', 'Burmese'),
+(nextval('nsl_global_seq'), 0, null, 'myv', 'Erzya'),
+(nextval('nsl_global_seq'), 0, null, 'nap', 'Neapolitan'),
+(nextval('nsl_global_seq'), 0, 'na', 'nau', 'Nauru'),
+(nextval('nsl_global_seq'), 0, 'nv', 'nav', 'Navajo'),
+(nextval('nsl_global_seq'), 0, 'nr', 'nbl', 'South Ndebele'),
+(nextval('nsl_global_seq'), 0, 'nd', 'nde', 'North Ndebele'),
+(nextval('nsl_global_seq'), 0, 'ng', 'ndo', 'Ndonga'),
+(nextval('nsl_global_seq'), 0, null, 'nds', 'Low German'),
+(nextval('nsl_global_seq'), 0, null, 'new', 'Newari'),
+(nextval('nsl_global_seq'), 0, null, 'nia', 'Nias'),
+(nextval('nsl_global_seq'), 0, null, 'niu', 'Niuean'),
+(nextval('nsl_global_seq'), 0, 'nl', 'nld', 'Dutch'),
+(nextval('nsl_global_seq'), 0, 'nn', 'nno', 'Norwegian Nynorsk'),
+(nextval('nsl_global_seq'), 0, 'nb', 'nob', 'Norwegian Bokmål'),
+(nextval('nsl_global_seq'), 0, null, 'nog', 'Nogai'),
+(nextval('nsl_global_seq'), 0, null, 'nqo', 'N''Ko'),
+(nextval('nsl_global_seq'), 0, null, 'nso', 'Pedi'),
+(nextval('nsl_global_seq'), 0, 'ny', 'nya', 'Nyanja'),
+(nextval('nsl_global_seq'), 0, null, 'nym', 'Nyamwezi'),
+(nextval('nsl_global_seq'), 0, null, 'nyn', 'Nyankole'),
+(nextval('nsl_global_seq'), 0, null, 'nyo', 'Nyoro'),
+(nextval('nsl_global_seq'), 0, null, 'nzi', 'Nzima'),
+(nextval('nsl_global_seq'), 0, 'oc', 'oci', 'Occitan'),
+(nextval('nsl_global_seq'), 0, null, 'osa', 'Osage'),
+(nextval('nsl_global_seq'), 0, 'os', 'oss', 'Ossetian'),
+(nextval('nsl_global_seq'), 0, null, 'pag', 'Pangasinan'),
+(nextval('nsl_global_seq'), 0, null, 'pam', 'Pampanga'),
+(nextval('nsl_global_seq'), 0, 'pa', 'pan', 'Panjabi'),
+(nextval('nsl_global_seq'), 0, null, 'pap', 'Papiamento'),
+(nextval('nsl_global_seq'), 0, null, 'pau', 'Palauan'),
+(nextval('nsl_global_seq'), 0, 'pl', 'pol', 'Polish'),
+(nextval('nsl_global_seq'), 0, null, 'pon', 'Pohnpeian'),
+(nextval('nsl_global_seq'), 0, 'pt', 'por', 'Portuguese'),
+(nextval('nsl_global_seq'), 0, null, 'rap', 'Rapanui'),
+(nextval('nsl_global_seq'), 0, null, 'rar', 'Rarotongan'),
+(nextval('nsl_global_seq'), 0, 'rm', 'roh', 'Romansh'),
+(nextval('nsl_global_seq'), 0, 'ro', 'ron', 'Romanian'),
+(nextval('nsl_global_seq'), 0, 'rn', 'run', 'Rundi'),
+(nextval('nsl_global_seq'), 0, null, 'rup', 'Macedo-Romanian'),
+(nextval('nsl_global_seq'), 0, 'ru', 'rus', 'Russian'),
+(nextval('nsl_global_seq'), 0, null, 'sad', 'Sandawe'),
+(nextval('nsl_global_seq'), 0, 'sg', 'sag', 'Sango'),
+(nextval('nsl_global_seq'), 0, null, 'sah', 'Yakut'),
+(nextval('nsl_global_seq'), 0, null, 'sas', 'Sasak'),
+(nextval('nsl_global_seq'), 0, null, 'sat', 'Santali'),
+(nextval('nsl_global_seq'), 0, null, 'scn', 'Sicilian'),
+(nextval('nsl_global_seq'), 0, null, 'sco', 'Scots'),
+(nextval('nsl_global_seq'), 0, null, 'sel', 'Selkup'),
+(nextval('nsl_global_seq'), 0, null, 'shn', 'Shan'),
+(nextval('nsl_global_seq'), 0, null, 'sid', 'Sidamo'),
+(nextval('nsl_global_seq'), 0, 'si', 'sin', 'Sinhala'),
+(nextval('nsl_global_seq'), 0, 'sk', 'slk', 'Slovak'),
+(nextval('nsl_global_seq'), 0, 'sl', 'slv', 'Slovenian'),
+(nextval('nsl_global_seq'), 0, null, 'sma', 'Southern Sami'),
+(nextval('nsl_global_seq'), 0, 'se', 'sme', 'Northern Sami'),
+(nextval('nsl_global_seq'), 0, null, 'smj', 'Lule Sami'),
+(nextval('nsl_global_seq'), 0, null, 'smn', 'Inari Sami'),
+(nextval('nsl_global_seq'), 0, 'sm', 'smo', 'Samoan'),
+(nextval('nsl_global_seq'), 0, null, 'sms', 'Skolt Sami'),
+(nextval('nsl_global_seq'), 0, 'sn', 'sna', 'Shona'),
+(nextval('nsl_global_seq'), 0, 'sd', 'snd', 'Sindhi'),
+(nextval('nsl_global_seq'), 0, null, 'snk', 'Soninke'),
+(nextval('nsl_global_seq'), 0, 'so', 'som', 'Somali'),
+(nextval('nsl_global_seq'), 0, 'st', 'sot', 'Southern Sotho'),
+(nextval('nsl_global_seq'), 0, 'es', 'spa', 'Spanish'),
+(nextval('nsl_global_seq'), 0, null, 'srn', 'Sranan Tongo'),
+(nextval('nsl_global_seq'), 0, 'sr', 'srp', 'Serbian'),
+(nextval('nsl_global_seq'), 0, null, 'srr', 'Serer'),
+(nextval('nsl_global_seq'), 0, 'ss', 'ssw', 'Swati'),
+(nextval('nsl_global_seq'), 0, null, 'suk', 'Sukuma'),
+(nextval('nsl_global_seq'), 0, 'su', 'sun', 'Sundanese'),
+(nextval('nsl_global_seq'), 0, null, 'sus', 'Susu'),
+(nextval('nsl_global_seq'), 0, 'sv', 'swe', 'Swedish'),
+(nextval('nsl_global_seq'), 0, 'ty', 'tah', 'Tahitian'),
+(nextval('nsl_global_seq'), 0, 'ta', 'tam', 'Tamil'),
+(nextval('nsl_global_seq'), 0, 'tt', 'tat', 'Tatar'),
+(nextval('nsl_global_seq'), 0, 'te', 'tel', 'Telugu'),
+(nextval('nsl_global_seq'), 0, null, 'tem', 'Timne'),
+(nextval('nsl_global_seq'), 0, null, 'ter', 'Tereno'),
+(nextval('nsl_global_seq'), 0, null, 'tet', 'Tetum'),
+(nextval('nsl_global_seq'), 0, 'tg', 'tgk', 'Tajik'),
+(nextval('nsl_global_seq'), 0, 'tl', 'tgl', 'Tagalog'),
+(nextval('nsl_global_seq'), 0, 'th', 'tha', 'Thai'),
+(nextval('nsl_global_seq'), 0, null, 'tig', 'Tigre'),
+(nextval('nsl_global_seq'), 0, 'ti', 'tir', 'Tigrinya'),
+(nextval('nsl_global_seq'), 0, null, 'tiv', 'Tiv'),
+(nextval('nsl_global_seq'), 0, null, 'tkl', 'Tokelau'),
+(nextval('nsl_global_seq'), 0, null, 'tli', 'Tlingit'),
+(nextval('nsl_global_seq'), 0, null, 'tog', 'Tonga (Nyasa)'),
+(nextval('nsl_global_seq'), 0, 'to', 'ton', 'Tonga (Tonga Islands)'),
+(nextval('nsl_global_seq'), 0, null, 'tpi', 'Tok Pisin'),
+(nextval('nsl_global_seq'), 0, null, 'tsi', 'Tsimshian'),
+(nextval('nsl_global_seq'), 0, 'tn', 'tsn', 'Tswana'),
+(nextval('nsl_global_seq'), 0, 'ts', 'tso', 'Tsonga'),
+(nextval('nsl_global_seq'), 0, 'tk', 'tuk', 'Turkmen'),
+(nextval('nsl_global_seq'), 0, null, 'tum', 'Tumbuka'),
+(nextval('nsl_global_seq'), 0, 'tr', 'tur', 'Turkish'),
+(nextval('nsl_global_seq'), 0, null, 'tvl', 'Tuvalu'),
+(nextval('nsl_global_seq'), 0, 'tw', 'twi', 'Twi'),
+(nextval('nsl_global_seq'), 0, null, 'tyv', 'Tuvinian'),
+(nextval('nsl_global_seq'), 0, null, 'udm', 'Udmurt'),
+(nextval('nsl_global_seq'), 0, 'ug', 'uig', 'Uighur'),
+(nextval('nsl_global_seq'), 0, 'uk', 'ukr', 'Ukrainian'),
+(nextval('nsl_global_seq'), 0, null, 'umb', 'Umbundu'),
+(nextval('nsl_global_seq'), 0, 'ur', 'urd', 'Urdu'),
+(nextval('nsl_global_seq'), 0, null, 'vai', 'Vai'),
+(nextval('nsl_global_seq'), 0, 've', 'ven', 'Venda'),
+(nextval('nsl_global_seq'), 0, 'vi', 'vie', 'Vietnamese'),
+(nextval('nsl_global_seq'), 0, null, 'vot', 'Votic'),
+(nextval('nsl_global_seq'), 0, null, 'wal', 'Wolaytta'),
+(nextval('nsl_global_seq'), 0, null, 'war', 'Waray'),
+(nextval('nsl_global_seq'), 0, null, 'was', 'Washo'),
+(nextval('nsl_global_seq'), 0, 'wa', 'wln', 'Walloon'),
+(nextval('nsl_global_seq'), 0, 'wo', 'wol', 'Wolof'),
+(nextval('nsl_global_seq'), 0, null, 'xal', 'Kalmyk'),
+(nextval('nsl_global_seq'), 0, 'xh', 'xho', 'Xhosa'),
+(nextval('nsl_global_seq'), 0, null, 'yao', 'Yao'),
+(nextval('nsl_global_seq'), 0, null, 'yap', 'Yapese'),
+(nextval('nsl_global_seq'), 0, 'yo', 'yor', 'Yoruba'),
+(nextval('nsl_global_seq'), 0, null, 'zen', 'Zenaga'),
+(nextval('nsl_global_seq'), 0, 'zu', 'zul', 'Zulu'),
+(nextval('nsl_global_seq'), 0, null, 'zun', 'Zuni'),
+(nextval('nsl_global_seq'), 0, 'ak', 'aka', 'Akan'),
+(nextval('nsl_global_seq'), 0, 'ar', 'ara', 'Arabic'),
+(nextval('nsl_global_seq'), 0, 'ay', 'aym', 'Aymara'),
+(nextval('nsl_global_seq'), 0, 'az', 'aze', 'Azerbaijani'),
+(nextval('nsl_global_seq'), 0, null, 'bal', 'Baluchi'),
+(nextval('nsl_global_seq'), 0, null, 'bik', 'Bikol'),
+(nextval('nsl_global_seq'), 0, null, 'bua', 'Buriat'),
+(nextval('nsl_global_seq'), 0, null, 'chm', 'Mari'),
+(nextval('nsl_global_seq'), 0, 'cr', 'cre', 'Cree'),
+(nextval('nsl_global_seq'), 0, null, 'del', 'Delaware'),
+(nextval('nsl_global_seq'), 0, null, 'den', 'Slave'),
+(nextval('nsl_global_seq'), 0, null, 'din', 'Dinka'),
+(nextval('nsl_global_seq'), 0, null, 'doi', 'Dogri'),
+(nextval('nsl_global_seq'), 0, 'et', 'est', 'Estonian'),
+(nextval('nsl_global_seq'), 0, 'fa', 'fas', 'Persian'),
+(nextval('nsl_global_seq'), 0, 'ff', 'ful', 'Fulah'),
+(nextval('nsl_global_seq'), 0, null, 'gba', 'Gbaya'),
+(nextval('nsl_global_seq'), 0, null, 'gon', 'Gondi'),
+(nextval('nsl_global_seq'), 0, null, 'grb', 'Grebo'),
+(nextval('nsl_global_seq'), 0, 'gn', 'grn', 'Guarani'),
+(nextval('nsl_global_seq'), 0, null, 'hai', 'Haida'),
+(nextval('nsl_global_seq'), 0, null, 'hmn', 'Hmong'),
+(nextval('nsl_global_seq'), 0, 'iu', 'iku', 'Inuktitut'),
+(nextval('nsl_global_seq'), 0, 'ik', 'ipk', 'Inupiaq'),
+(nextval('nsl_global_seq'), 0, null, 'jrb', 'Judeo-Arabic'),
+(nextval('nsl_global_seq'), 0, 'kr', 'kau', 'Kanuri'),
+(nextval('nsl_global_seq'), 0, null, 'kok', 'Konkani'),
+(nextval('nsl_global_seq'), 0, 'kv', 'kom', 'Komi'),
+(nextval('nsl_global_seq'), 0, 'kg', 'kon', 'Kongo'),
+(nextval('nsl_global_seq'), 0, null, 'kpe', 'Kpelle'),
+(nextval('nsl_global_seq'), 0, 'ku', 'kur', 'Kurdish'),
+(nextval('nsl_global_seq'), 0, null, 'lah', 'Lahnda'),
+(nextval('nsl_global_seq'), 0, 'lv', 'lav', 'Latvian'),
+(nextval('nsl_global_seq'), 0, null, 'man', 'Mandingo'),
+(nextval('nsl_global_seq'), 0, 'mg', 'mlg', 'Malagasy'),
+(nextval('nsl_global_seq'), 0, 'mn', 'mon', 'Mongolian'),
+(nextval('nsl_global_seq'), 0, 'ms', 'msa', 'Malay'),
+(nextval('nsl_global_seq'), 0, null, 'mwr', 'Marwari'),
+(nextval('nsl_global_seq'), 0, 'ne', 'nep', 'Nepali'),
+(nextval('nsl_global_seq'), 0, 'no', 'nor', 'Norwegian'),
+(nextval('nsl_global_seq'), 0, 'oj', 'oji', 'Ojibwa'),
+(nextval('nsl_global_seq'), 0, 'or', 'ori', 'Oriya'),
+(nextval('nsl_global_seq'), 0, 'om', 'orm', 'Oromo'),
+(nextval('nsl_global_seq'), 0, 'ps', 'pus', 'Pushto'),
+(nextval('nsl_global_seq'), 0, 'qu', 'que', 'Quechua'),
+(nextval('nsl_global_seq'), 0, null, 'raj', 'Rajasthani'),
+(nextval('nsl_global_seq'), 0, null, 'rom', 'Romany'),
+(nextval('nsl_global_seq'), 0, 'sq', 'sqi', 'Albanian'),
+(nextval('nsl_global_seq'), 0, 'sc', 'srd', 'Sardinian'),
+(nextval('nsl_global_seq'), 0, 'sw', 'swa', 'Swahili'),
+(nextval('nsl_global_seq'), 0, null, 'syr', 'Syriac'),
+(nextval('nsl_global_seq'), 0, null, 'tmh', 'Tamashek'),
+(nextval('nsl_global_seq'), 0, 'uz', 'uzb', 'Uzbek'),
+(nextval('nsl_global_seq'), 0, 'yi', 'yid', 'Yiddish'),
+(nextval('nsl_global_seq'), 0, null, 'zap', 'Zapotec'),
+(nextval('nsl_global_seq'), 0, 'za', 'zha', 'Zhuang'),
+(nextval('nsl_global_seq'), 0, 'zh', 'zho', 'Chinese'),
+(nextval('nsl_global_seq'), 0, null, 'zza', 'Zaza');
 -- instance note key
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Neotype', 3, '(description of <b>Neotype</b>)', 'neotype');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'Ex.distribution', 100, '(description of <b>Ex.distribution</b>)', 'ex-distribution');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'APC Comment', 7, '(description of <b>APC Comment</b>)', 'apc-comment');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'EPBC Impact', 10, '(description of <b>EPBC Impact</b>)', 'epbc-impact');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'Status', 100, '(description of <b>Status</b>)', 'status');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'Under', 100, '(description of <b>Under</b>)', 'under');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'Distribution', 100, '(description of <b>Distribution</b>)', 'distribution');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'URL', 100, '(description of <b>URL</b>)', 'url');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Lectotype', 2, '(description of <b>Lectotype</b>)', 'lectotype');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'Context', 100, '(description of <b>Context</b>)', 'context');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Vernacular', 100, '(description of <b>Vernacular</b>)', 'vernacular');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Text', 4, '(description of <b>Text</b>)', 'text');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Comment', 5, '(description of <b>Comment</b>)', 'comment');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'Synonym', 100, '(description of <b>Synonym</b>)', 'synonym');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Type', 1, '(description of <b>Type</b>)', 'type');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'APC Dist.', 8, '(description of <b>APC Dist.</b>)', 'apc-dist');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Etymology', 6, '(description of <b>Etymology</b>)', 'etymology');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'EPBC Advice', 9, '(description of <b>EPBC Advice</b>)', 'epbc-advice');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'APNI', 100, '(description of <b>APNI</b>)', 'apni');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Type herbarium', 11, '(description of <b>Type herbarium</b>)', 'type-herbarium');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'AMANI dist.', 16, '(description of <b>AMANI distribution</b>)', 'amani-distribution');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'AMANI comment', 17, '(description of <b>AMANI comment</b>)', 'amani-comment');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Type locality', 12, '(description of <b>Type locality</b>)', 'type-locality');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Type specimen', 13, '(description of <b>Type specimen</b>)', 'type-specimen');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Culture collection', 100, '(description of <b>Culture collection</b>)', 'culture-collection');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Graphic', 100, '(description of <b>Graphic</b>)', 'graphic');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Habit', 100, '(description of <b>Habit</b>)', 'habit');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Habitat', 100, '(description of <b>Habitat</b>)', 'habitat');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Nutrition', 100, '(description of <b>Nutrition</b>)', 'nutrition');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Type comment', 14, '(description of <b>Type comment</b>)', 'type-comment');
-INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, false, 'Type illustration', 15, '(description of <b>Type illustration</b>)', 'type-illustration');
+INSERT INTO public.instance_note_key (id, lock_version, deprecated, name, sort_order, description_html, rdf_id) VALUES
+(nextval('nsl_global_seq'), 0, false, 'Neotype', 3, '(description of <b>Neotype</b>)', 'neotype'),
+(nextval('nsl_global_seq'), 0, true, 'Ex.distribution', 100, '(description of <b>Ex.distribution</b>)', 'ex-distribution'),
+(nextval('nsl_global_seq'), 0, false, 'APC Comment', 7, '(description of <b>APC Comment</b>)', 'apc-comment'),
+(nextval('nsl_global_seq'), 0, false, 'EPBC Impact', 10, '(description of <b>EPBC Impact</b>)', 'epbc-impact'),
+(nextval('nsl_global_seq'), 0, true, 'Status', 100, '(description of <b>Status</b>)', 'status'),
+(nextval('nsl_global_seq'), 0, true, 'Under', 100, '(description of <b>Under</b>)', 'under'),
+(nextval('nsl_global_seq'), 0, true, 'Distribution', 100, '(description of <b>Distribution</b>)', 'distribution'),
+(nextval('nsl_global_seq'), 0, true, 'URL', 100, '(description of <b>URL</b>)', 'url'),
+(nextval('nsl_global_seq'), 0, false, 'Lectotype', 2, '(description of <b>Lectotype</b>)', 'lectotype'),
+(nextval('nsl_global_seq'), 0, true, 'Context', 100, '(description of <b>Context</b>)', 'context'),
+(nextval('nsl_global_seq'), 0, false, 'Vernacular', 100, '(description of <b>Vernacular</b>)', 'vernacular'),
+(nextval('nsl_global_seq'), 0, false, 'Text', 4, '(description of <b>Text</b>)', 'text'),
+(nextval('nsl_global_seq'), 0, false, 'Comment', 5, '(description of <b>Comment</b>)', 'comment'),
+(nextval('nsl_global_seq'), 0, true, 'Synonym', 100, '(description of <b>Synonym</b>)', 'synonym'),
+(nextval('nsl_global_seq'), 0, false, 'Type', 1, '(description of <b>Type</b>)', 'type'),
+(nextval('nsl_global_seq'), 0, false, 'APC Dist.', 8, '(description of <b>APC Dist.</b>)', 'apc-dist'),
+(nextval('nsl_global_seq'), 0, false, 'Etymology', 6, '(description of <b>Etymology</b>)', 'etymology'),
+(nextval('nsl_global_seq'), 0, false, 'EPBC Advice', 9, '(description of <b>EPBC Advice</b>)', 'epbc-advice'),
+(nextval('nsl_global_seq'), 0, true, 'APNI', 100, '(description of <b>APNI</b>)', 'apni'),
+(nextval('nsl_global_seq'), 0, false, 'Type herbarium', 11, '(description of <b>Type herbarium</b>)', 'type-herbarium'),
+(nextval('nsl_global_seq'), 0, false, 'AMANI dist.', 16, '(description of <b>AMANI distribution</b>)', 'amani-distribution'),
+(nextval('nsl_global_seq'), 0, false, 'AMANI comment', 17, '(description of <b>AMANI comment</b>)', 'amani-comment'),
+(nextval('nsl_global_seq'), 0, false, 'Type locality', 12, '(description of <b>Type locality</b>)', 'type-locality'),
+(nextval('nsl_global_seq'), 0, false, 'Type specimen', 13, '(description of <b>Type specimen</b>)', 'type-specimen'),
+(nextval('nsl_global_seq'), 0, false, 'Culture collection', 100, '(description of <b>Culture collection</b>)', 'culture-collection'),
+(nextval('nsl_global_seq'), 0, false, 'Graphic', 100, '(description of <b>Graphic</b>)', 'graphic'),
+(nextval('nsl_global_seq'), 0, false, 'Habit', 100, '(description of <b>Habit</b>)', 'habit'),
+(nextval('nsl_global_seq'), 0, false, 'Habitat', 100, '(description of <b>Habitat</b>)', 'habitat'),
+(nextval('nsl_global_seq'), 0, false, 'Nutrition', 100, '(description of <b>Nutrition</b>)', 'nutrition'),
+(nextval('nsl_global_seq'), 0, false, 'Type comment', 14, '(description of <b>Type comment</b>)', 'type-comment'),
+(nextval('nsl_global_seq'), 0, false, 'Type illustration', 15, '(description of <b>Type illustration</b>)', 'type-illustration');
 -- instance type
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, '[default]', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>[default]</b>)', 'default', '[default]', '[default] of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, '[unknown]', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>[unknown]</b>)', 'unknown', '[unknown]', '[unknown] of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, '[n/a]', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>[n/a]</b>)', 'n-a', '[n/a]', '[n/a] of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'primary reference', false, true, false, false, false, false, 400, true, false, false, false, '(description of <b>primary reference</b>)', 'primary-reference', 'primary reference', 'primary reference of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'tax. nov.', false, true, false, true, false, false, 400, true, false, false, false, '(description of <b>tax. nov.</b>)', 'tax-nov', 'tax. nov.', 'tax. nov. of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'nom. nov.', false, true, false, true, false, false, 400, true, false, false, false, '(description of <b>nom. nov.</b>)', 'nom-nov', 'nom. nov.', 'nom. nov. of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'nom. et stat. nov.', false, true, false, true, false, false, 400, true, false, false, false, '(description of <b>nom. et stat. nov.</b>)', 'nom-et-stat-nov', 'nom. et stat. nov.', 'nom. et stat. nov. of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'comb. nov.', false, true, false, true, false, false, 400, true, false, false, false, '(description of <b>comb. nov.</b>)', 'comb-nov', 'comb. nov.', 'comb. nov. of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'comb. et stat. nov.', false, true, false, true, false, false, 400, true, false, false, false, '(description of <b>comb. et stat. nov.</b>)', 'comb-et-stat-nov', 'comb. et stat. nov.', 'comb. et stat. nov. of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'autonym', false, false, false, false, false, false, 400, true, false, false, false, '(description of <b>autonym</b>)', 'autonym', 'autonym', 'autonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, false, 'orthographic variant', false, false, false, false, true, false, 5, false, true, false, false, '(description of <b>orthographic variant</b>)', 'orthographic-variant', 'orthographic variant', 'orthographic variant of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'implicit autonym', false, false, false, false, false, false, 400, true, false, false, false, '(description of <b>implicit autonym</b>)', 'implicit-autonym', 'implicit autonym', 'implicit autonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, true, 'misapplied', false, false, false, false, true, false, 400, false, false, false, false, '(description of <b>misapplied</b>)', 'misapplied', 'misapplication', 'misapplied to', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, true, 'pro parte misapplied', false, false, true, false, true, false, 70, false, false, false, false, '(description of <b>pro parte misapplied</b>)', 'pro-parte-misapplied', 'pro parte misapplication', 'pro parte misapplied to', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, true, true, 'doubtful misapplied', false, false, false, false, true, false, 80, false, false, false, false, '(description of <b>doubtful misapplied</b>)', 'doubtful-misapplied', 'doubtful misapplication', 'doubtful misapplied to', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, true, true, 'doubtful pro parte misapplied', false, false, false, false, true, false, 90, false, false, false, false, '(description of <b>doubtful pro parte misapplied</b>)', 'doubtful-pro-parte-misapplied', 'doubtful pro parte misapplication', 'doubtful pro parte misapplied to', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'secondary reference', false, false, false, false, false, true, 400, true, false, false, false, '(description of <b>secondary reference</b>)', 'secondary-reference', 'secondary reference', 'secondary reference of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, false, 'isonym', false, false, false, false, true, false, 400, false, true, false, false, '(description of <b>isonym</b>)', 'isonym', 'isonym', 'isonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, false, 'trade name', false, false, false, false, true, false, 400, false, true, false, false, '(description of <b>trade name</b>)', 'trade-name', 'trade name', 'trade name of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'excluded name', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>excluded name</b>)', 'excluded-name', 'excluded name', 'excluded name of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, true, false, 'doubtful invalid publication', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>doubtful invalid publication</b>)', 'doubtful-invalid-publication', 'doubtful invalid publication', 'doubtful invalid publication of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, true, false, false, 'synonym', false, false, false, false, true, false, 140, false, true, false, true, '(description of <b>synonym</b>)', 'synonym', 'synonym', 'synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, false, 'nomenclatural synonym', true, false, false, false, true, false, 30, false, true, false, false, '(description of <b>nomenclatural synonym</b>)', 'nomenclatural-synonym', 'nomenclatural synonym', 'nomenclatural synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, false, 'taxonomic synonym', false, false, false, false, true, false, 100, false, true, true, false, '(description of <b>taxonomic synonym</b>)', 'taxonomic-synonym', 'taxonomic synonym', 'taxonomic synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, false, 'replaced synonym', false, false, false, false, true, false, 10, false, true, false, false, '(description of <b>replaced synonym</b>)', 'replaced-synonym', 'replaced synonym', 'replaced synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, true, false, false, 'pro parte synonym', false, false, true, false, true, false, 150, false, true, false, false, '(description of <b>pro parte synonym</b>)', 'pro-parte-synonym', 'pro parte synonym', 'pro parte synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, false, 'pro parte taxonomic synonym', false, false, true, false, true, false, 110, false, true, true, false, '(description of <b>pro parte taxonomic synonym</b>)', 'pro-parte-taxonomic-synonym', 'pro parte taxonomic synonym', 'pro parte taxonomic synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, true, true, false, 'doubtful synonym', false, false, false, false, true, false, 160, false, true, false, false, '(description of <b>doubtful synonym</b>)', 'doubtful-synonym', 'doubtful synonym', 'doubtful synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'homonym', false, false, false, false, false, false, 400, true, false, false, false, '(description of <b>homonym</b>)', 'homonym', 'homonym', 'homonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, true, false, false, 'invalid publication', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>invalid publication</b>)', 'invalid-publication', 'invalid publication', 'invalid publication of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, true, false, false, 'sens. lat.', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>sens. lat.</b>)', 'sens-lat', 'sens. lat.', 'sens. lat. of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, false, 'common name', false, false, false, false, true, false, 400, false, false, false, true, '(description of <b>common name</b>)', 'common-name', 'common name', 'common name of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, false, 'vernacular name', false, false, false, false, true, false, 400, false, false, false, true, '(description of <b>vernacular name</b>)', 'vernacular-name', 'vernacular name', 'vernacular name of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, true, false, 'doubtful taxonomic synonym', false, false, false, false, true, false, 120, false, true, true, false, '(description of <b>doubtful taxonomic synonym</b>)', 'doubtful-taxonomic-synonym', 'doubtful taxonomic synonym', 'doubtful taxonomic synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, true, true, false, 'doubtful pro parte synonym', false, false, false, false, true, false, 170, false, true, false, false, '(description of <b>doubtful pro parte synonym</b>)', 'doubtful-pro-parte-synonym', 'doubtful pro parte synonym', 'doubtful pro parte synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, true, false, 'doubtful pro parte taxonomic synonym', false, false, false, false, true, false, 130, false, true, true, false, '(description of <b>doubtful pro parte taxonomic synonym</b>)', 'doubtful-pro-parte-taxonomic-synonym', 'doubtful pro parte taxonomic synonym', 'doubtful pro parte taxonomic synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, false, 'basionym', true, false, false, false, true, false, 10, false, true, false, false, '(description of <b>basionym</b>)', 'basionym', 'basionym', 'basionym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, true, false, 'doubtful nomenclatural synonym', true, false, false, false, false, false, 40, false, true, false, false, '(description of <b>doubtful nomenclatural synonym</b>)', 'doubtful-nomenclatural-synonym', 'doubtful nomenclatural synonym', 'doubtful nomenclatural synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'pro parte nomenclatural synonym', true, false, true, false, false, false, 50, false, true, false, false, '(description of <b>pro parte nomenclatural synonym</b>)', 'pro-parte-nomenclatural-synonym', 'pro parte nomenclatural synonym', 'pro parte nomenclatural synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, false, false, false, false, 'pro parte replaced synonym', false, false, true, false, false, false, 20, false, true, false, false, '(description of <b>pro parte replaced synonym</b>)', 'pro-parte-replaced-synonym', 'pro parte replaced synonym', 'pro parte replaced synonym of', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, true, 'unsourced misapplied', false, false, false, false, true, false, 400, false, false, false, true, '(description of <b>unsourced misapplied</b>)', 'unsourced-misapplied', 'misapplication', 'misapplied to', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, false, true, 'unsourced pro parte misapplied', false, false, true, false, true, false, 70, false, false, false, true, '(description of <b>unsourced pro parte misapplied</b>)', 'unsourced-pro-parte-misapplied', 'pro parte misapplication', 'pro parte misapplied to', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, true, true, 'unsourced doubtful misapplied', false, false, false, false, true, false, 80, false, false, false, true, '(description of <b>unsourced doubtful misapplied</b>)', 'unsourced-doubtful-misapplied', 'doubtful misapplication', 'doubtful misapplied to', false);
-INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES (nextval('nsl_global_seq'), 0, true, false, true, true, 'unsourced doubtful pro parte misapplied', false, false, false, false, true, false, 90, false, false, false, true, '(description of <b>unsourced doubtful pro parte misapplied</b>)', 'unsourced-doubtful-pro-parte-misapplied', 'doubtful pro parte misapplication', 'doubtful pro parte misapplied to', false);
+INSERT INTO public.instance_type (id, lock_version, citing, deprecated, doubtful, misapplied, name, nomenclatural, primary_instance, pro_parte, protologue, relationship, secondary_instance, sort_order, standalone, synonym, taxonomic, unsourced, description_html, rdf_id, has_label, of_label, bidirectional) VALUES
+(nextval('nsl_global_seq'), 0, false, false, false, false, '[default]', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>[default]</b>)', 'default', '[default]', '[default] of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, '[unknown]', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>[unknown]</b>)', 'unknown', '[unknown]', '[unknown] of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, '[n/a]', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>[n/a]</b>)', 'n-a', '[n/a]', '[n/a] of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'primary reference', false, true, false, false, false, false, 400, true, false, false, false, '(description of <b>primary reference</b>)', 'primary-reference', 'primary reference', 'primary reference of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'tax. nov.', false, true, false, true, false, false, 400, true, false, false, false, '(description of <b>tax. nov.</b>)', 'tax-nov', 'tax. nov.', 'tax. nov. of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'nom. nov.', false, true, false, true, false, false, 400, true, false, false, false, '(description of <b>nom. nov.</b>)', 'nom-nov', 'nom. nov.', 'nom. nov. of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'nom. et stat. nov.', false, true, false, true, false, false, 400, true, false, false, false, '(description of <b>nom. et stat. nov.</b>)', 'nom-et-stat-nov', 'nom. et stat. nov.', 'nom. et stat. nov. of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'comb. nov.', false, true, false, true, false, false, 400, true, false, false, false, '(description of <b>comb. nov.</b>)', 'comb-nov', 'comb. nov.', 'comb. nov. of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'comb. et stat. nov.', false, true, false, true, false, false, 400, true, false, false, false, '(description of <b>comb. et stat. nov.</b>)', 'comb-et-stat-nov', 'comb. et stat. nov.', 'comb. et stat. nov. of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'autonym', false, false, false, false, false, false, 400, true, false, false, false, '(description of <b>autonym</b>)', 'autonym', 'autonym', 'autonym of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, false, 'orthographic variant', false, false, false, false, true, false, 5, false, true, false, false, '(description of <b>orthographic variant</b>)', 'orthographic-variant', 'orthographic variant', 'orthographic variant of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'implicit autonym', false, false, false, false, false, false, 400, true, false, false, false, '(description of <b>implicit autonym</b>)', 'implicit-autonym', 'implicit autonym', 'implicit autonym of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, true, 'misapplied', false, false, false, false, true, false, 400, false, false, false, false, '(description of <b>misapplied</b>)', 'misapplied', 'misapplication', 'misapplied to', false),
+(nextval('nsl_global_seq'), 0, true, false, false, true, 'pro parte misapplied', false, false, true, false, true, false, 70, false, false, false, false, '(description of <b>pro parte misapplied</b>)', 'pro-parte-misapplied', 'pro parte misapplication', 'pro parte misapplied to', false),
+(nextval('nsl_global_seq'), 0, true, false, true, true, 'doubtful misapplied', false, false, false, false, true, false, 80, false, false, false, false, '(description of <b>doubtful misapplied</b>)', 'doubtful-misapplied', 'doubtful misapplication', 'doubtful misapplied to', false),
+(nextval('nsl_global_seq'), 0, true, false, true, true, 'doubtful pro parte misapplied', false, false, false, false, true, false, 90, false, false, false, false, '(description of <b>doubtful pro parte misapplied</b>)', 'doubtful-pro-parte-misapplied', 'doubtful pro parte misapplication', 'doubtful pro parte misapplied to', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'secondary reference', false, false, false, false, false, true, 400, true, false, false, false, '(description of <b>secondary reference</b>)', 'secondary-reference', 'secondary reference', 'secondary reference of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, false, 'isonym', false, false, false, false, true, false, 400, false, true, false, false, '(description of <b>isonym</b>)', 'isonym', 'isonym', 'isonym of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, false, 'trade name', false, false, false, false, true, false, 400, false, true, false, false, '(description of <b>trade name</b>)', 'trade-name', 'trade name', 'trade name of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'excluded name', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>excluded name</b>)', 'excluded-name', 'excluded name', 'excluded name of', false),
+(nextval('nsl_global_seq'), 0, false, false, true, false, 'doubtful invalid publication', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>doubtful invalid publication</b>)', 'doubtful-invalid-publication', 'doubtful invalid publication', 'doubtful invalid publication of', false),
+(nextval('nsl_global_seq'), 0, true, true, false, false, 'synonym', false, false, false, false, true, false, 140, false, true, false, true, '(description of <b>synonym</b>)', 'synonym', 'synonym', 'synonym of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, false, 'nomenclatural synonym', true, false, false, false, true, false, 30, false, true, false, false, '(description of <b>nomenclatural synonym</b>)', 'nomenclatural-synonym', 'nomenclatural synonym', 'nomenclatural synonym of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, false, 'taxonomic synonym', false, false, false, false, true, false, 100, false, true, true, false, '(description of <b>taxonomic synonym</b>)', 'taxonomic-synonym', 'taxonomic synonym', 'taxonomic synonym of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, false, 'replaced synonym', false, false, false, false, true, false, 10, false, true, false, false, '(description of <b>replaced synonym</b>)', 'replaced-synonym', 'replaced synonym', 'replaced synonym of', false),
+(nextval('nsl_global_seq'), 0, true, true, false, false, 'pro parte synonym', false, false, true, false, true, false, 150, false, true, false, false, '(description of <b>pro parte synonym</b>)', 'pro-parte-synonym', 'pro parte synonym', 'pro parte synonym of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, false, 'pro parte taxonomic synonym', false, false, true, false, true, false, 110, false, true, true, false, '(description of <b>pro parte taxonomic synonym</b>)', 'pro-parte-taxonomic-synonym', 'pro parte taxonomic synonym', 'pro parte taxonomic synonym of', false),
+(nextval('nsl_global_seq'), 0, true, true, true, false, 'doubtful synonym', false, false, false, false, true, false, 160, false, true, false, false, '(description of <b>doubtful synonym</b>)', 'doubtful-synonym', 'doubtful synonym', 'doubtful synonym of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'homonym', false, false, false, false, false, false, 400, true, false, false, false, '(description of <b>homonym</b>)', 'homonym', 'homonym', 'homonym of', false),
+(nextval('nsl_global_seq'), 0, false, true, false, false, 'invalid publication', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>invalid publication</b>)', 'invalid-publication', 'invalid publication', 'invalid publication of', false),
+(nextval('nsl_global_seq'), 0, false, true, false, false, 'sens. lat.', false, false, false, false, false, false, 400, false, false, false, false, '(description of <b>sens. lat.</b>)', 'sens-lat', 'sens. lat.', 'sens. lat. of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, false, 'common name', false, false, false, false, true, false, 400, false, false, false, true, '(description of <b>common name</b>)', 'common-name', 'common name', 'common name of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, false, 'vernacular name', false, false, false, false, true, false, 400, false, false, false, true, '(description of <b>vernacular name</b>)', 'vernacular-name', 'vernacular name', 'vernacular name of', false),
+(nextval('nsl_global_seq'), 0, true, false, true, false, 'doubtful taxonomic synonym', false, false, false, false, true, false, 120, false, true, true, false, '(description of <b>doubtful taxonomic synonym</b>)', 'doubtful-taxonomic-synonym', 'doubtful taxonomic synonym', 'doubtful taxonomic synonym of', false),
+(nextval('nsl_global_seq'), 0, true, true, true, false, 'doubtful pro parte synonym', false, false, false, false, true, false, 170, false, true, false, false, '(description of <b>doubtful pro parte synonym</b>)', 'doubtful-pro-parte-synonym', 'doubtful pro parte synonym', 'doubtful pro parte synonym of', false),
+(nextval('nsl_global_seq'), 0, true, false, true, false, 'doubtful pro parte taxonomic synonym', false, false, false, false, true, false, 130, false, true, true, false, '(description of <b>doubtful pro parte taxonomic synonym</b>)', 'doubtful-pro-parte-taxonomic-synonym', 'doubtful pro parte taxonomic synonym', 'doubtful pro parte taxonomic synonym of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, false, 'basionym', true, false, false, false, true, false, 10, false, true, false, false, '(description of <b>basionym</b>)', 'basionym', 'basionym', 'basionym of', false),
+(nextval('nsl_global_seq'), 0, false, false, true, false, 'doubtful nomenclatural synonym', true, false, false, false, false, false, 40, false, true, false, false, '(description of <b>doubtful nomenclatural synonym</b>)', 'doubtful-nomenclatural-synonym', 'doubtful nomenclatural synonym', 'doubtful nomenclatural synonym of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'pro parte nomenclatural synonym', true, false, true, false, false, false, 50, false, true, false, false, '(description of <b>pro parte nomenclatural synonym</b>)', 'pro-parte-nomenclatural-synonym', 'pro parte nomenclatural synonym', 'pro parte nomenclatural synonym of', false),
+(nextval('nsl_global_seq'), 0, false, false, false, false, 'pro parte replaced synonym', false, false, true, false, false, false, 20, false, true, false, false, '(description of <b>pro parte replaced synonym</b>)', 'pro-parte-replaced-synonym', 'pro parte replaced synonym', 'pro parte replaced synonym of', false),
+(nextval('nsl_global_seq'), 0, true, false, false, true, 'unsourced misapplied', false, false, false, false, true, false, 400, false, false, false, true, '(description of <b>unsourced misapplied</b>)', 'unsourced-misapplied', 'misapplication', 'misapplied to', false),
+(nextval('nsl_global_seq'), 0, true, false, false, true, 'unsourced pro parte misapplied', false, false, true, false, true, false, 70, false, false, false, true, '(description of <b>unsourced pro parte misapplied</b>)', 'unsourced-pro-parte-misapplied', 'pro parte misapplication', 'pro parte misapplied to', false),
+(nextval('nsl_global_seq'), 0, true, false, true, true, 'unsourced doubtful misapplied', false, false, false, false, true, false, 80, false, false, false, true, '(description of <b>unsourced doubtful misapplied</b>)', 'unsourced-doubtful-misapplied', 'doubtful misapplication', 'doubtful misapplied to', false),
+(nextval('nsl_global_seq'), 0, true, false, true, true, 'unsourced doubtful pro parte misapplied', false, false, false, false, true, false, 90, false, false, false, true, '(description of <b>unsourced doubtful pro parte misapplied</b>)', 'unsourced-doubtful-pro-parte-misapplied', 'doubtful pro parte misapplication', 'doubtful pro parte misapplied to', false);
+
 -- name category
-INSERT INTO public.name_category (id, lock_version, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, '[unknown]', 1, '(description of <b>[unknown]</b>)', 'unknown');
-INSERT INTO public.name_category (id, lock_version, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, '[n/a]', 2, '(description of <b>[n/a]</b>)', 'n-a');
-INSERT INTO public.name_category (id, lock_version, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'scientific', 3, '(description of <b>scientific</b>)', 'scientific');
-INSERT INTO public.name_category (id, lock_version, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'cultivar', 4, '(description of <b>cultivar</b>)', 'cultivar');
-INSERT INTO public.name_category (id, lock_version, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'informal', 5, '(description of <b>informal</b>)', 'informal');
-INSERT INTO public.name_category (id, lock_version, name, sort_order, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'common', 6, '(description of <b>common</b>)', 'common');
+insert into name_category
+(id, lock_version,
+ name,
+ sort_order,
+ description_html,
+ rdf_id,
+ max_parents_allowed,
+ min_parents_required,
+ parent_1_help_text,
+ parent_2_help_text,
+ requires_family,
+ requires_higher_ranked_parent,
+ requires_name_element,
+ takes_author_only,
+ takes_authors,
+ takes_cultivar_scoped_parent,
+ takes_hybrid_scoped_parent,
+ takes_name_element,
+ takes_verbatim_rank,
+ takes_rank)
+values
+(nextval('nsl_global_seq'), 0,'cultivar', 50, 'names entered and edited as cultivar names', 'cultivar', 1, 1, 'cultivar - genus and below, or unranked if unranked', null, true, false, true, false, false, true, false, true, true, true),
+(nextval('nsl_global_seq'), 0,'scientific', 10, 'names entered and edited as scientific names', 'scientific', 1, 1, 'ordinary - restricted by rank, or unranked if unranked', null, true, true, true, false, true, false, false, true, true, true),
+(nextval('nsl_global_seq'), 0,'cultivar hybrid', 60, 'names entered and edited as cultivar hybrid names', null, 2, 2, 'cultivar - genus and below, or unranked if unranked', 'cultivar - genus and below, or unranked if unranked', true, false, true, false, false, true, false, true, true, true),
+(nextval('nsl_global_seq'), 0,'other', 70, 'names entered and edited as other names', null, 0, 0, 'ordinary - restricted by rank, or unranked if unranked', null, false, false, true, false, false, true, false, true, true, false),
+(nextval('nsl_global_seq'), 0,'phrase name', 20, 'names entered and edited as scientific phrase names', null, 1, 1, 'ordinary - restricted by rank, or unranked if unranked', null, true, false, false, true, false, false, false, true, false, true),
+(nextval('nsl_global_seq'), 0,'scientific hybrid formula', 30, 'names entered and edited as scientific hybrid formulae', null, 2, 2, 'hybrid - species and below or unranked if unranked', 'hybrid - species and below or unranked if unranked', true, false, false, false, false, false, true, false, true, true),
+(nextval('nsl_global_seq'), 0,'scientific hybrid formula unknown 2nd parent', 40, 'names entered and edited as scientific hybrid formulae with unknown 2nd parent', null, 1, 1, 'hybrid - species and below or unranked if unranked', null, true, false, false, false, false, true, true, false, true, true);
+
 -- name group
-INSERT INTO public.name_group (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, '[unknown]', '(description of <b>[unknown]</b>)', 'unknown');
-INSERT INTO public.name_group (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, '[n/a]', '(description of <b>[n/a]</b>)', 'n-a');
-INSERT INTO public.name_group (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'botanical', '(description of <b>botanical</b>)', 'botanical');
-INSERT INTO public.name_group (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'zoological', '(description of <b>zoological</b>)', 'zoological');
+INSERT INTO public.name_group (id, lock_version, name, description_html, rdf_id) VALUES
+(nextval('nsl_global_seq'), 0, '[unknown]', '(description of <b>[unknown]</b>)', 'unknown'),
+(nextval('nsl_global_seq'), 0, '[n/a]', '(description of <b>[n/a]</b>)', 'n-a'),
+(nextval('nsl_global_seq'), 0, 'botanical', '(description of <b>botanical</b>)', 'botanical'),
+(nextval('nsl_global_seq'), 0, 'zoological', '(description of <b>zoological</b>)', 'zoological');
+
 -- name rank
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'reg.', false, false, false, true, 'Regnum', (select id from name_group where name = 'botanical'), null, 10, false, '(description of <b>Regnum</b>)', 'regnum');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'div.', false, false, false, true, 'Division', (select id from name_group where name = 'botanical'), null, 20, false, '(description of <b>Division</b>)', 'division');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'cl.', false, false, false, true, 'Classis', (select id from name_group where name = 'botanical'), null, 30, false, '(description of <b>Classis</b>)', 'classis');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'subcl.', false, false, false, false, 'Subclassis', (select id from name_group where name = 'botanical'), null, 40, false, '(description of <b>Subclassis</b>)', 'subclassis');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'superordo', false, false, false, false, 'Superordo', (select id from name_group where name = 'botanical'), null, 50, false, '(description of <b>Superordo</b>)', 'superordo');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'ordo', false, false, false, true, 'Ordo', (select id from name_group where name = 'botanical'), null, 60, false, '(description of <b>Ordo</b>)', 'ordo');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'subordo', false, false, false, false, 'Subordo', (select id from name_group where name = 'botanical'), null, 70, false, '(description of <b>Subordo</b>)', 'subordo');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'fam.', false, false, false, true, 'Familia', (select id from name_group where name = 'botanical'), null, 80, false, '(description of <b>Familia</b>)', 'familia');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'subfam.', false, true, false, false, 'Subfamilia', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'fam.'), 90, true, '(description of <b>Subfamilia</b>)', 'subfamilia');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'trib.', false, true, false, true, 'Tribus', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'fam.'), 100, true, '(description of <b>Tribus</b>)', 'tribus');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'subtrib.', false, true, false, false, 'Subtribus', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'fam.'), 110, true, '(description of <b>Subtribus</b>)', 'subtribus');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'gen.', false, false, false, true, 'Genus', (select id from name_group where name = 'botanical'), null, 120, false, '(description of <b>Genus</b>)', 'genus');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'subg.', false, true, false, false, 'Subgenus', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 130, true, '(description of <b>Subgenus</b>)', 'subgenus');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'sect.', false, true, false, false, 'Sectio', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 140, true, '(description of <b>Sectio</b>)', 'sectio');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'subsect.', false, true, false, false, 'Subsectio', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 150, true, '(description of <b>Subsectio</b>)', 'subsectio');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'ser.', false, true, false, false, 'Series', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 160, true, '(description of <b>Series</b>)', 'series');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'subser.', false, true, false, false, 'Subseries', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 170, true, '(description of <b>Subseries</b>)', 'subseries');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'supersp.', false, true, false, false, 'Superspecies', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 180, true, '(description of <b>Superspecies</b>)', 'superspecies');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'sp.', false, true, false, true, 'Species', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 190, false, '(description of <b>Species</b>)', 'species');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'subsp.', false, true, false, false, 'Subspecies', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'), 200, true, '(description of <b>Subspecies</b>)', 'subspecies');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'nothovar.', false, true, false, false, 'Nothovarietas', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'), 210, true, '(description of <b>Nothovarietas</b>)', 'nothovarietas');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'var.', false, true, false, false, 'Varietas', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'), 210, true, '(description of <b>Varietas</b>)', 'varietas');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'subvar.', false, true, false, false, 'Subvarietas', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'), 220, true, '(description of <b>Subvarietas</b>)', 'subvarietas');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'f.', false, true, false, false, 'Forma', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'), 230, true, '(description of <b>Forma</b>)', 'forma');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'subf.', false, true, false, false, 'Subforma', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'), 240, true, '(description of <b>Subforma</b>)', 'subforma');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'form taxon', true, true, false, false, 'form taxon', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'), 250, false, '(description of <b>form taxon</b>)', 'form-taxon');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'morph.', true, true, false, false, 'morphological var.', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'), 260, false, '(description of <b>morphological var.</b>)', 'morphological-var');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'nothomorph', true, true, false, false, 'nothomorph.', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'), 270, false, '(description of <b>nothomorph.</b>)', 'nothomorph');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, '[unranked]', false, true, false, false, '[unranked]', (select id from name_group where name = 'botanical'), null, 500, true, '(description of <b>[unranked]</b>)', 'unranked');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, '[infrafamily]', false, true, false, false, '[infrafamily]', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'fam.'), 500, true, '(description of <b>[infrafamily]</b>)', 'infrafamily');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, '[infragenus]', false, true, false, false, '[infragenus]', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 500, true, '(description of <b>[infragenus]</b>)', 'infragenus');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, '[infrasp.]', false, true, false, false, '[infraspecies]', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'), 500, true, '(description of <b>[infraspecies]</b>)', 'infraspecies');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, '[n/a]', false, false, false, false, '[n/a]', (select id from name_group where name = 'botanical'), null, 500, false, '(description of <b>[n/a]</b>)', 'n-a');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, '[unknown]', true, false, false, false, '[unknown]', (select id from name_group where name = 'botanical'), null, 500, false, '(description of <b>[unknown]</b>)', 'unknown');
-INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'regio', false, false, false, true, 'Regio', (select id from name_group where name = 'botanical'), null, 8, true, '(description of <b>Regio</b>)', 'regio');
+INSERT INTO public.name_rank (id, lock_version, abbrev, deprecated, has_parent, italicize, major, name, name_group_id, parent_rank_id, sort_order, visible_in_name, description_html, rdf_id, use_verbatim_rank, display_name) VALUES
+(nextval('nsl_global_seq'), 0, 'regio', false, false, false, true,      'Regio',              (select id from name_group where name = 'botanical'), null, 8, false, '(description of <b>Regio</b>)', 'regio', false, 'Regio'),
+(nextval('nsl_global_seq'), 0, 'reg.', false, false, false, true,       'Regnum',             (select id from name_group where name = 'botanical'), null, 10, false, '(description of <b>Regnum</b>)', 'regnum', false, 'Regnum'),
+(nextval('nsl_global_seq'), 0, 'div.', false, false, false, true,       'Division',           (select id from name_group where name = 'botanical'), null, 20, false, '(description of <b>Division</b>)', 'division', false, 'Division'),
+(nextval('nsl_global_seq'), 0, 'cl.', false, false, false, true,        'Classis',            (select id from name_group where name = 'botanical'), null, 30, false, '(description of <b>Classis</b>)', 'classis', false, 'Classis'),
+(nextval('nsl_global_seq'), 0, 'subcl.', false, false, false, false,    'Subclassis',         (select id from name_group where name = 'botanical'), null, 40, false, '(description of <b>Subclassis</b>)', 'subclassis', false, 'Subclassis'),
+(nextval('nsl_global_seq'), 0, 'superordo', false, false, false, false, 'Superordo',          (select id from name_group where name = 'botanical'), null, 50, false, '(description of <b>Superordo</b>)', 'superordo', false, 'Superordo'),
+(nextval('nsl_global_seq'), 0, 'ordo', false, false, false, true,       'Ordo',               (select id from name_group where name = 'botanical'), null, 60, false, '(description of <b>Ordo</b>)', 'ordo', false, 'Ordo'),
+(nextval('nsl_global_seq'), 0, 'subordo', false, false, false, false,   'Subordo',            (select id from name_group where name = 'botanical'), null, 70, false, '(description of <b>Subordo</b>)', 'subordo', false, 'Subordo'),
+(nextval('nsl_global_seq'), 0, 'fam.', false, false, false, true,       'Familia',            (select id from name_group where name = 'botanical'), null, 80, false, '(description of <b>Familia</b>)', 'familia', false, 'Familia'),
+(nextval('nsl_global_seq'), 0, 'subfam.', false, true, false, false,    'Subfamilia',         (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'fam.'), 90, false, '(description of <b>Subfamilia</b>)', 'subfamilia', false, 'Subfamilia'),
+(nextval('nsl_global_seq'), 0, 'trib.', false, true, false, false,      'Tribus',             (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'fam.'), 100, false, '(description of <b>Tribus</b>)', 'tribus', false, 'Tribus'),
+(nextval('nsl_global_seq'), 0, 'subtrib.', false, true, false, false,   'Subtribus',          (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'fam.'), 110, false, '(description of <b>Subtribus</b>)', 'subtribus', false, 'Subtribus'),
+(nextval('nsl_global_seq'), 0, 'gen.', false, false, false, true,       'Genus',              (select id from name_group where name = 'botanical'), null,                                             120, false, '(description of <b>Genus</b>)', 'genus', false, 'Genus'),
+(nextval('nsl_global_seq'), 0, 'subg.', false, true, false, false,      'Subgenus',           (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 130, true, '(description of <b>Subgenus</b>)', 'subgenus', false, 'Subgenus'),
+(nextval('nsl_global_seq'), 0, 'sect.', false, true, false, false,      'Sectio',             (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 140, true, '(description of <b>Sectio</b>)', 'sectio', false, 'Sectio'),
+(nextval('nsl_global_seq'), 0, 'subsect.', false, true, false, false,   'Subsectio',          (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 150, true, '(description of <b>Subsectio</b>)', 'subsectio', false, 'Subsectio'),
+(nextval('nsl_global_seq'), 0, 'ser.', false, true, false, false,       'Series',             (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 160, true, '(description of <b>Series</b>)', 'series', false, 'Series'),
+(nextval('nsl_global_seq'), 0, 'subser.', false, true, false, false,    'Subseries',          (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 170, true, '(description of <b>Subseries</b>)', 'subseries', false, 'Subseries'),
+(nextval('nsl_global_seq'), 0, 'supersp.', false, true, false, false,   'Superspecies',       (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 180, true, '(description of <b>Superspecies</b>)', 'superspecies', false, 'Superspecies'),
+(nextval('nsl_global_seq'), 0, 'sp.', false, true, false, true,         'Species',            (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 190, false, '(description of <b>Species</b>)', 'species', false, 'Species'),
+(nextval('nsl_global_seq'), 0, 'subsp.', false, true, false, false,     'Subspecies',         (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'),  200, true, '(description of <b>Subspecies</b>)', 'subspecies', false, 'Subspecies'),
+(nextval('nsl_global_seq'), 0, 'nothovar.', false, true, false, false,  'Nothovarietas',      (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'),  210, true, '(description of <b>Nothovarietas</b>)', 'nothovarietas', false, 'Nothovarietas'),
+(nextval('nsl_global_seq'), 0, 'var.', false, true, false, false,       'Varietas',           (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'),  210, true, '(description of <b>Varietas</b>)', 'varietas', false, 'Varietas'),
+(nextval('nsl_global_seq'), 0, 'subvar.', false, true, false, false,    'Subvarietas',        (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'),  220, true, '(description of <b>Subvarietas</b>)', 'subvarietas', false, 'Subvarietas'),
+(nextval('nsl_global_seq'), 0, 'f.', false, true, false, false,         'Forma',              (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'),  230, true, '(description of <b>Forma</b>)', 'forma', false, 'Forma'),
+(nextval('nsl_global_seq'), 0, 'subf.', false, true, false, false,      'Subforma',           (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'),  240, true, '(description of <b>Subforma</b>)', 'subforma', false, 'Subforma'),
+(nextval('nsl_global_seq'), 0, 'form taxon', true, true, false, false,  'form taxon',         (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'),  250, false, '(description of <b>form taxon</b>)', 'form-taxon', false, 'form taxon'),
+(nextval('nsl_global_seq'), 0, 'morph.', true, true, false, false,      'morphological var.', (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'),  260, false, '(description of <b>morphological var.</b>)', 'morphological-var', false, 'morphological var.'),
+(nextval('nsl_global_seq'), 0, 'nothomorph', true, true, false, false,  'nothomorph.',        (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'),  270, false, '(description of <b>nothomorph.</b>)', 'nothomorph', false, 'nothomorph.'),
+(nextval('nsl_global_seq'), 0, '[n/a]', false, false, false, false,     '[n/a]',              (select id from name_group where name = 'botanical'), null,                                             500, false, '(description of <b>[n/a]</b>)', 'n-a', false, '[n/a]'),
+(nextval('nsl_global_seq'), 0, '[infrafamily]', false, true, false, false, '[infrafamily]',   (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'fam.'), 500, true, '(description of <b>[infrafamily]</b>)', 'infrafamily', true, '[infrafamily]'),
+(nextval('nsl_global_seq'), 0, '[infragenus]', false, true, false, false, '[infragenus]',     (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'gen.'), 500, true, '(description of <b>[infragenus]</b>)', 'infragenus', true, '[infragenus]'),
+(nextval('nsl_global_seq'), 0, '[unknown]', true, false, false, false,  '[unknown]',          (select id from name_group where name = 'botanical'), null,                                             500, false, '(description of <b>[unknown]</b>)', 'unknown', true, '[unknown]'),
+(nextval('nsl_global_seq'), 0, '[unranked]', false, true, false, false, '[unranked]',         (select id from name_group where name = 'botanical'), null,                                             500, true, '(description of <b>[unranked]</b>)', 'unranked', true, '[unranked]'),
+(nextval('nsl_global_seq'), 0, '[infrasp.]', false, true, false, false, '[infraspecies]',     (select id from name_group where name = 'botanical'), (select id from name_rank where abbrev = 'sp.'),  500, false, '(description of <b>[infraspecies]</b>)', 'infraspecies', true, '[infraspecies]');
+
 --name status
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, '[default]', (select id from name_group where name = '[n/a]'), null, false, false, '(description of <b>[default]</b>)', 'default');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, '[unknown]', (select id from name_group where name = '[n/a]'), null, false, false, '(description of <b>[unknown]</b>)', 'unknown');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, '[n/a]', (select id from name_group where name = '[n/a]'), null, false, false, '(description of <b>[n/a]</b>)', 'n-a');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, '[deleted]', (select id from name_group where name = '[n/a]'), null, false, false, '(description of <b>[deleted]</b>)', 'deleted');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'legitimate', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>legitimate</b>)', 'legitimate');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. inval.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval.</b>)', 'nom-inval');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. inval., pro syn.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., pro syn.</b>)', 'nom-inval-pro-syn');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. nud.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. nud.</b>)', 'nom-inval-nom-nud');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. subnud.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. subnud.</b>)', 'nom-inval-nom-subnud');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. ambig.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. ambig.</b>)', 'nom-inval-nom-ambig');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. confus.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. confus.</b>)', 'nom-inval-nom-confus');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. prov.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. prov.</b>)', 'nom-inval-nom-prov');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. alt.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. alt.</b>)', 'nom-inval-nom-alt');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. dub.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. dub.</b>)', 'nom-inval-nom-dub');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. inval., opera utique oppressa', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., opera utique oppressa</b>)', 'nom-inval-opera-utique-oppressa');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. inval., tautonym', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., tautonym</b>)', 'nom-inval-tautonym');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. illeg.', (select id from name_group where name = 'botanical'), null, true, false, '(description of <b>nom. illeg.</b>)', 'nom-illeg');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. illeg., nom. superfl.', (select id from name_group where name = 'botanical'), null, true, false, '(description of <b>nom. illeg., nom. superfl.</b>)', 'nom-illeg-nom-superfl');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. illeg., nom. rej.', (select id from name_group where name = 'botanical'), null, true, false, '(description of <b>nom. illeg., nom. rej.</b>)', 'nom-illeg-nom-rej');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'isonym', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>isonym</b>)', 'isonym');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. superfl.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. superfl.</b>)', 'nom-superfl');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. rej.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. rej.</b>)', 'nom-rej');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. alt.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. alt.</b>)', 'nom-alt');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. cult.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. cult.</b>)', 'nom-cult');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. cons.</b>)', 'nom-cons');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. cons., orth. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. cons., orth. cons.</b>)', 'nom-cons-orth-cons');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. cons., nom. alt.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. cons., nom. alt.</b>)', 'nom-cons-nom-alt');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. cult., nom. alt.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. cult., nom. alt.</b>)', 'nom-cult-nom-alt');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. et typ. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. et typ. cons.</b>)', 'nom-et-typ-cons');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. et orth. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. et orth. cons.</b>)', 'nom-et-orth-cons');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nomina utique rejicienda', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nomina utique rejicienda</b>)', 'nomina-utique-rejicienda');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'typ. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>typ. cons.</b>)', 'typ-cons');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'orth. var.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>orth. var.</b>)', 'orth-var');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'orth. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>orth. cons.</b>)', 'orth-cons');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'manuscript', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>manuscript</b>)', 'manuscript');
-INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, true, 'nom. alt., nom. illeg', (select id from name_group where name = 'botanical'), null, true, false, '(description of <b>nom. alt., nom. illeg.</b>)', 'nom-alt-nom-illeg');
+INSERT INTO public.name_status (id, lock_version, display, name, name_group_id, name_status_id, nom_illeg, nom_inval, description_html, rdf_id) VALUES
+(nextval('nsl_global_seq'), 0, true, '[default]', (select id from name_group where name = '[n/a]'), null, false, false, '(description of <b>[default]</b>)', 'default'),
+(nextval('nsl_global_seq'), 0, true, '[unknown]', (select id from name_group where name = '[n/a]'), null, false, false, '(description of <b>[unknown]</b>)', 'unknown'),
+(nextval('nsl_global_seq'), 0, true, '[n/a]', (select id from name_group where name = '[n/a]'), null, false, false, '(description of <b>[n/a]</b>)', 'n-a'),
+(nextval('nsl_global_seq'), 0, true, '[deleted]', (select id from name_group where name = '[n/a]'), null, false, false, '(description of <b>[deleted]</b>)', 'deleted'),
+(nextval('nsl_global_seq'), 0, true, 'legitimate', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>legitimate</b>)', 'legitimate'),
+(nextval('nsl_global_seq'), 0, true, 'nom. inval.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval.</b>)', 'nom-inval'),
+(nextval('nsl_global_seq'), 0, true, 'nom. inval., pro syn.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., pro syn.</b>)', 'nom-inval-pro-syn'),
+(nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. nud.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. nud.</b>)', 'nom-inval-nom-nud'),
+(nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. subnud.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. subnud.</b>)', 'nom-inval-nom-subnud'),
+(nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. ambig.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. ambig.</b>)', 'nom-inval-nom-ambig'),
+(nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. confus.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. confus.</b>)', 'nom-inval-nom-confus'),
+(nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. prov.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. prov.</b>)', 'nom-inval-nom-prov'),
+(nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. alt.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. alt.</b>)', 'nom-inval-nom-alt'),
+(nextval('nsl_global_seq'), 0, true, 'nom. inval., nom. dub.', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., nom. dub.</b>)', 'nom-inval-nom-dub'),
+(nextval('nsl_global_seq'), 0, true, 'nom. inval., opera utique oppressa', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., opera utique oppressa</b>)', 'nom-inval-opera-utique-oppressa'),
+(nextval('nsl_global_seq'), 0, true, 'nom. inval., tautonym', (select id from name_group where name = 'botanical'), null, false, true, '(description of <b>nom. inval., tautonym</b>)', 'nom-inval-tautonym'),
+(nextval('nsl_global_seq'), 0, true, 'nom. illeg.', (select id from name_group where name = 'botanical'), null, true, false, '(description of <b>nom. illeg.</b>)', 'nom-illeg'),
+(nextval('nsl_global_seq'), 0, true, 'nom. illeg., nom. superfl.', (select id from name_group where name = 'botanical'), null, true, false, '(description of <b>nom. illeg., nom. superfl.</b>)', 'nom-illeg-nom-superfl'),
+(nextval('nsl_global_seq'), 0, true, 'nom. illeg., nom. rej.', (select id from name_group where name = 'botanical'), null, true, false, '(description of <b>nom. illeg., nom. rej.</b>)', 'nom-illeg-nom-rej'),
+(nextval('nsl_global_seq'), 0, true, 'isonym', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>isonym</b>)', 'isonym'),
+(nextval('nsl_global_seq'), 0, true, 'nom. superfl.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. superfl.</b>)', 'nom-superfl'),
+(nextval('nsl_global_seq'), 0, true, 'nom. rej.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. rej.</b>)', 'nom-rej'),
+(nextval('nsl_global_seq'), 0, true, 'nom. alt.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. alt.</b>)', 'nom-alt'),
+(nextval('nsl_global_seq'), 0, true, 'nom. cult.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. cult.</b>)', 'nom-cult'),
+(nextval('nsl_global_seq'), 0, true, 'nom. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. cons.</b>)', 'nom-cons'),
+(nextval('nsl_global_seq'), 0, true, 'nom. cons., orth. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. cons., orth. cons.</b>)', 'nom-cons-orth-cons'),
+(nextval('nsl_global_seq'), 0, true, 'nom. cons., nom. alt.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. cons., nom. alt.</b>)', 'nom-cons-nom-alt'),
+(nextval('nsl_global_seq'), 0, true, 'nom. cult., nom. alt.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. cult., nom. alt.</b>)', 'nom-cult-nom-alt'),
+(nextval('nsl_global_seq'), 0, true, 'nom. et typ. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. et typ. cons.</b>)', 'nom-et-typ-cons'),
+(nextval('nsl_global_seq'), 0, true, 'nom. et orth. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nom. et orth. cons.</b>)', 'nom-et-orth-cons'),
+(nextval('nsl_global_seq'), 0, true, 'nomina utique rejicienda', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>nomina utique rejicienda</b>)', 'nomina-utique-rejicienda'),
+(nextval('nsl_global_seq'), 0, true, 'typ. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>typ. cons.</b>)', 'typ-cons'),
+(nextval('nsl_global_seq'), 0, true, 'orth. var.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>orth. var.</b>)', 'orth-var'),
+(nextval('nsl_global_seq'), 0, true, 'orth. cons.', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>orth. cons.</b>)', 'orth-cons'),
+(nextval('nsl_global_seq'), 0, true, 'manuscript', (select id from name_group where name = 'botanical'), null, false, false, '(description of <b>manuscript</b>)', 'manuscript'),
+(nextval('nsl_global_seq'), 0, true, 'nom. alt., nom. illeg', (select id from name_group where name = 'botanical'), null, true, false, '(description of <b>nom. alt., nom. illeg.</b>)', 'nom-alt-nom-illeg');
 -- name type                                                                                                                                                                                                                                                                           --name cat name group
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, false, false, false, '[default]', (select id from name_category where name = '[n/a]'), (select id from name_group where name = '[n/a]'), false, 1, '(description of <b>[default]</b>)', 'default', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, false, false, false, '[unknown]', (select id from name_category where name = '[n/a]'), (select id from name_group where name = '[n/a]'), false, 2, '(description of <b>[unknown]</b>)', 'unknown', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, false, false, false, '[n/a]', (select id from name_category where name = '[n/a]'), (select id from name_group where name = '[n/a]'), false, 3, '(description of <b>[n/a]</b>)', 'n-a', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, false, false, false, 'scientific', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 4, '(description of <b>scientific</b>)', 'scientific', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, false, false, false, 'sanctioned', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 5, '(description of <b>sanctioned</b>)', 'sanctioned', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, false, false, false, 'phrase name', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 6, '(description of <b>phrase name</b>)', 'phrase-name', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, 'x', false, true, true, 'hybrid formula parents known', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 7, '(description of <b>hybrid formula parents known</b>)', 'hybrid-formula-parents-known', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, 'x', false, true, true, 'hybrid formula unknown 2nd parent', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 8, '(description of <b>hybrid formula unknown 2nd parent</b>)', 'hybrid-formula-unknown-2nd-parent', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, 'x', false, false, true, 'named hybrid', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 9, '(description of <b>named hybrid</b>)', 'named-hybrid', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, true, 'x', false, false, true, 'named hybrid autonym', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 10, '(description of <b>named hybrid autonym</b>)', 'named-hybrid-autonym', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, true, 'x', false, false, true, 'hybrid autonym', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 11, '(description of <b>hybrid autonym</b>)', 'hybrid-autonym', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, '-', false, true, true, 'intergrade', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 12, '(description of <b>intergrade</b>)', 'intergrade', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, true, null, false, false, false, 'autonym', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 13, '(description of <b>autonym</b>)', 'autonym', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, true, false, false, 'cultivar', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 17, '(description of <b>cultivar</b>)', 'cultivar', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, true, false, true, 'cultivar hybrid', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 18, '(description of <b>cultivar hybrid</b>)', 'cultivar-hybrid', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, false, false, false, 'informal', (select id from name_category where name = 'informal'), (select id from name_group where name = 'botanical'), false, 26, '(description of <b>informal</b>)', 'informal', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, false, false, false, 'common', (select id from name_category where name = 'common'), (select id from name_group where name = 'botanical'), false, 15, '(description of <b>common</b>)', 'common', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, false, false, false, 'vernacular', (select id from name_category where name = 'common'), (select id from name_group where name = 'botanical'), false, 16, '(description of <b>vernacular</b>)', 'vernacular', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, '+', true, true, false, 'graft/chimera', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 25, '(description of <b>graft / chimera</b>)', 'graft-chimera', false);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, true, false, false, 'acra', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 20, '(description of <b>acra</b>)', 'acra', true);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, true, false, true, 'acra hybrid', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 21, '(description of <b>acra hybrid</b>)', 'acra-hybrid', true);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, true, false, false, 'pbr', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 22, '(description of <b>pbr</b>)', 'pbr', true);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, true, false, true, 'pbr hybrid', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 23, '(description of <b>pbr hybrid</b>)', 'pbr-hybrid', true);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, true, false, false, 'trade', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 24, '(description of <b>trade</b>)', 'trade', true);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, null, true, false, true, 'trade hybrid', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 25, '(description of <b>trade hybrid</b>)', 'trade-hybrid', true);
-INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES (nextval('nsl_global_seq'), 0, false, 'x', true, true, true, 'cultivar hybrid formula', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 19, '(description of <b>cultivar hybrid formula</b>)', 'cultivar-hybrid-formula', false);
+INSERT INTO public.name_type (id, lock_version, autonym, connector, cultivar, formula, hybrid, name, name_category_id, name_group_id, scientific, sort_order, description_html, rdf_id, deprecated) VALUES
+(nextval('nsl_global_seq'), 0, false, null, false, false, false, '[default]', (select id from name_category where name = 'other'), (select id from name_group where name = '[n/a]'), false, 1, '(description of <b>[default]</b>)', 'default', false),
+(nextval('nsl_global_seq'), 0, false, null, false, false, false, '[unknown]', (select id from name_category where name = 'other'), (select id from name_group where name = '[n/a]'), false, 2, '(description of <b>[unknown]</b>)', 'unknown', false),
+(nextval('nsl_global_seq'), 0, false, null, false, false, false, '[n/a]', (select id from name_category where name = 'other'), (select id from name_group where name = '[n/a]'), false, 3, '(description of <b>[n/a]</b>)', 'n-a', false),
+(nextval('nsl_global_seq'), 0, false, null, false, false, false, 'scientific', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 4, '(description of <b>scientific</b>)', 'scientific', false),
+(nextval('nsl_global_seq'), 0, false, null, false, false, false, 'sanctioned', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 5, '(description of <b>sanctioned</b>)', 'sanctioned', false),
+(nextval('nsl_global_seq'), 0, false, null, false, false, false, 'phrase name', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 6, '(description of <b>phrase name</b>)', 'phrase-name', false),
+(nextval('nsl_global_seq'), 0, false, 'x', false, true, true, 'hybrid formula parents known', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 7, '(description of <b>hybrid formula parents known</b>)', 'hybrid-formula-parents-known', false),
+(nextval('nsl_global_seq'), 0, false, 'x', false, true, true, 'hybrid formula unknown 2nd parent', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 8, '(description of <b>hybrid formula unknown 2nd parent</b>)', 'hybrid-formula-unknown-2nd-parent', false),
+(nextval('nsl_global_seq'), 0, false, 'x', false, false, true, 'named hybrid', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 9, '(description of <b>named hybrid</b>)', 'named-hybrid', false),
+(nextval('nsl_global_seq'), 0, true, 'x', false, false, true, 'named hybrid autonym', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 10, '(description of <b>named hybrid autonym</b>)', 'named-hybrid-autonym', false),
+(nextval('nsl_global_seq'), 0, true, 'x', false, false, true, 'hybrid autonym', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 11, '(description of <b>hybrid autonym</b>)', 'hybrid-autonym', false),
+(nextval('nsl_global_seq'), 0, false, '-', false, true, true, 'intergrade', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 12, '(description of <b>intergrade</b>)', 'intergrade', false),
+(nextval('nsl_global_seq'), 0, true, null, false, false, false, 'autonym', (select id from name_category where name = 'scientific'), (select id from name_group where name = 'botanical'), true, 13, '(description of <b>autonym</b>)', 'autonym', false),
+(nextval('nsl_global_seq'), 0, false, null, true, false, false, 'cultivar', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 17, '(description of <b>cultivar</b>)', 'cultivar', false),
+(nextval('nsl_global_seq'), 0, false, null, true, false, true, 'cultivar hybrid', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 18, '(description of <b>cultivar hybrid</b>)', 'cultivar-hybrid', false),
+(nextval('nsl_global_seq'), 0, false, null, false, false, false, 'informal', (select id from name_category where name = 'other'), (select id from name_group where name = 'botanical'), false, 26, '(description of <b>informal</b>)', 'informal', false),
+(nextval('nsl_global_seq'), 0, false, null, false, false, false, 'common', (select id from name_category where name = 'other'), (select id from name_group where name = 'botanical'), false, 15, '(description of <b>common</b>)', 'common', false),
+(nextval('nsl_global_seq'), 0, false, null, false, false, false, 'vernacular', (select id from name_category where name = 'other'), (select id from name_group where name = 'botanical'), false, 16, '(description of <b>vernacular</b>)', 'vernacular', false),
+(nextval('nsl_global_seq'), 0, false, '+', true, true, false, 'graft/chimera', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 25, '(description of <b>graft / chimera</b>)', 'graft-chimera', false),
+(nextval('nsl_global_seq'), 0, false, null, true, false, false, 'acra', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 20, '(description of <b>acra</b>)', 'acra', true),
+(nextval('nsl_global_seq'), 0, false, null, true, false, true, 'acra hybrid', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 21, '(description of <b>acra hybrid</b>)', 'acra-hybrid', true),
+(nextval('nsl_global_seq'), 0, false, null, true, false, false, 'pbr', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 22, '(description of <b>pbr</b>)', 'pbr', true),
+(nextval('nsl_global_seq'), 0, false, null, true, false, true, 'pbr hybrid', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 23, '(description of <b>pbr hybrid</b>)', 'pbr-hybrid', true),
+(nextval('nsl_global_seq'), 0, false, null, true, false, false, 'trade', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 24, '(description of <b>trade</b>)', 'trade', true),
+(nextval('nsl_global_seq'), 0, false, null, true, false, true, 'trade hybrid', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 25, '(description of <b>trade hybrid</b>)', 'trade-hybrid', true),
+(nextval('nsl_global_seq'), 0, false, 'x', true, true, true, 'cultivar hybrid formula', (select id from name_category where name = 'cultivar'), (select id from name_group where name = 'botanical'), false, 19, '(description of <b>cultivar hybrid formula</b>)', 'cultivar-hybrid-formula', false);
 -- reference author role
-INSERT INTO public.ref_author_role (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Unknown', '(description of <b>Unknown</b>)', 'unknown');
-INSERT INTO public.ref_author_role (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Compiler', '(description of <b>Compiler</b>)', 'compiler');
-INSERT INTO public.ref_author_role (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Editor', '(description of <b>Editor</b>)', 'editor');
-INSERT INTO public.ref_author_role (id, lock_version, name, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Author', '(description of <b>Author</b>)', 'author');
+INSERT INTO public.ref_author_role (id, lock_version, name, description_html, rdf_id) VALUES
+(nextval('nsl_global_seq'), 0, 'Unknown', '(description of <b>Unknown</b>)', 'unknown'),
+(nextval('nsl_global_seq'), 0, 'Compiler', '(description of <b>Compiler</b>)', 'compiler'),
+(nextval('nsl_global_seq'), 0, 'Editor', '(description of <b>Editor</b>)', 'editor'),
+(nextval('nsl_global_seq'), 0, 'Author', '(description of <b>Author</b>)', 'author');
 -- reference type
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Personal Communication', null, false, '(description of <b>Personal Communication</b>)', 'personal-communication');
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Series', null, false, '(description of <b>Series</b>)', 'series');
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Journal', null, false, '(description of <b>Journal</b>)', 'journal');
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Index', null, false, '(description of <b>Index</b>)', 'index');
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Herbarium annotation', null, false, '(description of <b>Herbarium annotation</b>)', 'herbarium-annotation');
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Database', null, false, '(description of <b>Database</b>)', 'database');
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Database Record', (select id from ref_type where name = 'Database'), false, '(description of <b>Database Record</b>)', 'database-record');
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Paper', (select id from ref_type where name = 'Journal'), false, '(description of <b>Paper</b>)', 'paper');
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Book', (select id from ref_type where name = 'Series'), true, '(description of <b>Book</b>)', 'book');
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Chapter', (select id from ref_type where name = 'Book'), false, '(description of <b>Chapter</b>)', 'chapter');
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 0, 'Section', (select id from ref_type where name = 'Book'), false, '(description of <b>Section</b>)', 'section');
-INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id) VALUES (nextval('nsl_global_seq'), 1, 'Unknown', null, true, '(description of <b>Unknown</b>)', 'unknown');
+INSERT INTO public.ref_type (id, lock_version, name, parent_id, parent_optional, description_html, rdf_id, use_parent_details) VALUES
+(nextval('nsl_global_seq'), 0, 'Personal Communication', null, false, '(description of <b>Personal Communication</b>)', 'personal-communication', false),
+(nextval('nsl_global_seq'), 0, 'Series', null, false, '(description of <b>Series</b>)', 'series', false),
+(nextval('nsl_global_seq'), 0, 'Journal', null, false, '(description of <b>Journal</b>)', 'journal', false),
+(nextval('nsl_global_seq'), 0, 'Index', null, false, '(description of <b>Index</b>)', 'index', false),
+(nextval('nsl_global_seq'), 0, 'Herbarium annotation', null, false, '(description of <b>Herbarium annotation</b>)', 'herbarium-annotation', false),
+(nextval('nsl_global_seq'), 0, 'Database', null, false, '(description of <b>Database</b>)', 'database', false),
+(nextval('nsl_global_seq'), 0, 'Database Record', (select id from ref_type where name = 'Database'), false, '(description of <b>Database Record</b>)', 'database-record', false),
+(nextval('nsl_global_seq'), 0, 'Paper', (select id from ref_type where name = 'Journal'), false, '(description of <b>Paper</b>)', 'paper', false),
+(nextval('nsl_global_seq'), 0, 'Book', (select id from ref_type where name = 'Series'), true, '(description of <b>Book</b>)', 'book', false),
+(nextval('nsl_global_seq'), 0, 'Section', (select id from ref_type where name = 'Book'), false, '(description of <b>Section</b>)', 'section', false),
+(nextval('nsl_global_seq'), 0, 'Chapter', (select id from ref_type where name = 'Book'), false, '(description of <b>Chapter</b>)', 'chapter', false),
+(nextval('nsl_global_seq'), 0, 'Part', (select id from ref_type where name = 'Paper'), false, '(description of <b>Part</b>)', 'part', true),
+(nextval('nsl_global_seq'), 0, 'Unknown', null, true, '(description of <b>Unknown</b>)', 'unknown', false);
 UPDATE public.ref_type SET parent_id = id WHERE name = 'Unknown'; --self parent
 
 -- set up APC regions
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Western Australia', null, 'WA', 1);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Cocos (Keeling) Islands', null, 'CoI', 2);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Christmas Island', null, 'ChI', 3);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Ashmore Reef', null, 'AR', 4);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Cartier Island', null, 'CaI', 5);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Northern Territory', null, 'NT', 6);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('South Australia', null, 'SA', 7);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Queensland', null, 'Qld', 8);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Coral Sea Islands', null, 'CSI', 9);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('New South Wales', null, 'NSW', 10);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Lord Howe Island', null, 'LHI', 11);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Norfolk Island', null, 'NI', 12);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Australian Capital Australian Capital Territory excl. Jervis Bay', null, 'ACT', 13);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Victoria', null, 'Vic', 14);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Tasmainia', null, 'Tas', 15);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Heard Island', null, 'HI', 16);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('McDonald Island', null, 'MDI', 17);
-INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES ('Macquarie Island', null, 'MI', 18);
+INSERT INTO public.dist_region (description_html, def_link, name, sort_order) VALUES
+('Western Australia', null, 'WA', 1),
+('Cocos (Keeling) Islands', null, 'CoI', 2),
+('Christmas Island', null, 'ChI', 3),
+('Ashmore Reef', null, 'AR', 4),
+('Cartier Island', null, 'CaI', 5),
+('Northern Territory', null, 'NT', 6),
+('South Australia', null, 'SA', 7),
+('Queensland', null, 'Qld', 8),
+('Coral Sea Islands', null, 'CSI', 9),
+('New South Wales', null, 'NSW', 10),
+('Lord Howe Island', null, 'LHI', 11),
+('Norfolk Island', null, 'NI', 12),
+('Australian Capital Australian Capital Territory excl. Jervis Bay', null, 'ACT', 13),
+('Victoria', null, 'Vic', 14),
+('Tasmainia', null, 'Tas', 15),
+('Heard Island', null, 'HI', 16),
+('McDonald Island', null, 'MDI', 17),
+('Macquarie Island', null, 'MI', 18);
 
 -- set up APC statuses
-INSERT INTO public.dist_status (description_html, def_link, name, sort_order) VALUES ('a native taxon that no longer occurs in the given jurisdiction', null, 'presumed extinct', 4);
-INSERT INTO public.dist_status (description_html, def_link, name, sort_order) VALUES ('taxa that are represented by one or more naturalised populations in a given jurisdiction, but the extent of naturalisation is uncertain and populations may or may not persist in the longer term.', null, 'doubtfully naturalised', 3);
-INSERT INTO public.dist_status (description_html, def_link, name, sort_order) VALUES ('non-native or native taxa previously recorded as being naturalised in a given jurisdiction but of which no collections have been made within a defined timeframe.', null, 'formerly naturalised', 2);
-INSERT INTO public.dist_status (description_html, def_link, name, sort_order) VALUES ('<p>plant taxa in a given jurisdiction where:</p>
+INSERT INTO public.dist_status (description_html, def_link, name, sort_order) VALUES
+('a native taxon that no longer occurs in the given jurisdiction', null, 'presumed extinct', 4),
+('taxa that are represented by one or more naturalised populations in a given jurisdiction, but the extent of naturalisation is uncertain and populations may or may not persist in the longer term.', null, 'doubtfully naturalised', 3),
+('non-native or native taxa previously recorded as being naturalised in a given jurisdiction but of which no collections have been made within a defined timeframe.', null, 'formerly naturalised', 2),
+('<p>plant taxa in a given jurisdiction where:</p>
 <ul>
     <li>a native taxon has become naturalised outside of its natural range within that jurisdiction, or;</li>
     <li>a native or non-native taxon that did not originate in a given jurisdiction but has since arrived and become established there.</li>
-</ul>', null, 'naturalised', 1);
-INSERT INTO public.dist_status (description_html, def_link, name, sort_order) VALUES ('“taxa that have originated in a given area without human involvement or that have arrived there without intentional or unintentional intervention of humans from an area in which they are native” (definition from Pysek et al. (2004)).', null, 'native', 0);
-INSERT INTO public.dist_status (description_html, def_link, name, sort_order) VALUES ('For some taxa there is uncertainty as to whether the populations present in a given jurisdiction represent native or naturalised plants or a combination of the two former categories. In these cases, the jurisdiction is listed with the parenthetical qualifier “(uncertain origin)”. Comment fields may be added under the APC reference to indicate the nature of this uncertainty.', null, 'uncertain origin', 5);
+</ul>', null, 'naturalised', 1),
+('“taxa that have originated in a given area without human involvement or that have arrived there without intentional or unintentional intervention of humans from an area in which they are native” (definition from Pysek et al. (2004)).', null, 'native', 0),
+('For some taxa there is uncertainty as to whether the populations present in a given jurisdiction represent native or naturalised plants or a combination of the two former categories. In these cases, the jurisdiction is listed with the parenthetical qualifier “(uncertain origin)”. Comment fields may be added under the APC reference to indicate the nature of this uncertainty.', null, 'uncertain origin', 5);
 
 insert into dist_status_dist_status (dist_status_combining_status_id, dist_status_id)
     (SELECT comb.id, ds.id from dist_status ds, dist_status comb where ds.name = 'naturalised' and comb.name = 'uncertain origin');

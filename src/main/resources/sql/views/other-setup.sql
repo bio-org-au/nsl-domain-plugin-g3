@@ -51,10 +51,6 @@ CREATE INDEX tree_synonyms_index
 -- tree make sure the draft is not also the current version.
 ALTER TABLE tree
     ADD CONSTRAINT draft_not_current CHECK (current_tree_version_id <> default_draft_tree_version_id);
---
-
--- make sure a set of distributions only contains a region once
-alter table dist_entry add constraint de_unique_region unique (region_id, tree_element_id);
 
 -- make sure iso_publication_date is a date
 alter table reference add constraint check_iso_date check(is_iso8601(iso_publication_date));

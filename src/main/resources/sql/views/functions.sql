@@ -13,7 +13,8 @@ select coalesce(
                          left join instance bas_inst
                          join name bas_name on bas_inst.name_id = bas_name.id
                          join instance_type bas_it on bas_inst.instance_type_id = bas_it.id and bas_it.name in ('basionym','replaced synonym')
-                         join instance cit_inst on bas_inst.cites_id = cit_inst.id on bas_inst.cited_by_id = primary_inst.id
+                         join instance cit_inst on bas_inst.cites_id = cit_inst.id
+                              on bas_inst.cited_by_id = primary_inst.id
                          join instance_type primary_it on primary_inst.instance_type_id = primary_it.id and primary_it.primary_instance
                 where primary_inst.name_id = nameid
                 limit 1), nameid);
@@ -469,7 +470,36 @@ group by r.id, iso_date, i.id, it.id, citedby.id
 order by iso_date, it.protologue, it.primary_instance, r.citation, r.pages, i.page, r.id;
 $$;
 
--- get the synonyms of an instance as html to store in the tree in apni synonymy order
+drop function if exists format_isodate(text);
+create function format_isodate(isodate text)
+    returns text
+    language sql
+as
+$$
+with m(k, v) as (values ('', ''),
+                        ('01', 'January'),
+                        ('02', 'February'),
+                        ('03', 'March'),
+                        ('04', 'April'),
+                        ('05', 'May'),
+                        ('06', 'June'),
+                        ('07', 'July'),
+                        ('08', 'August'),
+                        ('09', 'September'),
+                        ('10', 'October'),
+                        ('11', 'November'),
+                        ('12', 'December'))
+select trim(coalesce(day.d, '')  ||
+            ' ' || coalesce(m.v, '') ||
+            ' ' || year)
+from m,
+     (select nullif(split_part(isodate, '-', 3),'')::numeric::text d) day,
+     split_part(isodate, '-', 2) month,
+     split_part(isodate, '-', 1) year
+where m.k = month
+   or (month = '' and m.k = '00')
+$$;
+
 drop function if exists synonym_as_html(bigint);
 create function synonym_as_html(instanceid bigint)
     returns TABLE
@@ -822,19 +852,13 @@ create function distribution(element_id BIGINT)
     returns text
     language sql as
 $$
-select string_agg(entries.entry, ', ')
-from (SELECT case
-                 when status = '' then
-                     dr.name
-                 else
-                             dr.name || ' ' || status
-                 end as entry
-      FROM dist_entry de
-               join dist_region dr on de.region_id = dr.id,
-           dist_entry_status(de.id) status
-      where de.tree_element_id = element_id
-      order by dr.sort_order
-     ) entries
+select string_agg(e.display, ', ') from
+    (select entry.display display
+     from dist_entry entry
+              join dist_region dr on entry.region_id = dr.id
+              join tree_element_distribution_entries tede
+                   on tede.dist_entry_id = entry.id and tede.tree_element_id = element_id
+     order by dr.sort_order) e
 $$;
 
 drop function if exists is_iso8601(varchar);
@@ -852,33 +876,3 @@ exception when others then
     return false;
 end;
 $$ language plpgsql;
-
-drop function if exists format_isodate(text);
-create function format_isodate(isodate text)
-    returns text
-    language sql
-as
-$$
-with m(k, v) as (values ('', ''),
-                        ('01', 'January'),
-                        ('02', 'February'),
-                        ('03', 'March'),
-                        ('04', 'April'),
-                        ('05', 'May'),
-                        ('06', 'June'),
-                        ('07', 'July'),
-                        ('08', 'August'),
-                        ('09', 'September'),
-                        ('10', 'October'),
-                        ('11', 'November'),
-                        ('12', 'December'))
-select trim(coalesce(day.d, '')  ||
-            ' ' || coalesce(m.v, '') ||
-            ' ' || year)
-from m,
-     (select nullif(split_part(isodate, '-', 3),'')::numeric::text d) day,
-     split_part(isodate, '-', 2) month,
-     split_part(isodate, '-', 1) year
-where m.k = month
-   or (month = '' and m.k = '00')
-$$;

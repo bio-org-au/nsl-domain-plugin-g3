@@ -42,7 +42,7 @@ GRANT SELECT ON name_detail_synonyms_vw TO web;
 GRANT SELECT ON name_details_vw TO web;
 GRANT SELECT ON name_detail_commons_vw TO web;
 GRANT SELECT ON name_view TO web;
-GRANT SELECT ON taxon_veiw TO web;
+GRANT SELECT ON taxon_view TO web;
 
 GRANT SELECT ON id_mapper TO read_only;
 GRANT SELECT ON author TO read_only;
