@@ -46,9 +46,10 @@ generate the appropriate sql when the `grails generate-nsl-ddl` command is run. 
 classes,sql and DB schema in sync.
 
  1. make your changes to the grails domain classes in `/grails-app/domain/au/org/biodiversity/nsl`
- 1. preferably test your changes using `gradle install` locally
- 1. run `grails generate-nsl-ddl` to regenerate the /src/main/resources/nsl-ddl.sql file with your changes included
- 1. diff nsl-ddl.sql to extract changes to put into the latest `update-to-nn.sql` file in the `/src/main/resources/sql` directory
+ 2. preferably test your changes using `gradle install` locally
+ 3. run `gradle clean` to remove the old ddl build directory
+ 4. run `grails generate-nsl-ddl` to regenerate the /src/main/resources/nsl-ddl.sql file with your changes included
+ 5. diff nsl-ddl.sql to extract changes to put into the latest `update-to-nn.sql` file in the `/src/main/resources/sql` directory
 
 === What version number
 

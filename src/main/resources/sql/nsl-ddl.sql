@@ -14,7 +14,7 @@ create table id_mapper (id int8 not null, from_id int8 not null, to_id int8, sys
 create table instance (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, nomenclatural_status varchar(50), bhl_url varchar(4000), namespace_id int8 not null, updated_by varchar(1000) not null, source_id_string varchar(100), draft boolean default false not null, page varchar(255), cites_id int8, verbatim_name_string varchar(255), source_id int8, created_at timestamp with time zone not null, page_qualifier varchar(255), cited_by_id int8, name_id int8 not null, updated_at timestamp with time zone not null, source_system varchar(50), created_by varchar(50) not null, instance_type_id int8 not null, cached_synonymy_html text, uri text, valid_record boolean default false not null, parent_id int8, reference_id int8 not null, primary key (id));
 create table instance_note (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, namespace_id int8 not null, updated_by varchar(50) not null, source_id_string varchar(100), source_id int8, created_at timestamp with time zone not null, updated_at timestamp with time zone not null, source_system varchar(50), value varchar(4000) not null, created_by varchar(50) not null, instance_note_key_id int8 not null, instance_id int8 not null, primary key (id));
 create table instance_note_key (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, rdf_id varchar(50), description_html text, sort_order int4 default 0 not null, name varchar(255) not null, deprecated boolean default false not null, primary key (id));
-create table instance_resources (resource_id int8 not null, instance_id int8 not null, primary key (instance_id, resource_id));
+create table instance_resources (instance_id int8 not null, resource_id int8 not null, primary key (instance_id, resource_id));
 create table instance_type (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, rdf_id varchar(50), description_html text, bidirectional boolean default false not null, secondary_instance boolean default false not null, misapplied boolean default false not null, relationship boolean default false not null, unsourced boolean default false not null, synonym boolean default false not null, protologue boolean default false not null, sort_order int4 default 0 not null, primary_instance boolean default false not null, taxonomic boolean default false not null, standalone boolean default false not null, name varchar(255) not null, pro_parte boolean default false not null, nomenclatural boolean default false not null, doubtful boolean default false not null, has_label varchar(255) not null, deprecated boolean default false not null, citing boolean default false not null, of_label varchar(255) not null, primary key (id));
 create table language (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, iso6391code varchar(2), name varchar(50) not null, iso6393code varchar(3) not null, primary key (id));
 create table media (id int8 default nextval('hibernate_sequence') not null, version int8 not null, mime_type text not null, file_name text not null, data bytea not null, description text not null, primary key (id));
@@ -38,7 +38,7 @@ create table shard_config (id int8 default nextval('hibernate_sequence') not nul
 create table site (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, created_at timestamp with time zone not null, url varchar(500) not null, name varchar(100) not null, updated_at timestamp with time zone not null, updated_by varchar(50) not null, created_by varchar(50) not null, description varchar(1000) not null, primary key (id));
 create table tree (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, description_html Text default 'Edit me' not null, link_to_home_page Text, reference_id int8, config jsonb not null, host_name Text not null, current_tree_version_id int8, default_draft_tree_version_id int8, accepted_tree boolean default false not null, name Text not null, group_name Text not null, primary key (id));
 create table tree_element (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, instance_link Text not null, profile jsonb not null, rank varchar(50) not null, name_element varchar(255) not null, previous_element_id int8, updated_by varchar(255) not null, name_link Text not null, display_html Text not null, synonyms jsonb, excluded boolean default false not null, source_shard Text not null, synonyms_html Text not null, updated_at timestamp with time zone not null, simple_name Text not null, instance_id int8 not null, name_id int8 not null, source_element_link Text, primary key (id));
-create table tree_element_distribution_entries (tree_element_id int8 not null, dist_entry_id int8 not null, primary key (tree_element_id, dist_entry_id));
+create table tree_element_distribution_entries (dist_entry_id int8 not null, tree_element_id int8 not null, primary key (tree_element_id, dist_entry_id));
 create table tree_version (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, previous_version_id int8, published_by varchar(100), tree_id int8 not null, published boolean default false not null, published_at timestamp with time zone, created_at timestamp with time zone not null, log_entry Text, created_by varchar(255) not null, draft_name Text not null, primary key (id));
 create table tree_version_element (element_link Text not null, taxon_link Text not null, taxon_id int8 not null, updated_by varchar(255) not null, depth int4 not null, tree_element_id int8 not null, tree_path Text not null, updated_at timestamp with time zone not null, merge_conflict boolean default false not null, name_path Text not null, tree_version_id int8 not null, parent_id Text, primary key (element_link));
 create index Auth_Source_Index on author (namespace_id, source_id, source_system);
@@ -147,8 +147,8 @@ alter table if exists instance add constraint FKjnyycl6cw6g735jm9sw4g6070 foreig
 alter table if exists instance_note add constraint FKkye1i1nnvmge7047asc87em0o foreign key (namespace_id) references namespace;
 alter table if exists instance_note add constraint FKjshle8hwjkavnc6pqtbnnbwn0 foreign key (instance_note_key_id) references instance_note_key;
 alter table if exists instance_note add constraint FK3fpit98cinx5n0u1dhukti5b0 foreign key (instance_id) references instance;
-alter table if exists instance_resources add constraint FKd0retp8swqg9r1cobg8803r8f foreign key (instance_id) references instance;
 alter table if exists instance_resources add constraint FKaf34bw8h0shwdbme57amud7ca foreign key (resource_id) references resource;
+alter table if exists instance_resources add constraint FKd0retp8swqg9r1cobg8803r8f foreign key (instance_id) references instance;
 alter table if exists name add constraint FKdtalpdbwhlb1d96ajjf7qtvxv foreign key (family_id) references name;
 alter table if exists name add constraint FK2dc7phc3mx5vbtjk1v895ia4e foreign key (duplicate_of_id) references name;
 alter table if exists name add constraint FK8sowuvuepistgxb4vrhdl9fi9 foreign key (sanctioning_author_id) references author;
@@ -186,8 +186,8 @@ alter table if exists resource_type add constraint FKlktm0acyftrbx76swnuhyaey6 f
 alter table if exists tree add constraint FKevwmdnjbrryqh2w39lmf1mgap foreign key (current_tree_version_id) references tree_version;
 alter table if exists tree add constraint FKsojbhasi69wky2t75ak2x08cq foreign key (default_draft_tree_version_id) references tree_version;
 alter table if exists tree_element add constraint FKsybibf7p563u984r0jy3ryslb foreign key (previous_element_id) references tree_element;
-alter table if exists tree_element_distribution_entries add constraint FKskod03l7q1b16n01sx6u7s7om foreign key (dist_entry_id) references dist_entry;
 alter table if exists tree_element_distribution_entries add constraint FK2ligrmtx0lsevxakkmw4r782l foreign key (tree_element_id) references tree_element;
+alter table if exists tree_element_distribution_entries add constraint FKskod03l7q1b16n01sx6u7s7om foreign key (dist_entry_id) references dist_entry;
 alter table if exists tree_version add constraint FKnj28y8aqmyq45vhbwt5xqn28w foreign key (previous_version_id) references tree_version;
 alter table if exists tree_version add constraint FKa1nt4892e09kv1mb6r5snofff foreign key (tree_id) references tree;
 alter table if exists tree_version_element add constraint FKpahqiiilyjisux0c8y79gcq1s foreign key (tree_element_id) references tree_element;
@@ -691,175 +691,176 @@ $$;
 CREATE MATERIALIZED VIEW taxon_view AS
 
     -- synonyms bit
-    (SELECT (syn ->> 'host') || (syn ->> 'instance_link')                                                      AS "taxonID",
-            acc_nt.name                                                                                     AS "nameType",
-            tree.host_name || tve.element_link                                                              AS "acceptedNameUsageID",
-            acc_name.full_name                                                                              AS "acceptedNameUsage",
-            CASE
-                WHEN acc_ns.name NOT IN ('legitimate', '[default]')
-                    THEN acc_ns.name
-                ELSE NULL END                                                                               AS "nomenclaturalStatus",
-            (syn ->> 'type')                                                                                AS "taxonomicStatus",
-            (syn ->> 'type' ~ 'parte')                                                                      AS "proParte",
-            syn_name.full_name                                                                              AS "scientificName",
-            (syn ->> 'host') || (syn ->> 'name_link')                                                       AS "scientificNameID",
-            syn_name.simple_name                                                                            AS "canonicalName",
-            CASE
-                WHEN syn_nt.autonym
-                    THEN NULL
-                ELSE regexp_replace(substring(syn_name.full_name_html FROM '<authors>(.*)</authors>'), '<[^>]*>', '',
-                                    'g')
-                END                                                                                         AS "scientificNameAuthorship",
-            -- only in accepted names
-            NULL                                                                                            AS "parentNameUsageID",
-            syn_rank.name                                                                                   AS "taxonRank",
-            syn_rank.sort_order                                                                             AS "taxonRankSortOrder",
-            (SELECT name_element
-             FROM find_tree_rank(tve.element_link, 10)
-             ORDER BY sort_order ASC
-             LIMIT 1)                                                                                       AS "kingdom",
-            -- the below works but is a little slow
-            -- find another efficient way to do it.
-            (SELECT name_element FROM find_tree_rank(tve.element_link, 30) ORDER BY sort_order ASC LIMIT 1) AS "class",
-            (SELECT name_element
-             FROM find_tree_rank(tve.element_link, 40)
-             ORDER BY sort_order ASC
-             LIMIT 1)                                                                                       AS "subclass",
-            (SELECT name_element FROM find_tree_rank(tve.element_link, 80) ORDER BY sort_order ASC LIMIT 1) AS "family",
-            syn_name.created_at                                                                             AS "created",
-            syn_name.updated_at                                                                             AS "modified",
-            tree.name                                                                                       AS "datasetName",
-            (syn ->> 'host') || (syn ->> 'concept_link')                                                    AS "taxonConceptID",
-            (syn ->> 'cites')                                                                               AS "nameAccordingTo",
-            (syn ->> 'host') || (syn ->> 'cites_link')                                                      AS "nameAccordingToID",
-            profile -> (tree.config ->> 'comment_key') ->> 'value'                                          AS "taxonRemarks",
-            profile -> (tree.config ->> 'distribution_key') ->> 'value'                                     AS "taxonDistribution",
-            -- todo check this is ok for synonyms
-            regexp_replace(tve.name_path, '/', '|', 'g')                                                    AS "higherClassification",
-            CASE
-                WHEN firstHybridParent.id IS NOT NULL
-                    THEN firstHybridParent.full_name
-                ELSE NULL END                                                                               AS "firstHybridParentName",
-            CASE
-                WHEN firstHybridParent.id IS NOT NULL
-                    THEN tree.host_name || '/' || firstHybridParent.uri
-                ELSE NULL END                                                                               AS "firstHybridParentNameID",
-            CASE
-                WHEN secondHybridParent.id IS NOT NULL
-                    THEN secondHybridParent.full_name
-                ELSE NULL END                                                                               AS "secondHybridParentName",
-            CASE
-                WHEN secondHybridParent.id IS NOT NULL
-                    THEN tree.host_name || '/' || secondHybridParent.uri
-                ELSE NULL END                                                                               AS "secondHybridParentNameID",
-            -- boiler plate stuff at the end of the record
-            (select coalesce((SELECT value FROM shard_config WHERE name = 'nomenclatural code'),
-                             'ICN')) :: TEXT                                                                AS "nomenclaturalCode",
-            'http://creativecommons.org/licenses/by/3.0/' :: TEXT                                           AS "license",
-            (syn ->> 'host') || (syn ->> 'instance_link')                                                   AS "ccAttributionIRI"
-     FROM tree_version_element tve
-              JOIN tree ON tve.tree_version_id = tree.current_tree_version_id AND tree.accepted_tree = TRUE
-              JOIN tree_element te ON tve.tree_element_id = te.id
-              JOIN instance acc_inst ON te.instance_id = acc_inst.id
-              JOIN instance_type acc_it ON acc_inst.instance_type_id = acc_it.id
-              JOIN reference acc_ref ON acc_inst.reference_id = acc_ref.id
-              JOIN NAME acc_name ON te.name_id = acc_name.id
-              JOIN name_type acc_nt ON acc_name.name_type_id = acc_nt.id
-              JOIN name_status acc_ns ON acc_name.name_status_id = acc_ns.id,
-          jsonb_array_elements(synonyms -> 'list') syn
-              JOIN NAME syn_name ON syn_name.id = (syn ->> 'name_id') :: NUMERIC :: BIGINT
-              JOIN name_rank syn_rank ON syn_name.name_rank_id = syn_rank.id
-              JOIN name_type syn_nt ON syn_name.name_type_id = syn_nt.id
-              LEFT OUTER JOIN NAME firstHybridParent ON syn_name.parent_id = firstHybridParent.id AND syn_nt.hybrid
-              LEFT OUTER JOIN NAME secondHybridParent
-                              ON syn_name.second_parent_id = secondHybridParent.id AND syn_nt.hybrid
-     UNION
-     -- The accepted names bit
-     SELECT tree.host_name || tve.element_link                                                              AS "taxonID",
-            acc_nt.name                                                                                     AS "nameType",
-            tree.host_name || tve.element_link                                                              AS "acceptedNameUsageID",
-            acc_name.full_name                                                                              AS "acceptedNameUsage",
-            CASE
-                WHEN acc_ns.name NOT IN ('legitimate', '[default]')
-                    THEN acc_ns.name
-                ELSE NULL END                                                                               AS "nomenclaturalStatus",
-            CASE
-                WHEN te.excluded
-                    THEN 'excluded'
-                ELSE 'accepted'
-                END                                                                                         AS "taxonomicStatus",
-            FALSE                                                                                           AS "proParte",
-            acc_name.full_name                                                                              AS "scientificName",
-            te.name_link                                                                                    AS "scientificNameID",
-            acc_name.simple_name                                                                            AS "canonicalName",
-            CASE
-                WHEN acc_nt.autonym
-                    THEN NULL
-                ELSE regexp_replace(substring(acc_name.full_name_html FROM '<authors>(.*)</authors>'), '<[^>]*>', '',
-                                    'g')
-                END                                                                                         AS "scientificNameAuthorship",
-            tree.host_name || tve.parent_id                                                                 AS "parentNameUsageID",
-            te.rank                                                                                         AS "taxonRank",
-            acc_rank.sort_order                                                                             AS "taxonRankSortOrder",
-            (SELECT name_element
-             FROM find_tree_rank(tve.element_link, 10)
-             ORDER BY sort_order ASC
-             LIMIT 1)                                                                                       AS "kingdom",
-            -- the below works but is a little slow
-            -- find another efficient way to do it.
-            (SELECT name_element FROM find_tree_rank(tve.element_link, 30) ORDER BY sort_order ASC LIMIT 1) AS "class",
-            (SELECT name_element
-             FROM find_tree_rank(tve.element_link, 40)
-             ORDER BY sort_order ASC
-             LIMIT 1)                                                                                       AS "subclass",
-            (SELECT name_element FROM find_tree_rank(tve.element_link, 80) ORDER BY sort_order ASC LIMIT 1) AS "family",
-            acc_name.created_at                                                                             AS "created",
-            acc_name.updated_at                                                                             AS "modified",
-            tree.name                                                                                       AS "datasetName",
-            te.instance_link                                                                                AS "taxonConceptID",
-            acc_ref.citation                                                                                AS "nameAccordingTo",
-            tree.host_name || '/reference/' || lower(name_space.value) || '/' ||
-            acc_ref.id                                                                                      AS "nameAccordingToID",
-            profile -> (tree.config ->> 'comment_key') ->> 'value'                                          AS "taxonRemarks",
-            profile -> (tree.config ->> 'distribution_key') ->> 'value'                                     AS "taxonDistribution",
-            -- todo check this is ok for synonyms
-            regexp_replace(tve.name_path, '/', '|', 'g')                                                    AS "higherClassification",
-            CASE
-                WHEN firstHybridParent.id IS NOT NULL
-                    THEN firstHybridParent.full_name
-                ELSE NULL END                                                                               AS "firstHybridParentName",
-            CASE
-                WHEN firstHybridParent.id IS NOT NULL
-                    THEN tree.host_name || '/' || firstHybridParent.uri
-                ELSE NULL END                                                                               AS "firstHybridParentNameID",
-            CASE
-                WHEN secondHybridParent.id IS NOT NULL
-                    THEN secondHybridParent.full_name
-                ELSE NULL END                                                                               AS "secondHybridParentName",
-            CASE
-                WHEN secondHybridParent.id IS NOT NULL
-                    THEN tree.host_name || '/' || secondHybridParent.uri
-                ELSE NULL END                                                                               AS "secondHybridParentNameID",
-            -- boiler plate stuff at the end of the record
-            (select coalesce((SELECT value FROM shard_config WHERE name = 'nomenclatural code'),
-                             'ICN')) :: TEXT                                                                AS "nomenclaturalCode",
-            'http://creativecommons.org/licenses/by/3.0/' :: TEXT                                           AS "license",
-            tree.host_name || tve.element_link                                                              AS "ccAttributionIRI"
-     FROM tree_version_element tve
-              JOIN tree ON tve.tree_version_id = tree.current_tree_version_id AND tree.accepted_tree = TRUE
-              JOIN tree_element te ON tve.tree_element_id = te.id
-              JOIN instance acc_inst ON te.instance_id = acc_inst.id
-              JOIN instance_type acc_it ON acc_inst.instance_type_id = acc_it.id
-              JOIN reference acc_ref ON acc_inst.reference_id = acc_ref.id
-              JOIN NAME acc_name ON te.name_id = acc_name.id
-              JOIN name_type acc_nt ON acc_name.name_type_id = acc_nt.id
-              JOIN name_status acc_ns ON acc_name.name_status_id = acc_ns.id
-              JOIN name_rank acc_rank ON acc_name.name_rank_id = acc_rank.id
-              LEFT OUTER JOIN NAME firstHybridParent ON acc_name.parent_id = firstHybridParent.id AND acc_nt.hybrid
-              LEFT OUTER JOIN NAME secondHybridParent
-                              ON acc_name.second_parent_id = secondHybridParent.id AND acc_nt.hybrid
-              LEFT OUTER JOIN shard_config name_space on name_space.name = 'name space'
-     ORDER BY "higherClassification");
+(
+SELECT (syn ->> 'host') || (syn ->> 'instance_link')                                                   AS "taxonID",
+       acc_nt.name                                                                                     AS "nameType",
+       tree.host_name || tve.taxon_link                                                                AS "acceptedNameUsageID",
+       acc_name.full_name                                                                              AS "acceptedNameUsage",
+       CASE
+           WHEN acc_ns.name NOT IN ('legitimate', '[default]')
+               THEN acc_ns.name
+           ELSE NULL END                                                                               AS "nomenclaturalStatus",
+       (syn ->> 'type')                                                                                AS "taxonomicStatus",
+       (syn ->> 'type' ~ 'parte')                                                                      AS "proParte",
+       syn_name.full_name                                                                              AS "scientificName",
+       (syn ->> 'host') || (syn ->> 'name_link')                                                       AS "scientificNameID",
+       syn_name.simple_name                                                                            AS "canonicalName",
+       CASE
+           WHEN syn_nt.autonym
+               THEN NULL
+           ELSE regexp_replace(substring(syn_name.full_name_html FROM '<authors>(.*)</authors>'), '<[^>]*>', '',
+                               'g')
+           END                                                                                         AS "scientificNameAuthorship",
+       -- only in accepted names
+       NULL                                                                                            AS "parentNameUsageID",
+       syn_rank.name                                                                                   AS "taxonRank",
+       syn_rank.sort_order                                                                             AS "taxonRankSortOrder",
+       (SELECT name_element
+        FROM find_tree_rank(tve.element_link, 10)
+        ORDER BY sort_order ASC
+        LIMIT 1)                                                                                       AS "kingdom",
+       -- the below works but is a little slow
+       -- find another efficient way to do it.
+       (SELECT name_element FROM find_tree_rank(tve.element_link, 30) ORDER BY sort_order ASC LIMIT 1) AS "class",
+       (SELECT name_element
+        FROM find_tree_rank(tve.element_link, 40)
+        ORDER BY sort_order ASC
+        LIMIT 1)                                                                                       AS "subclass",
+       (SELECT name_element FROM find_tree_rank(tve.element_link, 80) ORDER BY sort_order ASC LIMIT 1) AS "family",
+       syn_name.created_at                                                                             AS "created",
+       syn_name.updated_at                                                                             AS "modified",
+       tree.name                                                                                       AS "datasetName",
+       (syn ->> 'host') || (syn ->> 'concept_link')                                                    AS "taxonConceptID",
+       (syn ->> 'cites')                                                                               AS "nameAccordingTo",
+       (syn ->> 'host') || (syn ->> 'cites_link')                                                      AS "nameAccordingToID",
+       profile -> (tree.config ->> 'comment_key') ->> 'value'                                          AS "taxonRemarks",
+       profile -> (tree.config ->> 'distribution_key') ->> 'value'                                     AS "taxonDistribution",
+       -- todo check this is ok for synonyms
+       regexp_replace(tve.name_path, '/', '|', 'g')                                                    AS "higherClassification",
+       CASE
+           WHEN firstHybridParent.id IS NOT NULL
+               THEN firstHybridParent.full_name
+           ELSE NULL END                                                                               AS "firstHybridParentName",
+       CASE
+           WHEN firstHybridParent.id IS NOT NULL
+               THEN tree.host_name || '/' || firstHybridParent.uri
+           ELSE NULL END                                                                               AS "firstHybridParentNameID",
+       CASE
+           WHEN secondHybridParent.id IS NOT NULL
+               THEN secondHybridParent.full_name
+           ELSE NULL END                                                                               AS "secondHybridParentName",
+       CASE
+           WHEN secondHybridParent.id IS NOT NULL
+               THEN tree.host_name || '/' || secondHybridParent.uri
+           ELSE NULL END                                                                               AS "secondHybridParentNameID",
+       -- boiler plate stuff at the end of the record
+       (select coalesce((SELECT value FROM shard_config WHERE name = 'nomenclatural code'),
+                        'ICN')) :: TEXT                                                                AS "nomenclaturalCode",
+       'http://creativecommons.org/licenses/by/3.0/' :: TEXT                                           AS "license",
+       (syn ->> 'host') || (syn ->> 'instance_link')                                                   AS "ccAttributionIRI"
+FROM tree_version_element tve
+         JOIN tree ON tve.tree_version_id = tree.current_tree_version_id AND tree.accepted_tree = TRUE
+         JOIN tree_element te ON tve.tree_element_id = te.id
+         JOIN instance acc_inst ON te.instance_id = acc_inst.id
+         JOIN instance_type acc_it ON acc_inst.instance_type_id = acc_it.id
+         JOIN reference acc_ref ON acc_inst.reference_id = acc_ref.id
+         JOIN NAME acc_name ON te.name_id = acc_name.id
+         JOIN name_type acc_nt ON acc_name.name_type_id = acc_nt.id
+         JOIN name_status acc_ns ON acc_name.name_status_id = acc_ns.id,
+     jsonb_array_elements(synonyms -> 'list') syn
+         JOIN NAME syn_name ON syn_name.id = (syn ->> 'name_id') :: NUMERIC :: BIGINT
+         JOIN name_rank syn_rank ON syn_name.name_rank_id = syn_rank.id
+         JOIN name_type syn_nt ON syn_name.name_type_id = syn_nt.id
+         LEFT OUTER JOIN NAME firstHybridParent ON syn_name.parent_id = firstHybridParent.id AND syn_nt.hybrid
+         LEFT OUTER JOIN NAME secondHybridParent
+                         ON syn_name.second_parent_id = secondHybridParent.id AND syn_nt.hybrid
+UNION
+-- The accepted names bit
+SELECT tree.host_name || tve.taxon_link                                                                AS "taxonID",
+       acc_nt.name                                                                                     AS "nameType",
+       tree.host_name || tve.taxon_link                                                                AS "acceptedNameUsageID",
+       acc_name.full_name                                                                              AS "acceptedNameUsage",
+       CASE
+           WHEN acc_ns.name NOT IN ('legitimate', '[default]')
+               THEN acc_ns.name
+           ELSE NULL END                                                                               AS "nomenclaturalStatus",
+       CASE
+           WHEN te.excluded
+               THEN 'excluded'
+           ELSE 'accepted'
+           END                                                                                         AS "taxonomicStatus",
+       FALSE                                                                                           AS "proParte",
+       acc_name.full_name                                                                              AS "scientificName",
+       te.name_link                                                                                    AS "scientificNameID",
+       acc_name.simple_name                                                                            AS "canonicalName",
+       CASE
+           WHEN acc_nt.autonym
+               THEN NULL
+           ELSE regexp_replace(substring(acc_name.full_name_html FROM '<authors>(.*)</authors>'), '<[^>]*>', '',
+                               'g')
+           END                                                                                         AS "scientificNameAuthorship",
+       tree.host_name || tve.parent_id                                                                 AS "parentNameUsageID",
+       te.rank                                                                                         AS "taxonRank",
+       acc_rank.sort_order                                                                             AS "taxonRankSortOrder",
+       (SELECT name_element
+        FROM find_tree_rank(tve.element_link, 10)
+        ORDER BY sort_order ASC
+        LIMIT 1)                                                                                       AS "kingdom",
+       -- the below works but is a little slow
+       -- find another efficient way to do it.
+       (SELECT name_element FROM find_tree_rank(tve.element_link, 30) ORDER BY sort_order ASC LIMIT 1) AS "class",
+       (SELECT name_element
+        FROM find_tree_rank(tve.element_link, 40)
+        ORDER BY sort_order ASC
+        LIMIT 1)                                                                                       AS "subclass",
+       (SELECT name_element FROM find_tree_rank(tve.element_link, 80) ORDER BY sort_order ASC LIMIT 1) AS "family",
+       acc_name.created_at                                                                             AS "created",
+       acc_name.updated_at                                                                             AS "modified",
+       tree.name                                                                                       AS "datasetName",
+       te.instance_link                                                                                AS "taxonConceptID",
+       acc_ref.citation                                                                                AS "nameAccordingTo",
+       tree.host_name || '/reference/' || lower(name_space.value) || '/' ||
+       acc_ref.id                                                                                      AS "nameAccordingToID",
+       profile -> (tree.config ->> 'comment_key') ->> 'value'                                          AS "taxonRemarks",
+       profile -> (tree.config ->> 'distribution_key') ->> 'value'                                     AS "taxonDistribution",
+       -- todo check this is ok for synonyms
+       regexp_replace(tve.name_path, '/', '|', 'g')                                                    AS "higherClassification",
+       CASE
+           WHEN firstHybridParent.id IS NOT NULL
+               THEN firstHybridParent.full_name
+           ELSE NULL END                                                                               AS "firstHybridParentName",
+       CASE
+           WHEN firstHybridParent.id IS NOT NULL
+               THEN tree.host_name || '/' || firstHybridParent.uri
+           ELSE NULL END                                                                               AS "firstHybridParentNameID",
+       CASE
+           WHEN secondHybridParent.id IS NOT NULL
+               THEN secondHybridParent.full_name
+           ELSE NULL END                                                                               AS "secondHybridParentName",
+       CASE
+           WHEN secondHybridParent.id IS NOT NULL
+               THEN tree.host_name || '/' || secondHybridParent.uri
+           ELSE NULL END                                                                               AS "secondHybridParentNameID",
+       -- boiler plate stuff at the end of the record
+       (select coalesce((SELECT value FROM shard_config WHERE name = 'nomenclatural code'),
+                        'ICN')) :: TEXT                                                                AS "nomenclaturalCode",
+       'http://creativecommons.org/licenses/by/3.0/' :: TEXT                                           AS "license",
+       tree.host_name || tve.element_link                                                              AS "ccAttributionIRI"
+FROM tree_version_element tve
+         JOIN tree ON tve.tree_version_id = tree.current_tree_version_id AND tree.accepted_tree = TRUE
+         JOIN tree_element te ON tve.tree_element_id = te.id
+         JOIN instance acc_inst ON te.instance_id = acc_inst.id
+         JOIN instance_type acc_it ON acc_inst.instance_type_id = acc_it.id
+         JOIN reference acc_ref ON acc_inst.reference_id = acc_ref.id
+         JOIN NAME acc_name ON te.name_id = acc_name.id
+         JOIN name_type acc_nt ON acc_name.name_type_id = acc_nt.id
+         JOIN name_status acc_ns ON acc_name.name_status_id = acc_ns.id
+         JOIN name_rank acc_rank ON acc_name.name_rank_id = acc_rank.id
+         LEFT OUTER JOIN NAME firstHybridParent ON acc_name.parent_id = firstHybridParent.id AND acc_nt.hybrid
+         LEFT OUTER JOIN NAME secondHybridParent
+                         ON acc_name.second_parent_id = secondHybridParent.id AND acc_nt.hybrid
+         LEFT OUTER JOIN shard_config name_space on name_space.name = 'name space'
+ORDER BY "higherClassification");
 
 comment on materialized view taxon_view is 'The Taxon View provides a complete list of Names and their synonyms accepted by CHAH in Australia.';
 comment on column taxon_view."taxonomicStatus" is 'Is this name accepted, excluded or a synonym of an accepted name.';
