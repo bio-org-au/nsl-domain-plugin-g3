@@ -133,8 +133,7 @@ FROM tree_version_element tve
          LEFT OUTER JOIN NAME firstHybridParent ON syn_name.parent_id = firstHybridParent.id AND syn_nt.hybrid
          LEFT OUTER JOIN NAME secondHybridParent
                          ON syn_name.second_parent_id = secondHybridParent.id AND syn_nt.hybrid
-UNION
--- The accepted names bit
+UNION -- The accepted names bit
 SELECT tree.host_name || tve.taxon_link                                                                AS "taxonID",
        acc_nt.name                                                                                     AS "nameType",
        tree.host_name || tve.taxon_link                                                                AS "acceptedNameUsageID",
