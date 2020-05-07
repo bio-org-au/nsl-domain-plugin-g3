@@ -36,7 +36,8 @@ SELECT w.name_element,
        w.rank,
        w.sort_order
 FROM walk w
-WHERE w.sort_order = rank_sort_order
+WHERE w.sort_order >= rank_sort_order
+order by w.sort_order asc
 limit 1
 $$;
 

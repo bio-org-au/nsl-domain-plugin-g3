@@ -63,6 +63,9 @@ The simplest way to make the update sql is the re-generate the DDL from grails u
 
 `grails generate-nsl-ddl`
 
+WARNING: You should run `grails clean` before doing `grails generate-nsl-ddl` or you may end up with the hibernate generated
+ddl in there twice.
+
 and `diff` the result to see what needs to be changed.
 
 When starting off with a fresh NSL shard it's probably best to execute the nsl-ddl.sql file against your database 
