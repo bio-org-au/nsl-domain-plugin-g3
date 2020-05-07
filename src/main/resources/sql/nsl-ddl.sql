@@ -694,7 +694,7 @@ CREATE MATERIALIZED VIEW taxon_view AS
     -- synonyms bit
 (
 SELECT (syn ->> 'host') || (syn ->> 'instance_link')                                                   AS "taxonID",
-       acc_nt.name                                                                                     AS "nameType",
+       syn_nt.name                                                                                     AS "nameType",
        tree.host_name || tve.taxon_link                                                                AS "acceptedNameUsageID",
        acc_name.full_name                                                                              AS "acceptedNameUsage",
        CASE
