@@ -449,6 +449,9 @@ WHERE (EXISTS(SELECT 1
               WHERE (instance.name_id = n.id)))
 ORDER BY n.sort_name;
 
+GRANT SELECT ON taxon_view to ${webUserName};
+GRANT SELECT ON name_view to ${webUserName};
+
 -- version
 UPDATE db_version
 SET version = 37
