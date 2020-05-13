@@ -452,6 +452,10 @@ ORDER BY n.sort_name;
 GRANT SELECT ON taxon_view to ${webUserName};
 GRANT SELECT ON name_view to ${webUserName};
 
+-- NSL-3559 make sure reference parent can't be itself.
+alter table if exists reference drop constraint if exists parent_not_self;
+ALTER TABLE reference add constraint parent_not_self CHECK ( parent_id <> id );
+
 -- version
 UPDATE db_version
 SET version = 37
