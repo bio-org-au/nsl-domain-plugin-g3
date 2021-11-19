@@ -29,7 +29,7 @@ class TreeElement {
     String updatedBy
     Timestamp updatedAt
 
-    static hasMany = [treeVersionElements: TreeVersionElement, distributionEntries: DistEntry]
+    static hasMany = [treeVersionElements: TreeVersionElement, distributionEntries: TreeElementDistEntry]
 
     static mapping = {
 
