@@ -59,7 +59,7 @@ drwxrwxr-x. 2 mo mo 4096 Jun 29 11:48 3.1.21-SNAPSHOT  # Current version
 -rw-rw-r--. 1 mo mo  553 Nov 23 09:48 maven-metadata-local.xml
 ----
 
-If you run into issues, checkout our known issues link:#_known_issues[section]
+If you run into issues, checkout our known issues link:#known-issues[section]
 
 === Considerations
 
