@@ -18,6 +18,49 @@ image:https://travis-ci.org/bio-org-au/nsl-domain-plugin-g3.svg?branch=master["B
 
 == Grails 3 nsl-domain-plugin
 
+=== Getting Started
+
+=== Build
+
+. To build the plugin you need a database called `nslimport`
+. To install the plugin you need grails3 and Java 8
+
+[source,bash]
+----
+~/IdeaProjects/NSL/nsl-domain-plugin-g3$ grails --version
+| Grails Version: 3.3.10
+| JVM Version: 1.8.0_232
+----
+
+[source, sql]
+----
+-- Create role and database from sql prompt
+CREATE ROLE nsldev with LOGIN PASSWORD 'nsldev';
+CREATE DATABASE nslimport WITH OWNER nsldev;
+----
+
+=== Install
+
+. With that in place, you can now run `./gradlew build` from the project root
+. Once that succeeds, you can install the plugin using the command `grails install`
+. This installs the plugin in the maven directory as below
+
+[source,bash]
+----
+mo@local:~/nsl-domain-plugin-g3$ ls -l ~/.m2/repository/au/org/biodiversity/grails/plugins/nsl-domain-plugin-g3
+total 32
+drwxrwxr-x. 2 mo mo 4096 Jun 17  2019 1.17-SNAPSHOT
+drwxrwxr-x. 2 mo mo 4096 Jul 25  2019 1.18-SNAPSHOT
+drwxrwxr-x. 2 mo mo 4096 Aug  9  2019 1.19-SNAPSHOT
+drwxrwxr-x. 2 mo mo 4096 Aug 14  2019 1.19.SNAPSHOT
+drwxrwxr-x. 2 mo mo 4096 Aug 27  2019 3.1.19-SNAPSHOT
+drwxrwxr-x. 2 mo mo 4096 Sep  2  2019 3.1.20-SNAPSHOT
+drwxrwxr-x. 2 mo mo 4096 Jun 29 11:48 3.1.21-SNAPSHOT  # Current version
+-rw-rw-r--. 1 mo mo  553 Nov 23 09:48 maven-metadata-local.xml
+----
+
+If you run into issues, checkout our known issues link:#known-issues[section]
+
 === Considerations
 
 When making schema changes we have to consider two cases:
@@ -145,3 +188,63 @@ NOTE: No releases have been pushed yet for G3. We will add a separate travis.yml
 * use psql to run the nsl-ddl.sql command (in `src/main/resources/sql`)
 
 `creatdb mynsl && psql -f nsl-ddl.sql mynsl`
+
+=== Known Issues
+
+You might get the below error when you run `grails install`
+
+==== Symptom: No profile found for name [web-plugin]
+
+[source,groovy]
+----
+$ grails install --stacktrace
+| Error Error occurred running Grails CLI: No profile found for name [web-plugin]. (NOTE: Stack trace has been filtered. Use --verbose to see entire trace.)
+java.lang.IllegalStateException: No profile found for name [web-plugin].
+	at org.grails.cli.GrailsCli.initializeProfile(GrailsCli.groovy:518)
+	at org.grails.cli.GrailsCli.initializeApplication(GrailsCli.groovy:306)
+	at org.grails.cli.GrailsCli.execute(GrailsCli.groovy:269)
+	at org.grails.cli.GrailsCli.main(GrailsCli.groovy:159)
+| Error Error occurred running Grails CLI: No profile found for name [web-plugin].
+----
+
+==== Fix: Run gradle clean task
+
+[source,bash]
+----
+$ ./gradlew clean
+user null
+:clean
+
+$ ./gradlew install
+user null
+:generatePomFileForMavenPublication
+:compileAstJava NO-SOURCE
+:compileAstGroovy NO-SOURCE
+:processAstResources NO-SOURCE
+:astClasses UP-TO-DATE
+:compileJava NO-SOURCE
+:configScript
+:compileGroovy
+:copyAstClasses NO-SOURCE
+:assetPluginPackage
+:copyCommands
+:copyTemplates NO-SOURCE
+:processResources
+:classes
+:compileWebappGroovyPages NO-SOURCE
+:compileGroovyPages
+:jar
+:groovydoc
+Trying to override old definition of task fileScanner
+[ant:groovydoc] Resource org/codehaus/groovy/tools/groovy.ico not found so skipped
+:javadoc
+:javadocJar
+:sourcesJar
+:publishMavenPublicationToMavenLocal
+:publishToMavenLocal
+:install
+
+BUILD SUCCESSFUL
+
+Total time: 16.441 secs
+----
