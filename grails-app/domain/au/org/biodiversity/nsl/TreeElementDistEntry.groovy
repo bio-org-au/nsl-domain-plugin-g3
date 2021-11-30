@@ -2,7 +2,7 @@ package au.org.biodiversity.nsl
 
 import java.sql.Timestamp
 
-class TreeElementDistEntry implements Serializable {
+class TreeElementDistEntry {
     String updatedBy
     Timestamp updatedAt
 
