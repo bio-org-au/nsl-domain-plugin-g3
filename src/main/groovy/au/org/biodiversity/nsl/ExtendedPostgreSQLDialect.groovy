@@ -14,10 +14,10 @@ import java.sql.Types
 class ExtendedPostgreSQLDialect extends PostgreSQL9Dialect {
     ExtendedPostgreSQLDialect() {
         super()
-        registerFunction("regex", new SQLFunctionTemplate(StandardBasicTypes.BOOLEAN, "(unaccent(?1) ~ unaccent(?2))"))
-        registerFunction("iregex", new SQLFunctionTemplate(StandardBasicTypes.BOOLEAN, "(unaccent(?1) ~* unaccent(?2))"))
-        registerFunction("not_regex", new SQLFunctionTemplate(StandardBasicTypes.BOOLEAN, "(unaccent(?1) !~ unaccent(?2))"))
-        registerFunction("not_iregex", new SQLFunctionTemplate(StandardBasicTypes.BOOLEAN, "(unaccent(?1) !~* unaccent(?2))"))
+        registerFunction("regex", new SQLFunctionTemplate(StandardBasicTypes.BOOLEAN, "(lower(f_unaccent(?1)) ~ lower(f_unaccent(?2)))"))
+        registerFunction("iregex", new SQLFunctionTemplate(StandardBasicTypes.BOOLEAN, "(lower(f_unaccent(?1)) ~* lower(f_unaccent(?2)))"))
+        registerFunction("not_regex", new SQLFunctionTemplate(StandardBasicTypes.BOOLEAN, "(lower(f_unaccent(?1)) !~ lower(f_unaccent(?2)))"))
+        registerFunction("not_iregex", new SQLFunctionTemplate(StandardBasicTypes.BOOLEAN, "(lower(f_unaccent(?1)) !~* lower(f_unaccent(?2)))"))
         registerColumnType(Types.ARRAY, 'array')
         registerColumnType(ArrayType.LONG_ARRAY, '_int8')
         registerColumnType(ArrayType.INTEGER_ARRAY, '_int4')
