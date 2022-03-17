@@ -17,7 +17,7 @@ package au.org.biodiversity.nsl
 
 import groovy.transform.ToString
 
-@ToString(includes = "name")
+@ToString(includes = "display")
 class DistEntry {
 
     DistRegion region
