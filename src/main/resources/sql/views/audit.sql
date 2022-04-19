@@ -56,7 +56,8 @@ CREATE TABLE audit.logged_actions (
   action TEXT NOT NULL CHECK (action IN ('I','D','U', 'T')),
   row_data hstore,
   changed_fields hstore,
-  statement_only boolean not null
+  statement_only boolean not null,
+  id int8
 );
 
 REVOKE ALL ON audit.logged_actions FROM public;
@@ -84,7 +85,7 @@ CREATE INDEX logged_actions_relid_idx ON audit.logged_actions(relid);
 CREATE INDEX logged_actions_action_tstamp_tx_stm_idx ON audit.logged_actions(action_tstamp_stm);
 CREATE INDEX logged_actions_action_idx ON audit.logged_actions(action);
 
-CREATE OR REPLACE FUNCTION audit.if_modified_func() RETURNS TRIGGER AS $body$
+REATE OR REPLACE FUNCTION audit.if_modified_func() RETURNS TRIGGER AS $body$
 DECLARE
     audit_row audit.logged_actions;
     include_values boolean;
@@ -92,11 +93,11 @@ DECLARE
     h_old hstore;
     h_new hstore;
     excluded_cols text[] = ARRAY[]::text[];
+    included_cols text[];
 BEGIN
     IF TG_WHEN <> 'AFTER' THEN
         RAISE EXCEPTION 'audit.if_modified_func() may only run as an AFTER trigger';
     END IF;
-
     audit_row = ROW(
         nextval('audit.logged_actions_event_id_seq'), -- event_id
         TG_TABLE_SCHEMA::text,                        -- schema_name
@@ -113,28 +114,40 @@ BEGIN
         current_query(),                              -- top-level query or queries (if multistatement) from client
         substring(TG_OP,1,1),                         -- action
         NULL, NULL,                                   -- row_data, changed_fields
-        'f'                                           -- statement_only
+        'f',                                           -- statement_only
+        NULL                                        -- id of tuple
         );
 
     IF NOT TG_ARGV[0]::boolean IS DISTINCT FROM 'f'::boolean THEN
         audit_row.client_query = NULL;
     END IF;
 
-    IF TG_ARGV[1] IS NOT NULL THEN
-        excluded_cols = TG_ARGV[1]::text[];
-    END IF;
-
-    IF (TG_OP = 'UPDATE' AND TG_LEVEL = 'ROW') THEN
-        audit_row.row_data = hstore(OLD.*);
-        audit_row.changed_fields =  (hstore(NEW.*) - audit_row.row_data) - excluded_cols;
-        IF audit_row.changed_fields = hstore('') THEN
-            -- All changed fields are ignored. Skip this update.
-            RETURN NULL;
+    IF TG_LEVEL = 'ROW' THEN
+        IF (TG_OP = 'DELETE') THEN
+            included_cols = akeys(hstore(OLD.*));
+            audit_row.id = OLD.id;
+        ELSE
+            included_cols = akeys(hstore(NEW.*));
+            audit_row.id = NEW.id;
         END IF;
-    ELSIF (TG_OP = 'DELETE' AND TG_LEVEL = 'ROW') THEN
-        audit_row.row_data = hstore(OLD.*) - excluded_cols;
-    ELSIF (TG_OP = 'INSERT' AND TG_LEVEL = 'ROW') THEN
-        audit_row.row_data = hstore(NEW.*) - excluded_cols;
+
+        IF TG_ARGV[1] = 'i' THEN
+            included_cols = TG_ARGV[2]::text[];
+        ELSIF TG_ARGV[1] = 'e' THEN
+            excluded_cols = TG_ARGV[2]::text[];
+        END IF;
+        IF TG_OP = 'UPDATE' THEN
+            audit_row.row_data = hstore(OLD.*);
+            audit_row.changed_fields =  (slice(hstore(NEW.*),included_cols) - audit_row.row_data) - excluded_cols;
+            IF audit_row.changed_fields = hstore('') THEN
+                -- All changed fields are ignored. Skip this update.
+                RETURN NULL;
+            END IF;
+        ELSIF TG_OP = 'DELETE' THEN
+            audit_row.row_data = slice(hstore(OLD.*),included_cols) - excluded_cols;
+        ELSIF TG_OP = 'INSERT' THEN
+            audit_row.row_data = slice(hstore(NEW.*),included_cols) - excluded_cols;
+        END IF;
     ELSIF (TG_LEVEL = 'STATEMENT' AND TG_OP IN ('INSERT','UPDATE','DELETE','TRUNCATE')) THEN
         audit_row.statement_only = 't';
     ELSE
@@ -183,36 +196,38 @@ $body$;
 
 
 
-CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, ignored_cols text[]) RETURNS void AS $body$
+CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, column_style text, cols text[]) RETURNS void AS $body$
 DECLARE
-  stm_targets text = 'INSERT OR UPDATE OR DELETE OR TRUNCATE';
-  _q_txt text;
-  _ignored_cols_snip text = '';
+    stm_targets text = 'INSERT OR UPDATE OR DELETE OR TRUNCATE';
+    _q_txt text;
+    _cols_snip text = '';
+    _style text = '';
 BEGIN
     EXECUTE 'DROP TRIGGER IF EXISTS audit_trigger_row ON ' || target_table;
     EXECUTE 'DROP TRIGGER IF EXISTS audit_trigger_stm ON ' || target_table;
 
     IF audit_rows THEN
-        IF array_length(ignored_cols,1) > 0 THEN
-            _ignored_cols_snip = ', ' || quote_literal(ignored_cols);
+        IF array_length(cols,1) > 0 THEN
+            _cols_snip = ', ' || quote_literal(cols);
         END IF;
-        _q_txt = 'CREATE TRIGGER audit_trigger_row AFTER INSERT OR UPDATE OR DELETE ON ' ||
-                 target_table ||
-                 ' FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func(' ||
-                 quote_literal(audit_query_text) || _ignored_cols_snip || ');';
-        RAISE NOTICE '%',_q_txt;
+        IF column_style IS NOT NULL THEN
+            _style = ', ' || column_style;
+        END IF;
+    _q_txt = 'CREATE TRIGGER audit_trigger_row AFTER INSERT OR UPDATE OR DELETE ON ' ||
+        target_table ||
+        ' FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func(' ||
+        quote_literal(audit_query_text) || _style || _cols_snip || ');';
+        RAISE NOTICE 'XXXX %',_q_txt;
         EXECUTE _q_txt;
         stm_targets = 'TRUNCATE';
-    ELSE
     END IF;
 
     _q_txt = 'CREATE TRIGGER audit_trigger_stm AFTER ' || stm_targets || ' ON ' ||
-             target_table ||
-             ' FOR EACH STATEMENT EXECUTE PROCEDURE audit.if_modified_func('||
-             quote_literal(audit_query_text) || ');';
+         target_table ||
+         ' FOR EACH STATEMENT EXECUTE PROCEDURE audit.if_modified_func('||
+         quote_literal(audit_query_text) || ');';
     RAISE NOTICE '%',_q_txt;
     EXECUTE _q_txt;
-
 END;
 $body$
 language 'plpgsql';
@@ -229,7 +244,7 @@ $body$;
 
 -- Pg doesn't allow variadic calls with 0 params, so provide a wrapper
 CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean) RETURNS void AS $body$
-SELECT audit.audit_table($1, $2, $3, ARRAY[]::text[]);
+SELECT audit.audit_table($1, $2, $3, NULL, ARRAY[]::text[]);
 $body$ LANGUAGE SQL;
 
 -- And provide a convenience call wrapper for the simplest case
@@ -252,3 +267,5 @@ $body$;
 -- select audit.audit_table('reference');
 -- select audit.audit_table('instance_note');
 -- select audit.audit_table('comment');
+-- select audit.audit_table_try('public.tree_element', 't', 't', 'i', ARRAY['profile']::text[]);
+
