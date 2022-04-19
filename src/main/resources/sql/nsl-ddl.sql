@@ -257,8 +257,6 @@ CREATE TABLE audit.logged_actions (
   id int8
 );
 
--- alter table audit.logged_actions add id int8;
-
 REVOKE ALL ON audit.logged_actions FROM public;
 
 COMMENT ON TABLE audit.logged_actions IS 'History of auditable actions on audited tables, from audit.if_modified_func()';
@@ -283,6 +281,7 @@ COMMENT ON COLUMN audit.logged_actions.statement_only IS '''t'' if audit event i
 CREATE INDEX logged_actions_relid_idx ON audit.logged_actions(relid);
 CREATE INDEX logged_actions_action_tstamp_tx_stm_idx ON audit.logged_actions(action_tstamp_stm);
 CREATE INDEX logged_actions_action_idx ON audit.logged_actions(action);
+CREATE INDEX logged_actions_id_idx ON audit.logged_actions(id);
 
 CREATE OR REPLACE FUNCTION audit.if_modified_func() RETURNS TRIGGER AS $body$
 DECLARE
@@ -465,7 +464,7 @@ $body$;
 -- select audit.audit_table('reference');
 -- select audit.audit_table('instance_note');
 -- select audit.audit_table('comment');
--- select audit.audit_table_try('public.tree_element', 't', 't', 'i', ARRAY['profile']::text[]);
+-- select audit.audit_table('public.tree_element', 't', 't', 'i', ARRAY['profile']::text[]);
 -- export-name-view.sql
 DROP MATERIALIZED VIEW IF EXISTS name_view;
 

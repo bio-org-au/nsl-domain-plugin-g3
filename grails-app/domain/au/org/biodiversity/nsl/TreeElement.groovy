@@ -26,6 +26,8 @@ class TreeElement {
     String nameLink
     String instanceLink
 
+    String createdBy
+    Timestamp createdAt
     String updatedBy
     Timestamp updatedAt
 
@@ -39,6 +41,7 @@ class TreeElement {
         nameId index: "tree_element_name_index"
         instanceId index: "tree_element_instance_index"
         previousElement index: "tree_element_previous_index"
+        createdAt sqlType: 'timestamp with time zone'
         updatedAt sqlType: 'timestamp with time zone'
         displayHtml sqlType: 'Text'
         synonymsHtml sqlType: 'Text'
