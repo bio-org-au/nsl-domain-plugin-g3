@@ -4,125 +4,88 @@ buildscript {
         maven { url "https://repo.grails.org/grails/core" }
     }
     dependencies {
-        classpath "org.grails:grails-gradle-plugin:$grailsGradlePluginVersion"
-        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:3.3.4"
-        classpath "org.grails.plugins:hibernate5:7.2.1"
-
+        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.14.2"
+        classpath "org.grails.plugins:hibernate5:${gormVersion-".RELEASE"}"
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.9.8"
     }
 }
 
-version "3.2-SNAPSHOT"
+version "3.1.21-SNAPSHOT"
 group "au.org.biodiversity.grails.plugins"
 
 apply plugin:"eclipse"
-apply plugin:"war"
 apply plugin:"idea"
 apply plugin:"org.grails.grails-plugin"
-//apply plugin:"org.grails.grails-plugin-publish"
+apply plugin:"org.grails.grails-plugin-publish"
 apply plugin:"asset-pipeline"
 apply plugin:"org.grails.grails-gsp"
-apply plugin:"maven-publish"
-//install.dependsOn assemble
 
 repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
 }
 
-configurations {
-    developmentOnly
-    runtimeClasspath {
-        extendsFrom developmentOnly
-    }
-}
-
 dependencies {
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    compileOnly "io.micronaut:micronaut-inject-groovy"
+    compile "org.springframework.boot:spring-boot-starter-logging"
+    compile "org.springframework.boot:spring-boot-autoconfigure"
+    compile "org.grails:grails-core"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-tomcat"
+    compile "org.grails:grails-web-boot"
+    compile "org.grails:grails-logging"
+    compile "org.grails:grails-plugin-rest"
+    compile "org.grails:grails-plugin-databinding"
+    compile "org.grails:grails-plugin-i18n"
+    compile "org.grails:grails-plugin-services"
+    compile "org.grails:grails-plugin-url-mappings"
+    compile "org.grails:grails-plugin-interceptors"
+    compile "org.grails.plugins:cache"
+    compile "org.grails.plugins:async"
+    compile "org.grails.plugins:scaffolding"
+    compile "org.grails.plugins:gsp"
+    compile "org.grails.plugins:hibernate5"
+    compile "org.hibernate:hibernate-core:5.1.16.Final"
+    compile "org.hibernate:hibernate-ehcache"
+    compile "com.google.code.gson:gson:2.8.5"
+    compile 'org.postgresql:postgresql:42.2.1.jre7'
+
     console "org.grails:grails-console"
-    implementation "org.springframework.boot:spring-boot-starter-logging"
-    implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation "org.springframework.boot:spring-boot-autoconfigure"
-    implementation "org.grails:grails-core"
-    implementation "org.springframework.boot:spring-boot-starter-actuator"
-    implementation "org.springframework.boot:spring-boot-starter-tomcat"
-    implementation "org.grails:grails-web-boot"
-    implementation "org.grails:grails-logging"
-    implementation "org.grails:grails-plugin-rest"
-    implementation "org.grails:grails-plugin-databinding"
-    implementation "org.grails:grails-plugin-i18n"
-    implementation "org.grails:grails-plugin-services"
-    implementation "org.grails:grails-plugin-url-mappings"
-    implementation "org.grails:grails-plugin-interceptors"
-    implementation "org.grails.plugins:cache"
-    implementation "org.grails.plugins:async"
-    implementation "org.grails.plugins:scaffolding"
-    implementation "org.grails.plugins:gsp"
     profile "org.grails.profiles:web-plugin"
-    runtimeOnly "com.bertramlabs.plugins:asset-pipeline-grails:3.3.4"
-    testImplementation "io.micronaut:micronaut-inject-groovy"
-    testImplementation "org.grails:grails-gorm-testing-support"
-    testImplementation "org.mockito:mockito-core"
-    testImplementation "org.grails:grails-web-testing-support"
+    provided "org.grails:grails-plugin-services"
+    provided "org.grails:grails-plugin-domain-class"
 
-    implementation "org.hibernate:hibernate-ehcache"
-    implementation "com.google.code.gson:gson:2.8.5"
-    implementation 'org.postgresql:postgresql:42.3.3'
+    runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.14.2"
 
-    implementation "org.grails:grails-plugin-domain-class"
-
-//    testImplementation "org.grails:grails-plugin-testing"
-    testImplementation "org.grails.plugins:geb"
-    testRuntimeOnly "net.sourceforge.htmlunit:htmlunit:2.18"
+    testCompile "org.grails:grails-gorm-testing-support"
+    testCompile "org.grails:grails-plugin-testing"
+    testCompile "org.grails.plugins:geb"
+    testCompile "org.grails:grails-web-testing-support"
+    testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
+    testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
 }
 
 bootRun {
-    ignoreExitValue true
-    jvmArgs(
-            '-Dspring.output.ansi.enabled=always',
-            '-noverify',
-            '-XX:TieredStopAtLevel=1',
-            '-Xmx1024m')
-    sourceResources sourceSets.main
+    jvmArgs('-Dspring.output.ansi.enabled=always')
+    addResources = true
     String springProfilesActive = 'spring.profiles.active'
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)
 }
-
-tasks.withType(GroovyCompile) {
-    configure(groovyOptions) {
-        forkOptions.jvmArgs = ['-Xmx1024m']
+// enable if you wish to package this plugin as a standalone application
+bootRepackage.enabled = false
+grailsPublish {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    userOrg = 'bio-org-au'
+    repo = 'plugins'
+    githubSlug = 'bio-org-au/nsl-domain-plugin-g3'
+    license {
+        name = 'Apache-2.0'
     }
+    title = "Nsl Domain Plugin"
+    desc = "The NSL Domian class definitions and package"
+    developers = [pmcneil:"Peter McNeil"]
 }
-
-tasks.withType(Test) {
-    useJUnitPlatform()
-}
-
-// enable if you wish to package this plugin as a standalone application
-bootJar.enabled = false
-
-
-
-assets {
-    packagePlugin = true
-}
-
-// enable if you wish to package this plugin as a standalone application
-//bootRepackage.enabled = false
-//grailsPublish {
-//    user = System.getenv('BINTRAY_USER')
-//    key = System.getenv('BINTRAY_KEY')
-//    userOrg = 'bio-org-au'
-//    repo = 'plugins'
-//    githubSlug = 'bio-org-au/nsl-domain-plugin-g3'
-//    license {
-//        name = 'Apache-2.0'
-//    }
-//    title = "Nsl Domain Plugin"
-//    desc = "The NSL Domian class definitions and package"
-//    developers = [pmcneil:"Peter McNeil"]
-//}
 
 assets {
     packagePlugin = true
@@ -132,35 +95,18 @@ jar {
     exclude "grails-app/views/error.gsp"
 }
 println "user ${System.getenv('BINTRAY_USER')}"
-//publishing {
-//    repositories {
-//        maven {
-//            credentials {
-//                username System.getenv('BINTRAY_USER')
-//                password System.getenv('BINTRAY_KEY')
-//            }
-//            if (version.endsWith('SNAPSHOT')) {
-//                url artifactory_snapshotUrl
-//            } else {
-//                url artifactory_releaseUrl
-//            }
-//        }
-//    }
-//}
-
 publishing {
-    publications {
-        maven(MavenPublication) {
-            artifactId = 'nsl-domain-plugin-g3'
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
+    repositories {
+        maven {
+            credentials {
+                username System.getenv('BINTRAY_USER')
+                password System.getenv('BINTRAY_KEY')
             }
-            from components.java
+            if (version.endsWith('SNAPSHOT')) {
+                url artifactory_snapshotUrl
+            } else {
+                url artifactory_releaseUrl
+            }
         }
     }
 }
