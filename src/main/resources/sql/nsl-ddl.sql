@@ -287,12 +287,10 @@ CREATE INDEX logged_actions_id_idx ON audit.logged_actions(id);
 CREATE OR REPLACE FUNCTION audit.if_modified_func() RETURNS TRIGGER AS $body$
 DECLARE
     audit_row audit.logged_actions;
-    include_values boolean;
-    log_diffs boolean;
-    h_old hstore;
-    h_new hstore;
     excluded_cols text[] = ARRAY[]::text[];
     included_cols text[];
+    xtra_cols text[];
+    monitored_fields hstore;
 BEGIN
     IF TG_WHEN <> 'AFTER' THEN
         RAISE EXCEPTION 'audit.if_modified_func() may only run as an AFTER trigger';
@@ -335,10 +333,12 @@ BEGIN
         ELSIF TG_ARGV[1] = 'e' THEN
             excluded_cols = TG_ARGV[2]::text[];
         END IF;
+        xtra_cols = TG_ARGV[3]::text[];
         IF TG_OP = 'UPDATE' THEN
             audit_row.row_data = hstore(OLD.*);
-            audit_row.changed_fields =  (slice(hstore(NEW.*),included_cols) - audit_row.row_data) - excluded_cols;
-            IF audit_row.changed_fields = hstore('') THEN
+            monitored_fields = (slice(hstore(NEW.*),included_cols) - audit_row.row_data) - excluded_cols;
+            audit_row.changed_fields = monitored_fields || slice(hstore(NEW.*),xtra_cols);
+            IF monitored_fields = hstore('') THEN
                 -- All changed fields are ignored. Skip this update.
                 RETURN NULL;
             END IF;
@@ -392,13 +392,12 @@ cannot obtain the active role because it is reset by the SECURITY DEFINER invoca
 of the audit trigger its self.
 $body$;
 
-
-
-CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, column_style text, cols text[]) RETURNS void AS $body$
+CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, column_style text, cols text[], xtra_cols text[]) RETURNS void AS $body$
 DECLARE
     stm_targets text = 'INSERT OR UPDATE OR DELETE OR TRUNCATE';
     _q_txt text;
     _cols_snip text = '';
+    _xtra_cols_snip text = '';
     _style text = '';
 BEGIN
     EXECUTE 'DROP TRIGGER IF EXISTS audit_trigger_row ON ' || target_table;
@@ -408,14 +407,17 @@ BEGIN
         IF array_length(cols,1) > 0 THEN
             _cols_snip = ', ' || quote_literal(cols);
         END IF;
+        IF array_length(xtra_cols,1) > 0 THEN
+            _xtra_cols_snip = ', ' || quote_literal(xtra_cols);
+        END IF;
         IF column_style IS NOT NULL THEN
             _style = ', ' || column_style;
         END IF;
         _q_txt = 'CREATE TRIGGER audit_trigger_row AFTER INSERT OR UPDATE OR DELETE ON ' ||
                  target_table ||
                  ' FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func(' ||
-                 quote_literal(audit_query_text) || _style || _cols_snip || ');';
-        RAISE NOTICE 'XXXX %',_q_txt;
+                 quote_literal(audit_query_text) || _style || _cols_snip || _xtra_cols_snip || ');';
+        RAISE NOTICE '%',_q_txt;
         EXECUTE _q_txt;
         stm_targets = 'TRUNCATE';
     END IF;
@@ -465,7 +467,7 @@ $body$;
 -- select audit.audit_table('reference');
 -- select audit.audit_table('instance_note');
 -- select audit.audit_table('comment');
--- select audit.audit_table('public.tree_element', 't', 't', 'i', ARRAY['profile']::text[]);
+-- select audit.audit_table('public.tree_element', 't', 't', 'i', ARRAY['profile']::text[], ARRAY['updated_at', 'updated_by']::text[]);
 -- export-name-view.sql
 DROP MATERIALIZED VIEW IF EXISTS name_view;
 
