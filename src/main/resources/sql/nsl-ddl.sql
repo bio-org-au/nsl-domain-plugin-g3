@@ -343,9 +343,9 @@ BEGIN
                 RETURN NULL;
             END IF;
         ELSIF TG_OP = 'DELETE' THEN
-            audit_row.row_data = slice(hstore(OLD.*),included_cols) - excluded_cols;
+            audit_row.row_data = (slice(hstore(OLD.*),included_cols) - excluded_cols) || slice(hstore(OLD.*),xtra_cols);
         ELSIF TG_OP = 'INSERT' THEN
-            audit_row.row_data = slice(hstore(NEW.*),included_cols) - excluded_cols;
+            audit_row.row_data = (slice(hstore(NEW.*),included_cols) - excluded_cols) || slice(hstore(NEW.*),xtra_cols);
         END IF;
     ELSIF (TG_LEVEL = 'STATEMENT' AND TG_OP IN ('INSERT','UPDATE','DELETE','TRUNCATE')) THEN
         audit_row.statement_only = 't';
@@ -463,11 +463,16 @@ $body$;
 --
 -- select audit.audit_table('author');
 -- select audit.audit_table('instance');
-select audit.audit_table('name', 't', 't', 'i', ARRAY['duplicate_of_id', 'full_name', 'name_status_id', 'name_type_id', 'orth_var', 'parent_id', 'verbatim_rank', 'changed_combination', 'published_year']::text[], ARRAY['updated_at', 'updated_by']::text[]);
+select audit.audit_table('name', 't', 't', 'i',
+    ARRAY['id', 'author_id', 'base_author_id', 'duplicate_of_id', 'ex_author_id', 'ex_base_author_id', 'full_name', 'name_rank_id',
+        'name_status_id', 'name_status_id', 'name_status', 'name_type_id', 'orth_var', 'parent_id', 'sanctioning_author_id',
+        'second_parent_id', 'valid_record', 'verbatim_rank', 'family_id', 'changed_combination', 'published_year']::text[],
+    ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 -- select audit.audit_table('reference');
 -- select audit.audit_table('instance_note');
 -- select audit.audit_table('comment');
--- select audit.audit_table('public.tree_element', 't', 't', 'i', ARRAY['profile']::text[], ARRAY['updated_at', 'updated_by']::text[]);
+-- select audit.audit_table('public.tree_element', 't', 't', 'i', ARRAY['id', 'profile']::text[],
+--    ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 -- export-name-view.sql
 DROP MATERIALIZED VIEW IF EXISTS name_view;
 
