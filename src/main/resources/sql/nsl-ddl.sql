@@ -463,7 +463,7 @@ $body$;
 --
 -- select audit.audit_table('author');
 -- select audit.audit_table('instance');
--- select audit.audit_table('name');
+select audit.audit_table('name', 't', 't', 'i', ARRAY['duplicate_of_id', 'full_name', 'name_status_id', 'name_type_id', 'orth_var', 'parent_id', 'verbatim_rank', 'changed_combination', 'published_year']::text[], ARRAY['updated_at', 'updated_by']::text[]);
 -- select audit.audit_table('reference');
 -- select audit.audit_table('instance_note');
 -- select audit.audit_table('comment');
