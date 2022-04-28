@@ -1,4 +1,5 @@
 create sequence hibernate_sequence start 1 increment 1;
+
 create sequence nsl_global_seq start 1 increment 1;
 create table author (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, duplicate_of_id int8, namespace_id int8 not null, ipni_id varchar(50), updated_by varchar(255) not null, source_id_string varchar(100), notes varchar(1000), full_name varchar(255), abbrev varchar(100), source_id int8, created_at timestamp with time zone not null, updated_at timestamp with time zone not null, name varchar(1000), source_system varchar(50), date_range varchar(50), created_by varchar(255) not null, uri text, valid_record boolean default false not null, primary key (id));
 create table comment (id int8 default nextval('hibernate_sequence') not null, lock_version int8 default 0 not null, updated_by varchar(50) not null, text text not null, author_id int8, created_at timestamp with time zone not null, updated_at timestamp with time zone not null, name_id int8, created_by varchar(50) not null, instance_id int8, reference_id int8, primary key (id));
