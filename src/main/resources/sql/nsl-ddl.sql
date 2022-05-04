@@ -465,15 +465,43 @@ $body$;
 -- select audit.audit_table('author');
 -- select audit.audit_table('instance');
 select audit.audit_table('name', 't', 't', 'i',
-    ARRAY['id', 'author_id', 'base_author_id', 'duplicate_of_id', 'ex_author_id', 'ex_base_author_id', 'full_name', 'name_rank_id',
-        'name_status_id', 'name_status_id', 'name_status', 'name_type_id', 'orth_var', 'parent_id', 'sanctioning_author_id',
-        'second_parent_id', 'valid_record', 'verbatim_rank', 'family_id', 'changed_combination', 'published_year']::text[],
-    ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
--- select audit.audit_table('reference');
--- select audit.audit_table('instance_note');
--- select audit.audit_table('comment');
--- select audit.audit_table('public.tree_element', 't', 't', 'i', ARRAY['id', 'profile']::text[],
---    ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
+                         ARRAY['id', 'author_id', 'base_author_id', 'duplicate_of_id', 'ex_author_id', 'ex_base_author_id', 'full_name', 'name_rank_id',
+                             'name_status_id', 'name_type_id', 'orth_var', 'parent_id', 'sanctioning_author_id',
+                             'second_parent_id', 'valid_record', 'verbatim_rank', 'family_id', 'changed_combination', 'published_year']::text[],
+                         ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
+
+select audit.audit_table('instance', 't', 't', 'i',
+                         ARRAY['id', 'bhl_url', 'cited_by_id', 'cites_id', 'draft', 'instance_type_id', 'name_id', 'namespace_id',
+                             'nomenclatural_status', 'page', 'page_qualifier', 'parent_id', 'reference_id',
+                             'source_id', 'source_id_string', 'valid_record', 'verbatim_name_string', 'uri']::text[],
+                         ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
+
+select audit.audit_table('reference', 't', 't', 'i',
+                         ARRAY['id', 'abbrev_title', 'author_id', 'bhl_url', 'citation', 'display_title', 'doi', 'duplicate_of_id',
+                             'edition', 'isbn', 'issn', 'language_id', 'notes',
+                             'pages', 'parent_id', 'publication_date', 'published', 'published_location', 'publisher',
+                             'ref_author_role_id', 'ref_type_id', 'source_id', 'source_id_string', 'title', 'tl2', 'valid_record',
+                             'verbatim_author', 'verbatim_citation', 'verbatim_reference', 'volume', 'year', 'uri', 'iso_publication_date']::text[],
+                         ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
+
+select audit.audit_table('author', 't', 't', 'i',
+                         ARRAY['id', 'abbrev', 'date_range', 'duplicate_of_id', 'references', 'full_name', 'ipni_id',
+                             'name', 'references', 'notes', 'source_id', 'source_id_string', 'source_system',
+                             'valid_record', 'uri']::text[],
+                         ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
+
+select audit.audit_table('instance_note', 't', 't', 'i',
+                         ARRAY['id', 'instance_id', 'instance_note_key_id',
+                             'source_id', 'source_id_string', 'value']::text[],
+                         ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
+
+select audit.audit_table('comment', 't', 't', 'i',
+                         ARRAY['id', 'author_id', 'instance_id', 'name_id', 'reference_id', 'text']::text[],
+                         ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
+
+select audit.audit_table('public.tree_element', 't', 't', 'i', ARRAY['id', 'profile']::text[],
+        ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
+
 -- export-name-view.sql
 DROP MATERIALIZED VIEW IF EXISTS name_view;
 
