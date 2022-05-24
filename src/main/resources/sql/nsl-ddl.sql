@@ -393,7 +393,106 @@ cannot obtain the active role because it is reset by the SECURITY DEFINER invoca
 of the audit trigger its self.
 $body$;
 
-CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, column_style text, cols text[], xtra_cols text[]) RETURNS void AS $body$
+
+
+CREATE OR REPLACE FUNCTION audit.if_modified_tree_element() RETURNS TRIGGER AS $body$
+DECLARE
+    audit_row audit.logged_actions;
+    excluded_cols text[] = ARRAY[]::text[];
+    included_cols text[];
+    xtra_cols text[];
+    monitored_fields hstore;
+    dist text;
+    updated_at text;
+    updated_by text;
+BEGIN
+    IF TG_WHEN <> 'AFTER' THEN
+        RAISE EXCEPTION 'audit.if_modified_func() may only run as an AFTER trigger';
+    END IF;
+    audit_row = ROW(
+        nextval('audit.logged_actions_event_id_seq'), -- event_id
+        TG_TABLE_SCHEMA::text,                        -- schema_name
+        TG_TABLE_NAME::text,                          -- table_name
+        TG_RELID,                                     -- relation OID for much quicker searches
+                session_user::text,                           -- session_user_name
+                current_timestamp,                            -- action_tstamp_tx
+        statement_timestamp(),                        -- action_tstamp_stm
+        clock_timestamp(),                            -- action_tstamp_clk
+        txid_current(),                               -- transaction ID
+        current_setting('application_name'),          -- client application
+        inet_client_addr(),                           -- client_addr
+        inet_client_port(),                           -- client_port
+        current_query(),                              -- top-level query or queries (if multistatement) from client
+        substring(TG_OP,1,1),                         -- action
+        NULL, NULL,                                   -- row_data, changed_fields
+        'f',                                           -- statement_only
+        NULL                                        -- id of tuple
+        );
+
+    IF NOT TG_ARGV[0]::boolean IS DISTINCT FROM 'f'::boolean THEN
+        audit_row.client_query = NULL;
+    END IF;
+
+    IF TG_LEVEL = 'ROW' THEN
+        IF (TG_OP = 'DELETE') THEN
+            included_cols = akeys(hstore(OLD.*));
+            audit_row.id = OLD.id;
+        ELSE
+            included_cols = akeys(hstore(NEW.*));
+            audit_row.id = NEW.id;
+        END IF;
+
+        IF TG_ARGV[1] = 'i' THEN
+            included_cols = TG_ARGV[2]::text[];
+        ELSIF TG_ARGV[1] = 'e' THEN
+            excluded_cols = TG_ARGV[2]::text[];
+        END IF;
+        xtra_cols = TG_ARGV[3]::text[];
+        IF TG_OP = 'UPDATE' THEN
+            audit_row.row_data = hstore(OLD.*);
+            monitored_fields = (slice(hstore(NEW.*),included_cols) - audit_row.row_data) - excluded_cols;
+            dist = NEW.profile -> 'APC Dist.' ->> 'value';
+            updated_at = NEW.profile -> 'APC Dist.' ->> 'updated_at';
+            updated_at = REPLACE(updated_at, 'T', ' ');
+            updated_by = NEW.profile -> 'APC Dist.' ->> 'updated_by';
+            audit_row.changed_fields = hstore(ARRAY['id', NEW.id::text, 'dist', dist, 'updated_at', updated_at, 'updated_by', updated_by]);
+            dist = OLD.profile -> 'APC Dist.' ->> 'value';
+            updated_at = OLD.profile -> 'APC Dist.' ->> 'updated_at';
+            updated_at = REPLACE(updated_at, 'T', ' ');
+            updated_by = OLD.profile -> 'APC Dist.' ->> 'updated_by';
+            audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'dist', dist, 'updated_at', updated_at, 'updated_by', updated_by]);
+        ELSIF TG_OP = 'DELETE' THEN
+            dist = OLD.profile -> 'APC Dist.' ->> 'value';
+            updated_at = OLD.profile -> 'APC Dist.' ->> 'updated_at';
+            updated_at = REPLACE(updated_at, 'T', ' ');
+            updated_by = OLD.profile -> 'APC Dist.' ->> 'updated_by';
+            audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'dist', dist, 'updated_at', updated_at, 'updated_by', updated_by]);
+        ELSIF TG_OP = 'INSERT' THEN
+            dist = NEW.profile -> 'APC Dist.' ->> 'value';
+            updated_at = NEW.profile -> 'APC Dist.' ->> 'updated_at';
+            updated_at = REPLACE(updated_at, 'T', ' ');
+            updated_by = NEW.profile -> 'APC Dist.' ->> 'updated_by';
+            audit_row.row_data = hstore(ARRAY['id', NEW.id::text, 'dist', dist, 'updated_at', updated_at, 'updated_by', updated_by]);
+        END IF;
+    ELSIF (TG_LEVEL = 'STATEMENT' AND TG_OP IN ('INSERT','UPDATE','DELETE','TRUNCATE')) THEN
+        audit_row.statement_only = 't';
+    ELSE
+        RAISE EXCEPTION '[audit.if_modified_func] - Trigger func added as trigger for unhandled case: %, %',TG_OP, TG_LEVEL;
+        RETURN NULL;
+    END IF;
+    INSERT INTO audit.logged_actions VALUES (audit_row.*);
+    RETURN NULL;
+END;
+$body$
+    LANGUAGE plpgsql
+    SECURITY DEFINER
+    SET search_path = pg_catalog, public;
+
+COMMENT ON FUNCTION apni.audit.if_modified_tree_element() IS $body$
+Track changes to tree_element at the statement and/or row level.
+$body$;
+
+CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, column_style text, cols text[], xtra_cols text[], audit_func text) RETURNS void AS $body$
 DECLARE
     stm_targets text = 'INSERT OR UPDATE OR DELETE OR TRUNCATE';
     _q_txt text;
@@ -401,9 +500,12 @@ DECLARE
     _xtra_cols_snip text = '';
     _style text = '';
 BEGIN
+
     EXECUTE 'DROP TRIGGER IF EXISTS audit_trigger_row ON ' || target_table;
     EXECUTE 'DROP TRIGGER IF EXISTS audit_trigger_stm ON ' || target_table;
-
+    IF audit_func IS NULL THEN
+        audit_func = 'audit.if_modified_func';
+    END IF;
     IF audit_rows THEN
         IF array_length(cols,1) > 0 THEN
             _cols_snip = ', ' || quote_literal(cols);
@@ -416,7 +518,7 @@ BEGIN
         END IF;
         _q_txt = 'CREATE TRIGGER audit_trigger_row AFTER INSERT OR UPDATE OR DELETE ON ' ||
                  target_table ||
-                 ' FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func(' ||
+                 ' FOR EACH ROW EXECUTE PROCEDURE ' || audit_func || '(' ||
                  quote_literal(audit_query_text) || _style || _cols_snip || _xtra_cols_snip || ');';
         RAISE NOTICE '%',_q_txt;
         EXECUTE _q_txt;
@@ -425,7 +527,7 @@ BEGIN
 
     _q_txt = 'CREATE TRIGGER audit_trigger_stm AFTER ' || stm_targets || ' ON ' ||
              target_table ||
-             ' FOR EACH STATEMENT EXECUTE PROCEDURE audit.if_modified_func('||
+             ' FOR EACH STATEMENT EXECUTE PROCEDURE ' || audit_func || '('||
              quote_literal(audit_query_text) || ');';
     RAISE NOTICE '%',_q_txt;
     EXECUTE _q_txt;
@@ -499,8 +601,8 @@ select audit.audit_table('comment', 't', 't', 'i',
                          ARRAY['id', 'author_id', 'instance_id', 'name_id', 'reference_id', 'text']::text[],
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 
-select audit.audit_table('public.tree_element', 't', 't', 'i', ARRAY['id', 'profile']::text[],
-        ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
+select audit.audit_table('public.tree_element', 't', 't', 'i', ARRAY['id']::text[],
+        ARRAY[]::text[], 'audit.if_modified_tree_element');
 
 -- export-name-view.sql
 DROP MATERIALIZED VIEW IF EXISTS name_view;
