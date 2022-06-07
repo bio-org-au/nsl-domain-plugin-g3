@@ -321,14 +321,6 @@ BEGIN
     END IF;
 
     IF TG_LEVEL = 'ROW' THEN
-        IF (TG_OP = 'DELETE') THEN
-            included_cols = akeys(hstore(OLD.*));
-            audit_row.id = OLD.id;
-        ELSE
-            included_cols = akeys(hstore(NEW.*));
-            audit_row.id = NEW.id;
-        END IF;
-
         IF TG_ARGV[1] = 'i' THEN
             included_cols = TG_ARGV[2]::text[];
         ELSIF TG_ARGV[1] = 'e' THEN
@@ -402,10 +394,15 @@ DECLARE
     included_cols text[];
     xtra_cols text[];
     monitored_fields hstore;
-    dist text;
+    old_distribution text;
+    old_comment text;
+    new_distribution text;
+    new_comment text;
     updated_at text;
     updated_by text;
+    tree record;
 BEGIN
+    select * from tree into tree;
     IF TG_WHEN <> 'AFTER' THEN
         RAISE EXCEPTION 'audit.if_modified_func() may only run as an AFTER trigger';
     END IF;
@@ -434,14 +431,6 @@ BEGIN
     END IF;
 
     IF TG_LEVEL = 'ROW' THEN
-        IF (TG_OP = 'DELETE') THEN
-            included_cols = akeys(hstore(OLD.*));
-            audit_row.id = OLD.id;
-        ELSE
-            included_cols = akeys(hstore(NEW.*));
-            audit_row.id = NEW.id;
-        END IF;
-
         IF TG_ARGV[1] = 'i' THEN
             included_cols = TG_ARGV[2]::text[];
         ELSIF TG_ARGV[1] = 'e' THEN
@@ -451,36 +440,43 @@ BEGIN
         IF TG_OP = 'UPDATE' THEN
             audit_row.row_data = hstore(OLD.*);
             monitored_fields = (slice(hstore(NEW.*),included_cols) - audit_row.row_data) - excluded_cols;
-            dist = NEW.profile -> 'APC Dist.' ->> 'value';
-            updated_at = NEW.profile -> 'APC Dist.' ->> 'updated_at';
-            updated_at = REPLACE(updated_at, 'T', ' ');
-            updated_by = NEW.profile -> 'APC Dist.' ->> 'updated_by';
-            audit_row.changed_fields = hstore(ARRAY['id', NEW.id::text, 'dist', dist, 'updated_at', updated_at, 'updated_by', updated_by]);
-            dist = OLD.profile -> 'APC Dist.' ->> 'value';
-            updated_at = OLD.profile -> 'APC Dist.' ->> 'updated_at';
-            updated_at = REPLACE(updated_at, 'T', ' ');
-            updated_by = OLD.profile -> 'APC Dist.' ->> 'updated_by';
-            audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'dist', dist, 'updated_at', updated_at, 'updated_by', updated_by]);
+            new_distribution = NEW.profile -> (tree.config ->> 'distribution_key') ->> 'value';
+            new_comment = NEW.profile -> (tree.config ->> 'comment_key') ->> 'value';
+            old_distribution = OLD.profile -> (tree.config ->> 'distribution_key') ->> 'value';
+            old_comment = OLD.profile -> (tree.config ->> 'comment_key') ->> 'value';
+            IF old_distribution <> new_distribution THEN
+                updated_at = NEW.profile -> 'APC Dist.' ->> 'updated_at';
+                updated_at = REPLACE(updated_at, 'T', ' ');
+                updated_by = NEW.profile -> 'APC Dist.' ->> 'updated_by';
+                audit_row.changed_fields = hstore(ARRAY['id', NEW.id::text, 'distribution', new_distribution, 'updated_at', updated_at, 'updated_by', updated_by]);
+                updated_at = OLD.profile -> 'APC Dist.' ->> 'updated_at';
+                updated_at = REPLACE(updated_at, 'T', ' ');
+                updated_by = OLD.profile -> 'APC Dist.' ->> 'updated_by';
+                audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'distribution', old_distribution, 'updated_at', updated_at, 'updated_by', updated_by]);
+                INSERT INTO audit.logged_actions VALUES (audit_row.*);
+            END IF;
         ELSIF TG_OP = 'DELETE' THEN
-            dist = OLD.profile -> 'APC Dist.' ->> 'value';
+            old_distribution = OLD.profile -> 'APC Dist.' ->> 'value';
             updated_at = OLD.profile -> 'APC Dist.' ->> 'updated_at';
             updated_at = REPLACE(updated_at, 'T', ' ');
             updated_by = OLD.profile -> 'APC Dist.' ->> 'updated_by';
-            audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'dist', dist, 'updated_at', updated_at, 'updated_by', updated_by]);
+            audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'distribution', old_distribution, 'updated_at', updated_at, 'updated_by', updated_by]);
+            INSERT INTO audit.logged_actions VALUES (audit_row.*);
         ELSIF TG_OP = 'INSERT' THEN
-            dist = NEW.profile -> 'APC Dist.' ->> 'value';
+            new_distribution = NEW.profile -> 'APC Dist.' ->> 'value';
             updated_at = NEW.profile -> 'APC Dist.' ->> 'updated_at';
             updated_at = REPLACE(updated_at, 'T', ' ');
             updated_by = NEW.profile -> 'APC Dist.' ->> 'updated_by';
-            audit_row.row_data = hstore(ARRAY['id', NEW.id::text, 'dist', dist, 'updated_at', updated_at, 'updated_by', updated_by]);
+            audit_row.row_data = hstore(ARRAY['id', NEW.id::text, 'distribution', new_distribution, 'updated_at', updated_at, 'updated_by', updated_by]);
+            INSERT INTO audit.logged_actions VALUES (audit_row.*);
         END IF;
     ELSIF (TG_LEVEL = 'STATEMENT' AND TG_OP IN ('INSERT','UPDATE','DELETE','TRUNCATE')) THEN
         audit_row.statement_only = 't';
+        INSERT INTO audit.logged_actions VALUES (audit_row.*);
     ELSE
         RAISE EXCEPTION '[audit.if_modified_func] - Trigger func added as trigger for unhandled case: %, %',TG_OP, TG_LEVEL;
         RETURN NULL;
     END IF;
-    INSERT INTO audit.logged_actions VALUES (audit_row.*);
     RETURN NULL;
 END;
 $body$
@@ -548,6 +544,10 @@ $body$;
 -- Pg doesn't allow variadic calls with 0 params, so provide a wrapper
 CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean) RETURNS void AS $body$
 SELECT audit.audit_table($1, $2, $3, NULL, ARRAY[]::text[]);
+$body$ LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, column_style text, cols text[], xtra_cols text[]) RETURNS void AS $body$
+SELECT audit.audit_table($1, $2, $3, $4, $5, $6, 'audit.if_modified_func');
 $body$ LANGUAGE SQL;
 
 -- And provide a convenience call wrapper for the simplest case
