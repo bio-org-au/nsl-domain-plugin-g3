@@ -445,29 +445,47 @@ BEGIN
             old_distribution = OLD.profile -> (tree.config ->> 'distribution_key') ->> 'value';
             old_comment = OLD.profile -> (tree.config ->> 'comment_key') ->> 'value';
             IF old_distribution <> new_distribution THEN
-                updated_at = NEW.profile -> 'APC Dist.' ->> 'updated_at';
+                updated_at = NEW.profile -> (tree.config ->> 'distribution_key') ->> 'updated_at';
                 updated_at = REPLACE(updated_at, 'T', ' ');
-                updated_by = NEW.profile -> 'APC Dist.' ->> 'updated_by';
+                updated_by = NEW.profile -> (tree.config ->> 'distribution_key') ->> 'updated_by';
                 audit_row.changed_fields = hstore(ARRAY['id', NEW.id::text, 'distribution', new_distribution, 'updated_at', updated_at, 'updated_by', updated_by]);
-                updated_at = OLD.profile -> 'APC Dist.' ->> 'updated_at';
+                updated_at = OLD.profile -> (tree.config ->> 'distribution_key') ->> 'updated_at';
                 updated_at = REPLACE(updated_at, 'T', ' ');
-                updated_by = OLD.profile -> 'APC Dist.' ->> 'updated_by';
+                updated_by = OLD.profile -> (tree.config ->> 'distribution_key') ->> 'updated_by';
                 audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'distribution', old_distribution, 'updated_at', updated_at, 'updated_by', updated_by]);
                 INSERT INTO audit.logged_actions VALUES (audit_row.*);
             END IF;
+            IF old_comment <> new_comment THEN
+                updated_at = NEW.profile -> (tree.config ->> 'comment_key') ->> 'updated_at';
+                updated_at = REPLACE(updated_at, 'T', ' ');
+                updated_by = NEW.profile -> (tree.config ->> 'comment_key') ->> 'updated_by';
+                audit_row.changed_fields = hstore(ARRAY['id', NEW.id::text, 'comment', new_comment, 'updated_at', updated_at, 'updated_by', updated_by]);
+                updated_at = OLD.profile -> (tree.config ->> 'comment_key') ->> 'updated_at';
+                updated_at = REPLACE(updated_at, 'T', ' ');
+                updated_by = OLD.profile -> (tree.config ->> 'comment_key') ->> 'updated_by';
+                audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'comment', old_comment, 'updated_at', updated_at, 'updated_by', updated_by]);
+                INSERT INTO audit.logged_actions VALUES (audit_row.*);
+            END IF;
         ELSIF TG_OP = 'DELETE' THEN
-            old_distribution = OLD.profile -> 'APC Dist.' ->> 'value';
-            updated_at = OLD.profile -> 'APC Dist.' ->> 'updated_at';
+            old_distribution = OLD.profile -> (tree.config ->> 'distribution_key') ->> 'value';
+            old_comment = OLD.profile -> (tree.config ->> 'comment_key') ->> 'value';
+            updated_at = clock_timestamp()::text;
             updated_at = REPLACE(updated_at, 'T', ' ');
-            updated_by = OLD.profile -> 'APC Dist.' ->> 'updated_by';
-            audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'distribution', old_distribution, 'updated_at', updated_at, 'updated_by', updated_by]);
+            updated_by = OLD.updated_by::text;
+            audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'distribution', old_distribution, 'comment', old_comment, 'updated_at', updated_at, 'updated_by', updated_by]);
             INSERT INTO audit.logged_actions VALUES (audit_row.*);
         ELSIF TG_OP = 'INSERT' THEN
-            new_distribution = NEW.profile -> 'APC Dist.' ->> 'value';
-            updated_at = NEW.profile -> 'APC Dist.' ->> 'updated_at';
+            new_distribution = NEW.profile -> (tree.config ->> 'distribution_key') ->> 'value';
+            updated_at = NEW.profile -> (tree.config ->> 'distribution_key') ->> 'updated_at';
             updated_at = REPLACE(updated_at, 'T', ' ');
-            updated_by = NEW.profile -> 'APC Dist.' ->> 'updated_by';
+            updated_by = NEW.profile -> (tree.config ->> 'distribution_key') ->> 'updated_by';
             audit_row.row_data = hstore(ARRAY['id', NEW.id::text, 'distribution', new_distribution, 'updated_at', updated_at, 'updated_by', updated_by]);
+            new_comment = NEW.profile -> (tree.config ->> 'comment_key') ->> 'value';
+            updated_at = NEW.profile -> (tree.config ->> 'comment_key') ->> 'updated_at';
+            updated_at = REPLACE(updated_at, 'T', ' ');
+            updated_by = NEW.profile -> (tree.config ->> 'comment_key') ->> 'updated_by';
+            audit_row.row_data = hstore(ARRAY['id', NEW.id::text, 'distribution', new_distribution, 'comment', new_comment, 'updated_at', updated_at, 'updated_by', updated_by]);
+            INSERT INTO audit.logged_actions VALUES (audit_row.*);
             INSERT INTO audit.logged_actions VALUES (audit_row.*);
         END IF;
     ELSIF (TG_LEVEL = 'STATEMENT' AND TG_OP IN ('INSERT','UPDATE','DELETE','TRUNCATE')) THEN
