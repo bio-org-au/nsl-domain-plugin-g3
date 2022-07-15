@@ -1,8 +1,9 @@
 package au.org.biodiversity.nsl
 
-
+import groovy.sql.Sql
 import net.kaleidos.hibernate.usertype.JsonbMapType
 
+import javax.sql.DataSource
 import java.sql.Timestamp
 
 class TreeElement {
@@ -14,7 +15,7 @@ class TreeElement {
     Boolean excluded = false //is this an excluded concept
 
     String displayHtml
-    String synonymsHtml
+//    String synonymsHtml
     String simpleName
     String nameElement
     String rank
@@ -29,10 +30,24 @@ class TreeElement {
     String updatedBy
     Timestamp updatedAt
 
+    DataSource dataSource
+
     static hasMany = [treeVersionElements: TreeVersionElement, distributionEntries: TreeElementDistEntry]
 
-    static mapping = {
+    static transients = ['name', 'instance', 'synonymsHtml', 'dataSource']
 
+    String getSynonymsHtml() {
+        Sql sql = Sql.newInstance(dataSource)
+        def row = sql.firstRow('''select coalesce(synonyms_as_html(:instanceId), '<synonyms></synonyms>');''', [instanceId: instanceId])
+        return row[0]
+    }
+
+    void setSynonymsHtml(String v) {
+    }
+
+
+    static mapping = {
+        autowire true
         id generator: 'native', params: [sequence: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"
 
@@ -41,7 +56,7 @@ class TreeElement {
         previousElement index: "tree_element_previous_index"
         updatedAt sqlType: 'timestamp with time zone'
         displayHtml sqlType: 'Text'
-        synonymsHtml sqlType: 'Text'
+//        synonymsHtml sqlType: 'Text'
         simpleName sqlType: 'Text', index: "tree_simple_name_index"
         sourceShard sqlType: 'Text'
         nameLink sqlType: 'Text'
@@ -86,7 +101,6 @@ class TreeElement {
         result = 31 * result + (id != null ? id.hashCode() : 0)
         return result
     }
-    static transients = ['name', 'instance']
 
     /**
      * Null if name doesn't exist
