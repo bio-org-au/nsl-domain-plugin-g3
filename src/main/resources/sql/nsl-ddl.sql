@@ -444,7 +444,7 @@ BEGIN
             new_comment = NEW.profile -> (tree.config ->> 'comment_key') ->> 'value';
             old_distribution = OLD.profile -> (tree.config ->> 'distribution_key') ->> 'value';
             old_comment = OLD.profile -> (tree.config ->> 'comment_key') ->> 'value';
-            IF old_distribution <> new_distribution THEN
+            IF old_distribution <> new_distribution or old_distribution is null or new_distribution is null THEN
                 updated_at = NEW.profile -> (tree.config ->> 'distribution_key') ->> 'updated_at';
                 updated_at = REPLACE(updated_at, 'T', ' ');
                 updated_by = NEW.profile -> (tree.config ->> 'distribution_key') ->> 'updated_by';
@@ -455,7 +455,7 @@ BEGIN
                 audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'distribution', old_distribution, 'updated_at', updated_at, 'updated_by', updated_by]);
                 INSERT INTO audit.logged_actions VALUES (audit_row.*);
             END IF;
-            IF old_comment <> new_comment THEN
+            IF old_comment <> new_comment or old_comment is null or new_comment is null THEN
                 audit_row.event_id = nextval('audit.logged_actions_event_id_seq');
                 updated_at = NEW.profile -> (tree.config ->> 'comment_key') ->> 'updated_at';
                 updated_at = REPLACE(updated_at, 'T', ' ');
