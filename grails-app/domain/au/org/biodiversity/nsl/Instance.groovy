@@ -15,9 +15,13 @@
 */
 package au.org.biodiversity.nsl
 
+import groovy.sql.Sql
+
+import javax.sql.DataSource
 import java.sql.Timestamp
 
 class Instance {
+    DataSource dataSource
 
     String uri
     String verbatimNameString
@@ -45,7 +49,7 @@ class Instance {
     String createdBy
     Timestamp createdAt
 
-    String cachedSynonymyHtml  // cache for the current synonymyHtml used on a tree
+//    String cachedSynonymyHtml  // cache for the current synonymyHtml used on a tree
 
     static hasMany = [
             instancesForCitedBy: Instance,
@@ -64,7 +68,10 @@ class Instance {
             comments           : "instance"
     ]
 
+    static transients = ['cachedSynonymyHtml']
+
     static mapping = {
+        autowire true
 
         id generator: 'native', params: [sequence: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"
@@ -86,7 +93,7 @@ class Instance {
         citedBy index: 'Instance_CitedBy_Index'
         updatedAt sqlType: 'timestamp with time zone'
         createdAt sqlType: 'timestamp with time zone'
-        cachedSynonymyHtml sqlType: 'text'
+//        cachedSynonymyHtml sqlType: 'text'
     }
 
     static constraints = {
@@ -106,7 +113,16 @@ class Instance {
         sourceSystem nullable: true, maxSize: 50
         sourceIdString nullable: true, maxSize: 100
         sourceId nullable: true
-        cachedSynonymyHtml nullable: true
+//        cachedSynonymyHtml nullable: true
+    }
+
+    String getCachedSynonymyHtml() {
+        Sql sql = Sql.newInstance(dataSource)
+        def row = sql.firstRow('''select coalesce(synonyms_as_html(:instanceId), '<synonyms></synonyms>');''', [instanceId: instanceId])
+        return row[0]
+    }
+
+    void setCachedSynonymyHtml(String v) {
     }
 
     @Override
