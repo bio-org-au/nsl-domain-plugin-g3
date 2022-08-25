@@ -20,7 +20,7 @@ class TreeElement {
     String nameElement
     String rank
     String sourceShard      //where the taxon comes from
-    Map synonyms
+//    Map synonyms
     Map profile
 
     String sourceElementLink //Link to the source tree element for composed trees
@@ -34,7 +34,7 @@ class TreeElement {
 
     static hasMany = [treeVersionElements: TreeVersionElement, distributionEntries: TreeElementDistEntry]
 
-    static transients = ['name', 'instance', 'synonymsHtml', 'dataSource']
+    static transients = ['name', 'instance', 'synonymsHtml', 'synonyms', 'dataSource']
 
     String getSynonymsHtml() {
         Sql sql = Sql.newInstance(dataSource)
@@ -43,6 +43,13 @@ class TreeElement {
     }
 
     void setSynonymsHtml(String v) {
+    }
+
+    Map getSynonyms() {
+        return new HashMap()
+    }
+
+    void setSynonyms(Map v) {
     }
 
 
@@ -62,7 +69,7 @@ class TreeElement {
         nameLink sqlType: 'Text'
         instanceLink sqlType: 'Text'
         sourceElementLink sqlType: 'Text'
-        synonyms type: JsonbMapType
+//        synonyms type: JsonbMapType
         profile type: JsonbMapType
         excluded defaultValue: false
     }
@@ -70,7 +77,7 @@ class TreeElement {
     static constraints = {
         previousElement nullable: true
         sourceElementLink nullable: true
-        synonyms nullable: true
+//        synonyms nullable: true
         rank maxSize: 50
         nameElement maxSize: 255
     }
