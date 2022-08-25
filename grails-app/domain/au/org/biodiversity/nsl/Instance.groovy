@@ -68,7 +68,7 @@ class Instance {
             comments           : "instance"
     ]
 
-    static transients = ['cachedSynonymyHtml']
+    static transients = ['cachedSynonymyHtml', 'dataSource']
 
     static mapping = {
         autowire true
