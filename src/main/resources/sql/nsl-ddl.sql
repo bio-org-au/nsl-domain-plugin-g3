@@ -589,7 +589,7 @@ $body$;
 select audit.audit_table('name', 't', 't', 'i',
                          ARRAY['id', 'author_id', 'base_author_id', 'duplicate_of_id', 'ex_author_id', 'ex_base_author_id', 'family_id',
                              'full_name', 'name_rank_id', 'name_status_id', 'name_type_id', 'parent_id', 'sanctioning_author_id',
-                             'second_parent_id', 'verbatim_rank', 'orth_var', 'changed_combination',
+                             'second_parent_id', 'verbatim_rank', 'duplicate_of_id', 'orth_var', 'changed_combination',
                              'valid_record', 'published_year']::text[],
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 
@@ -600,12 +600,12 @@ select audit.audit_table('instance', 't', 't', 'i',
 
 select audit.audit_table('reference', 't', 't', 'i',
                          ARRAY['id', 'bhl_url', 'citation', 'doi', 'isbn', 'iso_publication_date', 'issn',
-                             'language_id', 'notes', 'published', 'published_location', 'publisher', 'ref_type_id',
+                             'language_id', 'notes', 'duplicate_of_id', 'published', 'published_location', 'publisher', 'ref_type_id',
                              'year', 'tl2', 'valid_record']::text[],
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 
 select audit.audit_table('author', 't', 't', 'i',
-                         ARRAY['id', 'abbrev', 'full_name', 'name', 'notes', 'ipni_id', 'valid_record']::text[],
+                         ARRAY['id', 'abbrev', 'full_name', 'name', 'duplicate_of_id', 'notes', 'ipni_id', 'valid_record']::text[],
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 
 select audit.audit_table('instance_note', 't', 't', 'i',
