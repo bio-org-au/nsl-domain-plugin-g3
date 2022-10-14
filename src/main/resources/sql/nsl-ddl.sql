@@ -595,7 +595,7 @@ select audit.audit_table('name', 't', 't', 'i',
 
 select audit.audit_table('instance', 't', 't', 'i',
                          ARRAY['id', 'bhl_url', 'draft', 'instance_type_id', 'page', 'parent_id', 'reference_id',
-                             'verbatim_name_string', 'cited_by_id', 'nomenclatural_status', 'valid_record']::text[],
+                             'verbatim_name_string', 'cited_by_id', 'cites_id', 'name_id', 'nomenclatural_status', 'valid_record']::text[],
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 
 select audit.audit_table('reference', 't', 't', 'i',
