@@ -96,7 +96,7 @@ class NslDomainService {
                 String src = bit.replaceFirst(/.*/, '')
                 log.debug src
                 sql.execute(src) { isResultSet, result ->
-                    if (isResultSet) log.debug result
+                    if (isResultSet) log.debug result.toString()
                 }
             }
         }
