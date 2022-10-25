@@ -118,7 +118,7 @@ class Instance {
 
     String getCachedSynonymyHtml() {
         Sql sql = Sql.newInstance(dataSource)
-        def row = sql.firstRow('''select coalesce(synonyms_as_html(:instanceId), '<synonyms></synonyms>');''', [instanceId: instanceId])
+        def row = sql.firstRow('''select coalesce(synonyms_as_html(:instanceId), '<synonyms></synonyms>');''', [instanceId: id])
         return row[0]
     }
 
