@@ -586,34 +586,36 @@ $body$;
 --
 -- select audit.audit_table('author');
 -- select audit.audit_table('instance');
-select audit.audit_table('name', 't', 't', 'i',
-                         ARRAY['id', 'author_id', 'base_author_id', 'duplicate_of_id', 'ex_author_id', 'ex_base_author_id', 'family_id',
-                             'full_name', 'name_rank_id', 'name_status_id', 'name_type_id', 'parent_id', 'sanctioning_author_id',
-                             'second_parent_id', 'verbatim_rank', 'duplicate_of_id', 'orth_var', 'changed_combination',
-                             'valid_record', 'published_year']::text[],
-                         ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
-
-select audit.audit_table('instance', 't', 't', 'i',
-                         ARRAY['id', 'bhl_url', 'draft', 'instance_type_id', 'page', 'parent_id', 'reference_id',
-                             'verbatim_name_string', 'cited_by_id', 'cites_id', 'name_id', 'nomenclatural_status', 'valid_record']::text[],
+select audit.audit_table('author', 't', 't', 'i',
+                         ARRAY['id', 'abbrev', 'duplicate_of_id', 'full_name', 'name', 'notes', 'ipni_id', 'valid_record']::text[],
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 
 select audit.audit_table('reference', 't', 't', 'i',
-                         ARRAY['id', 'bhl_url', 'citation', 'doi', 'isbn', 'iso_publication_date', 'issn',
-                             'language_id', 'notes', 'duplicate_of_id', 'published', 'published_location', 'publisher', 'ref_type_id',
-                             'year', 'tl2', 'valid_record']::text[],
+                         ARRAY['id', 'bhl_url', 'doi', 'duplicate_of_id', 'edition', 'isbn', 'iso_publication_date', 'issn',
+                             'language_id', 'notes', 'pages', 'parent_id', 'publication_date', 'published', 'published_location',
+                             'publisher', 'ref_author_role_id', 'ref_type_id', 'title', 'volume', 'year', 'tl2', 'valid_record',
+                             'verbatim_author', 'verbatim_citation', 'verbatim_reference']::text[],
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 
-select audit.audit_table('author', 't', 't', 'i',
-                         ARRAY['id', 'abbrev', 'full_name', 'name', 'duplicate_of_id', 'notes', 'ipni_id', 'valid_record']::text[],
+select audit.audit_table('name', 't', 't', 'i',
+                         ARRAY['id', 'author_id', 'base_author_id', 'duplicate_of_id', 'ex_author_id', 'ex_base_author_id', 'family_id',
+                             'full_name', 'name_rank_id', 'name_status_id', 'name_type_id', 'parent_id', 'sanctioning_author_id',
+                             'second_parent_id', 'verbatim_name_string', 'orth_var', 'changed_combination',
+                             'valid_record', 'published_year']::text[],
+                         ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
+
+select audit.audit_table('comment', 't', 't', 'i',
+                         ARRAY['id', 'author_id', 'name_id', 'reference_id', 'instance_id', 'text']::text[],
+                         ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
+
+select audit.audit_table('instance', 't', 't', 'i',
+                         ARRAY['id', 'bhl_url', 'cites_id', 'cited_by_id', 'draft', 'instance_type_id', 'name_id',
+                             'page', 'page_qualifier', 'parent_id', 'reference_id',
+                             'verbatim_name_string', 'nomenclatural_status', 'valid_record']::text[],
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 
 select audit.audit_table('instance_note', 't', 't', 'i',
                          ARRAY['id', 'instance_note_key_id', 'value']::text[],
-                         ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
-
-select audit.audit_table('comment', 't', 't', 'i',
-                         ARRAY['id', 'text']::text[],
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 
 select audit.audit_table('public.tree_element', 't', 't', 'i', ARRAY['id']::text[],
