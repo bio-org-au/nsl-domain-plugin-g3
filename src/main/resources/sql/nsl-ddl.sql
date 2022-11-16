@@ -280,7 +280,6 @@ COMMENT ON COLUMN audit.logged_actions.changed_fields IS 'New values of fields c
 COMMENT ON COLUMN audit.logged_actions.statement_only IS '''t'' if audit event is from an FOR EACH STATEMENT trigger, ''f'' for FOR EACH ROW';
 
 CREATE INDEX logged_actions_relid_idx ON audit.logged_actions(relid);
---CREATE INDEX logged_actions_action_tstamp_tx_stm_idx ON audit.logged_actions(action_tstamp_stm);
 CREATE INDEX logged_actions_action_tstamp_tx_idx ON audit.logged_actions using btree(action_tstamp_tx);
 CREATE INDEX logged_actions_action_idx ON audit.logged_actions(action);
 CREATE INDEX logged_actions_id_idx ON audit.logged_actions(id);
@@ -468,27 +467,7 @@ BEGIN
                 INSERT INTO audit.logged_actions VALUES (audit_row.*);
             END IF;
         ELSIF TG_OP = 'DELETE' THEN
-            old_distribution = OLD.profile -> (tree.config ->> 'distribution_key') ->> 'value';
-            old_comment = OLD.profile -> (tree.config ->> 'comment_key') ->> 'value';
-            updated_at = clock_timestamp()::text;
-            updated_at = REPLACE(updated_at, 'T', ' ');
-            updated_by = OLD.updated_by::text;
-            audit_row.row_data = hstore(ARRAY['id', OLD.id::text, 'distribution', old_distribution, 'comment', old_comment, 'updated_at', updated_at, 'updated_by', updated_by]);
-            INSERT INTO audit.logged_actions VALUES (audit_row.*);
         ELSIF TG_OP = 'INSERT' THEN
-            new_distribution = NEW.profile -> (tree.config ->> 'distribution_key') ->> 'value';
-            updated_at = NEW.profile -> (tree.config ->> 'distribution_key') ->> 'updated_at';
-            updated_at = REPLACE(updated_at, 'T', ' ');
-            updated_by = NEW.profile -> (tree.config ->> 'distribution_key') ->> 'updated_by';
-            audit_row.row_data = hstore(ARRAY['id', NEW.id::text, 'distribution', new_distribution, 'updated_at', updated_at, 'updated_by', updated_by]);
-            new_comment = NEW.profile -> (tree.config ->> 'comment_key') ->> 'value';
-            updated_at = NEW.profile -> (tree.config ->> 'comment_key') ->> 'updated_at';
-            updated_at = REPLACE(updated_at, 'T', ' ');
-            updated_by = NEW.profile -> (tree.config ->> 'comment_key') ->> 'updated_by';
-            audit_row.row_data = hstore(ARRAY['id', NEW.id::text, 'distribution', new_distribution, 'comment', new_comment, 'updated_at', updated_at, 'updated_by', updated_by]);
-            INSERT INTO audit.logged_actions VALUES (audit_row.*);
-            audit_row.event_id = nextval('audit.logged_actions_event_id_seq');
-            INSERT INTO audit.logged_actions VALUES (audit_row.*);
         END IF;
     ELSIF (TG_LEVEL = 'STATEMENT' AND TG_OP IN ('INSERT','UPDATE','DELETE','TRUNCATE')) THEN
         audit_row.statement_only = 't';
