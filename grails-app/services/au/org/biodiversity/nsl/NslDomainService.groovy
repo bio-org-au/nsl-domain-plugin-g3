@@ -15,9 +15,11 @@
 */
 package au.org.biodiversity.nsl
 
+import grails.gorm.transactions.Transactional
 import groovy.sql.Sql
 import org.hibernate.SessionFactory
 
+@Transactional
 class NslDomainService {
     def grailsApplication
     SessionFactory sessionFactory
@@ -44,6 +46,7 @@ class NslDomainService {
      * update the database to the current version using update scripts
      * @return true if worked
      */
+    @Transactional
     @SuppressWarnings("unused")
     Boolean updateToCurrentVersion(Sql sql, Map params) {
         Integer dbVersion = DbVersion.get(1)?.version

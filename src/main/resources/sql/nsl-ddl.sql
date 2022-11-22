@@ -483,7 +483,7 @@ $body$
     SECURITY DEFINER
     SET search_path = pg_catalog, public;
 
-COMMENT ON FUNCTION apni.audit.if_modified_tree_element() IS $body$
+COMMENT ON FUNCTION audit.if_modified_tree_element() IS $body$
 Track changes to tree_element at the statement and/or row level.
 $body$;
 
@@ -541,30 +541,15 @@ Arguments:
 $body$;
 
 -- Pg doesn't allow variadic calls with 0 params, so provide a wrapper
-CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean) RETURNS void AS $body$
-SELECT audit.audit_table($1, $2, $3, NULL, ARRAY[]::text[]);
-$body$ LANGUAGE SQL;
+DROP FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean);
 
 CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, column_style text, cols text[], xtra_cols text[]) RETURNS void AS $body$
 SELECT audit.audit_table($1, $2, $3, $4, $5, $6, 'audit.if_modified_func');
 $body$ LANGUAGE SQL;
 
--- And provide a convenience call wrapper for the simplest case
--- of row-level logging with no excluded cols and query logging enabled.
---
-CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass) RETURNS void AS $$
-SELECT audit.audit_table($1, BOOLEAN 't', BOOLEAN 't');
-$$ LANGUAGE 'sql';
-
-COMMENT ON FUNCTION audit.audit_table(regclass) IS $body$
-Add auditing support to the given table. Row-level changes will be logged with full client query text. No cols are ignored.
-$body$;
+DROP FUNCTION audit.audit_table(target_table regclass);
 
 -- set up triggers using the following selects after import
--- select * from information_schema.triggers;
---
--- select audit.audit_table('author');
--- select audit.audit_table('instance');
 select audit.audit_table('author', 't', 't', 'i',
                          ARRAY['id', 'abbrev', 'duplicate_of_id', 'full_name', 'name', 'notes', 'ipni_id', 'valid_record']::text[],
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);

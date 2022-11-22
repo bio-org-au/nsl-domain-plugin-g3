@@ -14,23 +14,41 @@ appender('STDOUT', ConsoleAppender) {
         charset = Charset.forName('UTF-8')
 
         pattern =
-                '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} ' + // Date
+                '%clr(%d{yyyy-MM-dd HH:mm:ss}){magenta} ' + // Date
                         '%clr(%5p) ' + // Log level
-                        '%clr(---){faint} %clr([%15.15t]){faint} ' + // Thread
-                        '%clr(%-40.40logger{39}){cyan} %clr(:){faint} ' + // Logger
-                        '%m%n%wex' // Message
+                        '%clr([%4.5t]){green} ' + // Thread
+                        '%clr(%-15.20logger{39}){cyan} %clr(:){faint} ' + // Logger
+                        '%msg %ex{1}%nopex%n' // Message
     }
 }
 
-def targetDir = BuildSettings.TARGET_DIR
-if (Environment.isDevelopmentMode() && targetDir != null) {
-    appender("FULL_STACKTRACE", FileAppender) {
-        file = "${targetDir}/stacktrace.log"
-        append = true
-        encoder(PatternLayoutEncoder) {
-            pattern = "%level %logger - %msg%n"
-        }
+appender("dailyFileAppender", RollingFileAppender) {
+    encoder(PatternLayoutEncoder) {
+        charset = Charset.forName('UTF-8')
+
+        pattern =
+                '%clr(%d{yyyy-MM-dd HH:mm:ss}){magenta} ' + // Date
+                        '%clr(%5p) ' + // Log level
+                        '%clr([%4.5t]){green} ' + // Thread
+                        '%clr(%-15.20logger{39}){cyan} %clr(:){faint} ' + // Logger
+                        '%msg %ex{1}%nopex%n' // Message
     }
-    logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
+    rollingPolicy(TimeBasedRollingPolicy) {
+        FileNamePattern = "${(System.getProperty('catalina.base') ?: (System.getProperty('user.home') ?: 'target'))}/logs/services-%d{yyyy-MM-dd}.zip"
+    }
 }
-root(ERROR, ['STDOUT'])
+
+
+def targetDir = BuildSettings.TARGET_DIR
+// println ("ENV is ${Environment.getCurrent()}")
+if (Environment.isDevelopmentMode() && targetDir != null) {
+    root(ERROR, ['STDOUT'])
+    logger("au.org.biodiversity", DEBUG, ['STDOUT'], false)
+    logger("services3", DEBUG, ['STDOUT'], false)
+}
+
+if (Environment.getCurrent() == Environment.PRODUCTION && targetDir != null) {
+    root(ERROR, ['dailyFileAppender'])
+    logger("au.org.biodiversity", DEBUG, ['dailyFileAppender'], false)
+    logger("services3", DEBUG, ['dailyFileAppender'], false)
+}
