@@ -127,6 +127,7 @@ assets {
 publishing {
     publications {
         maven(MavenPublication) {
+            artifactId = 'nsl-domain-plugin-g3'
             versionMapping {
                 usage('java-api') {
                     fromResolutionOf('runtimeClasspath')
