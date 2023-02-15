@@ -1,12 +1,12 @@
 create sequence hibernate_sequence start 1 increment 1;
-
 create sequence nsl_global_seq start 1 increment 1;
 create table author (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, duplicate_of_id int8, namespace_id int8 not null, ipni_id varchar(50), updated_by varchar(255) not null, source_id_string varchar(100), notes varchar(1000), full_name varchar(255), abbrev varchar(100), source_id int8, created_at timestamp with time zone not null, updated_at timestamp with time zone not null, name varchar(1000), source_system varchar(50), date_range varchar(50), created_by varchar(255) not null, uri text, valid_record boolean default false not null, primary key (id));
 create table comment (id int8 default nextval('hibernate_sequence') not null, lock_version int8 default 0 not null, updated_by varchar(50) not null, text text not null, author_id int8, created_at timestamp with time zone not null, updated_at timestamp with time zone not null, name_id int8, created_by varchar(50) not null, instance_id int8, reference_id int8, primary key (id));
 create table db_version (id int8 not null, version int4 not null, primary key (id));
-create table delayed_jobs (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, created_at timestamp with time zone not null, locked_at timestamp with time zone, last_error text, queue varchar(4000), priority numeric(19, 2), failed_at timestamp with time zone, updated_at timestamp with time zone not null, handler text, locked_by varchar(4000), run_at timestamp with time zone, attempts numeric(19, 2), primary key (id));
+create table delayed_jobs (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, created_at timestamp with time zone not null, locked_at timestamp with time zone, last_error oid, queue varchar(4000), priority numeric(19, 2), failed_at timestamp with time zone, updated_at timestamp with time zone not null, handler oid, locked_by varchar(4000), run_at timestamp with time zone, attempts numeric(19, 2), primary key (id));
 create table dist_entry (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, display varchar(255) not null, region_id int8 not null, sort_order int4 default 0 not null, primary key (id));
 create table dist_entry_dist_status (dist_entry_status_id int8 not null, dist_status_id int8);
+create table dist_entry_tree_element (dist_entry_tree_elements_id int8 not null, tree_element_id int8);
 create table dist_region (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, def_link varchar(255), description_html text, sort_order int4 default 0 not null, name varchar(255) not null, deprecated boolean default false not null, primary key (id));
 create table dist_status (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, def_link varchar(255), description_html text, sort_order int4 default 0 not null, name varchar(255) not null, deprecated boolean default false not null, primary key (id));
 create table dist_status_dist_status (dist_status_combining_status_id int8 not null, dist_status_id int8);
@@ -15,15 +15,15 @@ create table id_mapper (id int8 not null, from_id int8 not null, to_id int8, sys
 create table instance (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, nomenclatural_status varchar(50), bhl_url varchar(4000), namespace_id int8 not null, updated_by varchar(1000) not null, source_id_string varchar(100), draft boolean default false not null, page varchar(255), cites_id int8, verbatim_name_string varchar(255), source_id int8, created_at timestamp with time zone not null, page_qualifier varchar(255), cited_by_id int8, name_id int8 not null, updated_at timestamp with time zone not null, source_system varchar(50), created_by varchar(50) not null, instance_type_id int8 not null, cached_synonymy_html text, uri text, valid_record boolean default false not null, parent_id int8, reference_id int8 not null, primary key (id));
 create table instance_note (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, namespace_id int8 not null, updated_by varchar(50) not null, source_id_string varchar(100), source_id int8, created_at timestamp with time zone not null, updated_at timestamp with time zone not null, source_system varchar(50), value varchar(4000) not null, created_by varchar(50) not null, instance_note_key_id int8 not null, instance_id int8 not null, primary key (id));
 create table instance_note_key (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, rdf_id varchar(50), description_html text, sort_order int4 default 0 not null, name varchar(255) not null, deprecated boolean default false not null, primary key (id));
-create table instance_resources (resource_id int8 not null, instance_id int8 not null, primary key (instance_id, resource_id));
+create table instance_resources (instance_id int8 not null, resource_id int8 not null, primary key (instance_id, resource_id));
 create table instance_type (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, rdf_id varchar(50), description_html text, bidirectional boolean default false not null, secondary_instance boolean default false not null, misapplied boolean default false not null, relationship boolean default false not null, unsourced boolean default false not null, synonym boolean default false not null, protologue boolean default false not null, sort_order int4 default 0 not null, primary_instance boolean default false not null, taxonomic boolean default false not null, standalone boolean default false not null, name varchar(255) not null, pro_parte boolean default false not null, nomenclatural boolean default false not null, doubtful boolean default false not null, has_label varchar(255) not null, deprecated boolean default false not null, citing boolean default false not null, of_label varchar(255) not null, primary key (id));
 create table language (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, iso6391code varchar(2), name varchar(50) not null, iso6393code varchar(3) not null, primary key (id));
 create table media (id int8 default nextval('hibernate_sequence') not null, version int8 not null, mime_type text not null, file_name text not null, data bytea not null, description text not null, primary key (id));
-create table name (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, family_id int8, duplicate_of_id int8, sanctioning_author_id int8, name_element varchar(255), namespace_id int8 not null, name_rank_id int8 not null, updated_by varchar(50) not null, source_id_string varchar(100), published_year int4, full_name varchar(512), source_dup_of_id int8, author_id int8, source_id int8, changed_combination boolean default false not null, ex_author_id int8, created_at timestamp with time zone not null, ex_base_author_id int8, sort_name varchar(250), second_parent_id int8, name_status_id int8 not null, simple_name varchar(250), updated_at timestamp with time zone not null, source_system varchar(50), apni_json jsonb, simple_name_html varchar(2048), base_author_id int8, verbatim_rank varchar(50), created_by varchar(50) not null, orth_var boolean default false not null, name_type_id int8 not null, status_summary varchar(50), uri text, valid_record boolean default false not null, name_path text not null, full_name_html varchar(2048), parent_id int8, primary key (id));
+create table name (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, family_id int8, duplicate_of_id int8, sanctioning_author_id int8, name_element varchar(255), namespace_id int8 not null, name_rank_id int8 not null, updated_by varchar(50) not null, source_id_string varchar(100), published_year int4, full_name varchar(512), source_dup_of_id int8, author_id int8, source_id int8, changed_combination boolean default false not null, ex_author_id int8, basionym_id int8, created_at timestamp with time zone not null, ex_base_author_id int8, primary_instance_id int8, sort_name varchar(250), second_parent_id int8, name_status_id int8 not null, simple_name varchar(250), updated_at timestamp with time zone not null, source_system varchar(50), apni_json jsonb, simple_name_html varchar(2048), base_author_id int8, verbatim_rank varchar(50), created_by varchar(50) not null, orth_var boolean default false not null, name_type_id int8 not null, status_summary varchar(50), uri text, valid_record boolean default false not null, name_path text not null, full_name_html varchar(2048), parent_id int8, primary key (id));
 create table name_category (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, rdf_id varchar(50), description_html text, requires_family boolean default false not null, takes_rank boolean default false not null, parent_1_help_text text, takes_verbatim_rank boolean default false not null, parent_2_help_text text, takes_hybrid_scoped_parent boolean default false not null, requires_name_element boolean default false not null, sort_order int4 default 0 not null, requires_higher_ranked_parent boolean default false not null, takes_cultivar_scoped_parent boolean default false not null, name varchar(50) not null, max_parents_allowed int4 not null, takes_name_element boolean default false not null, min_parents_required int4 not null, takes_authors boolean default false not null, takes_author_only boolean default false not null, primary key (id));
 create table name_group (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, rdf_id varchar(50), description_html text, name varchar(50), primary key (id));
 create table name_rank (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, rdf_id varchar(50), description_html text, italicize boolean default false not null, visible_in_name boolean default true not null, has_parent boolean default false not null, display_name text not null, abbrev varchar(20) not null, name_group_id int8 not null, sort_order int4 default 0 not null, use_verbatim_rank boolean default false not null, name varchar(50) not null, major boolean default false not null, deprecated boolean default false not null, parent_rank_id int8, primary key (id));
-create table name_resources (resource_id int8 not null, name_id int8 not null, primary key (name_id, resource_id));
+create table name_resources (name_id int8 not null, resource_id int8 not null, primary key (name_id, resource_id));
 create table name_status (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, rdf_id varchar(50), description_html text, nom_illeg boolean default false not null, display boolean default true not null, name_group_id int8 not null, name_status_id int8, name varchar(50), deprecated boolean default false not null, nom_inval boolean default false not null, primary key (id));
 create table name_tag (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, name varchar(255) not null, primary key (id));
 create table name_tag_name (name_id int8 not null, tag_id int8 not null, created_at timestamp with time zone not null, updated_at timestamp with time zone not null, updated_by varchar(255) not null, created_by varchar(255) not null, primary key (name_id, tag_id));
@@ -39,7 +39,7 @@ create table shard_config (id int8 default nextval('hibernate_sequence') not nul
 create table site (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, created_at timestamp with time zone not null, url varchar(500) not null, name varchar(100) not null, updated_at timestamp with time zone not null, updated_by varchar(50) not null, created_by varchar(50) not null, description varchar(1000) not null, primary key (id));
 create table tree (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, description_html Text default 'Edit me' not null, link_to_home_page Text, reference_id int8, config jsonb not null, host_name Text not null, current_tree_version_id int8, default_draft_tree_version_id int8, accepted_tree boolean default false not null, name Text not null, group_name Text not null, primary key (id));
 create table tree_element (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, instance_link Text not null, profile jsonb not null, rank varchar(50) not null, name_element varchar(255) not null, previous_element_id int8, updated_by varchar(255) not null, name_link Text not null, display_html Text not null, synonyms jsonb, excluded boolean default false not null, source_shard Text not null, synonyms_html Text not null, updated_at timestamp with time zone not null, simple_name Text not null, instance_id int8 not null, name_id int8 not null, source_element_link Text, primary key (id));
-create table tree_element_distribution_entries (dist_entry_id int8 not null, tree_element_id int8 not null, primary key (tree_element_id, dist_entry_id));
+create table tree_element_distribution_entries (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, dist_entry_id int8 not null, updated_at timestamp with time zone not null, updated_by varchar(255) not null, tree_element_id int8 not null, primary key (id));
 create table tree_version (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, previous_version_id int8, published_by varchar(100), tree_id int8 not null, published boolean default false not null, published_at timestamp with time zone, created_at timestamp with time zone not null, log_entry Text, created_by varchar(255) not null, draft_name Text not null, primary key (id));
 create table tree_version_element (element_link Text not null, taxon_link Text not null, taxon_id int8 not null, updated_by varchar(255) not null, depth int4 not null, tree_element_id int8 not null, tree_path Text not null, updated_at timestamp with time zone not null, merge_conflict boolean default false not null, name_path Text not null, tree_version_id int8 not null, parent_id Text, primary key (element_link));
 create index Auth_Source_Index on author (namespace_id, source_id, source_system);
@@ -135,6 +135,8 @@ alter table if exists comment add constraint FK5khmonmjiihwojlnql2fclhk8 foreign
 alter table if exists dist_entry add constraint FK4t6cnjnqkmo3gfiamynvx3j4a foreign key (region_id) references dist_region;
 alter table if exists dist_entry_dist_status add constraint FKk48e159lcd0rj014cirn9ri3 foreign key (dist_status_id) references dist_status;
 alter table if exists dist_entry_dist_status add constraint FK1j0wul4a4l358rxyvgvn1lf1s foreign key (dist_entry_status_id) references dist_entry;
+alter table if exists dist_entry_tree_element add constraint FKhqv8i2vqgb7xco3c3agm45a2f foreign key (tree_element_id) references tree_element;
+alter table if exists dist_entry_tree_element add constraint FKl2r8hiicctt2n030yfu3o8qry foreign key (dist_entry_tree_elements_id) references dist_entry;
 alter table if exists dist_status_dist_status add constraint FKfq8lvxy23dr83dw5v305d79iy foreign key (dist_status_id) references dist_status;
 alter table if exists dist_status_dist_status add constraint FKabw62nt00yhmc1h7h4cjhhqpb foreign key (dist_status_combining_status_id) references dist_status;
 alter table if exists id_mapper add constraint FKk5mpmddy4bu9at8iyj5l3588j foreign key (namespace_id) references namespace;
@@ -148,8 +150,8 @@ alter table if exists instance add constraint FKjnyycl6cw6g735jm9sw4g6070 foreig
 alter table if exists instance_note add constraint FKkye1i1nnvmge7047asc87em0o foreign key (namespace_id) references namespace;
 alter table if exists instance_note add constraint FKjshle8hwjkavnc6pqtbnnbwn0 foreign key (instance_note_key_id) references instance_note_key;
 alter table if exists instance_note add constraint FK3fpit98cinx5n0u1dhukti5b0 foreign key (instance_id) references instance;
-alter table if exists instance_resources add constraint FKd0retp8swqg9r1cobg8803r8f foreign key (instance_id) references instance;
 alter table if exists instance_resources add constraint FKaf34bw8h0shwdbme57amud7ca foreign key (resource_id) references resource;
+alter table if exists instance_resources add constraint FKd0retp8swqg9r1cobg8803r8f foreign key (instance_id) references instance;
 alter table if exists name add constraint FKdtalpdbwhlb1d96ajjf7qtvxv foreign key (family_id) references name;
 alter table if exists name add constraint FK2dc7phc3mx5vbtjk1v895ia4e foreign key (duplicate_of_id) references name;
 alter table if exists name add constraint FK8sowuvuepistgxb4vrhdl9fi9 foreign key (sanctioning_author_id) references author;
@@ -157,7 +159,9 @@ alter table if exists name add constraint FKf8129yfqm6i7nj1eglys78k7v foreign ke
 alter table if exists name add constraint FKo1ewfcy384g3eipih9ix7g31o foreign key (name_rank_id) references name_rank;
 alter table if exists name add constraint FKbt9vwpa492bg9ortwdu7qg9ki foreign key (author_id) references author;
 alter table if exists name add constraint FKgvy0vvbhyta6ba5xi618faj4y foreign key (ex_author_id) references author;
+alter table if exists name add constraint FKaub27dgwtro9xres7grwu0rv9 foreign key (basionym_id) references name;
 alter table if exists name add constraint FKbic5p63d2m5qs37ch2atxl738 foreign key (ex_base_author_id) references author;
+alter table if exists name add constraint FKem8tmng7pdjct6pj80ist6d4v foreign key (primary_instance_id) references instance;
 alter table if exists name add constraint FKl2k7nw7kjre5xj50sllv59ple foreign key (second_parent_id) references name;
 alter table if exists name add constraint FKkmvj4ti1war8v0oa0d0u65b2r foreign key (name_status_id) references name_status;
 alter table if exists name add constraint FK7dd4clytuja1mpi7m4bp69tr8 foreign key (base_author_id) references author;
@@ -165,8 +169,8 @@ alter table if exists name add constraint FKs6bgm8qxdjuu75m4akt2htnhi foreign ke
 alter table if exists name add constraint FK6d8l40x3ies10jx70laft58ww foreign key (parent_id) references name;
 alter table if exists name_rank add constraint FKlyletq1bg7yfdr9lbfbm6e92j foreign key (name_group_id) references name_group;
 alter table if exists name_rank add constraint FKo7aiq7ncbih4ba9lobo1kq760 foreign key (parent_rank_id) references name_rank;
-alter table if exists name_resources add constraint FKed0uws76yim98cwseqb42ldst foreign key (name_id) references name;
 alter table if exists name_resources add constraint FKnmuu2n0mg52it1rjjcysyrcqj foreign key (resource_id) references resource;
+alter table if exists name_resources add constraint FKed0uws76yim98cwseqb42ldst foreign key (name_id) references name;
 alter table if exists name_status add constraint FKervak5dftos3nnv4uy3s8h4e2 foreign key (name_group_id) references name_group;
 alter table if exists name_status add constraint FKch4l1s7y7jdg3rl87xfcsx1qd foreign key (name_status_id) references name_status;
 alter table if exists name_tag_name add constraint FKjo146r0r2axga773x4wwb56m2 foreign key (name_id) references name;
@@ -187,8 +191,8 @@ alter table if exists resource_type add constraint FKlktm0acyftrbx76swnuhyaey6 f
 alter table if exists tree add constraint FKevwmdnjbrryqh2w39lmf1mgap foreign key (current_tree_version_id) references tree_version;
 alter table if exists tree add constraint FKsojbhasi69wky2t75ak2x08cq foreign key (default_draft_tree_version_id) references tree_version;
 alter table if exists tree_element add constraint FKsybibf7p563u984r0jy3ryslb foreign key (previous_element_id) references tree_element;
-alter table if exists tree_element_distribution_entries add constraint FK2ligrmtx0lsevxakkmw4r782l foreign key (tree_element_id) references tree_element;
 alter table if exists tree_element_distribution_entries add constraint FKskod03l7q1b16n01sx6u7s7om foreign key (dist_entry_id) references dist_entry;
+alter table if exists tree_element_distribution_entries add constraint FK2ligrmtx0lsevxakkmw4r782l foreign key (tree_element_id) references tree_element;
 alter table if exists tree_version add constraint FKnj28y8aqmyq45vhbwt5xqn28w foreign key (previous_version_id) references tree_version;
 alter table if exists tree_version add constraint FKa1nt4892e09kv1mb6r5snofff foreign key (tree_id) references tree;
 alter table if exists tree_version_element add constraint FKpahqiiilyjisux0c8y79gcq1s foreign key (tree_element_id) references tree_element;
@@ -300,8 +304,8 @@ BEGIN
         TG_TABLE_SCHEMA::text,                        -- schema_name
         TG_TABLE_NAME::text,                          -- table_name
         TG_RELID,                                     -- relation OID for much quicker searches
-        session_user::text,                           -- session_user_name
-        current_timestamp,                            -- action_tstamp_tx
+                session_user::text,                           -- session_user_name
+                current_timestamp,                            -- action_tstamp_tx
         statement_timestamp(),                        -- action_tstamp_stm
         clock_timestamp(),                            -- action_tstamp_clk
         txid_current(),                               -- transaction ID
@@ -349,9 +353,9 @@ BEGIN
     RETURN NULL;
 END;
 $body$
-LANGUAGE plpgsql
-SECURITY DEFINER
-SET search_path = pg_catalog, public;
+    LANGUAGE plpgsql
+    SECURITY DEFINER
+    SET search_path = pg_catalog, public;
 
 COMMENT ON FUNCTION audit.if_modified_func() IS $body$
 Track changes to a table at the statement and/or row level.
@@ -528,7 +532,7 @@ BEGIN
     EXECUTE _q_txt;
 END;
 $body$
-language 'plpgsql';
+    language 'plpgsql';
 
 COMMENT ON FUNCTION audit.audit_table(regclass, boolean, boolean, text[]) IS $body$
 Add auditing support to a table.
@@ -541,15 +545,30 @@ Arguments:
 $body$;
 
 -- Pg doesn't allow variadic calls with 0 params, so provide a wrapper
-DROP FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean);
+CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean) RETURNS void AS $body$
+SELECT audit.audit_table($1, $2, $3, NULL, ARRAY[]::text[]);
+$body$ LANGUAGE SQL;
 
 CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, column_style text, cols text[], xtra_cols text[]) RETURNS void AS $body$
 SELECT audit.audit_table($1, $2, $3, $4, $5, $6, 'audit.if_modified_func');
 $body$ LANGUAGE SQL;
 
-DROP FUNCTION audit.audit_table(target_table regclass);
+-- And provide a convenience call wrapper for the simplest case
+-- of row-level logging with no excluded cols and query logging enabled.
+--
+CREATE OR REPLACE FUNCTION audit.audit_table(target_table regclass) RETURNS void AS $$
+SELECT audit.audit_table($1, BOOLEAN 't', BOOLEAN 't');
+$$ LANGUAGE 'sql';
+
+COMMENT ON FUNCTION audit.audit_table(regclass) IS $body$
+Add auditing support to the given table. Row-level changes will be logged with full client query text. No cols are ignored.
+$body$;
 
 -- set up triggers using the following selects after import
+-- select * from information_schema.triggers;
+--
+-- select audit.audit_table('author');
+-- select audit.audit_table('instance');
 select audit.audit_table('author', 't', 't', 'i',
                          ARRAY['id', 'abbrev', 'duplicate_of_id', 'full_name', 'name', 'notes', 'ipni_id', 'valid_record']::text[],
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
@@ -583,7 +602,7 @@ select audit.audit_table('instance_note', 't', 't', 'i',
                          ARRAY['created_at', 'created_by', 'updated_at', 'updated_by']::text[]);
 
 select audit.audit_table('public.tree_element', 't', 't', 'i', ARRAY['id']::text[],
-        ARRAY[]::text[], 'audit.if_modified_tree_element');
+                         ARRAY[]::text[], 'audit.if_modified_tree_element');
 
 -- export-name-view.sql
 DROP MATERIALIZED VIEW IF EXISTS name_view;
@@ -2636,8 +2655,8 @@ INSERT INTO public.dist_status (description_html, def_link, name, sort_order) VA
     <li>a native taxon has become naturalised outside of its natural range within that jurisdiction, or;</li>
     <li>a native or non-native taxon that did not originate in a given jurisdiction but has since arrived and become established there.</li>
 </ul>', null, 'naturalised', 1),
-('“taxa that have originated in a given area without human involvement or that have arrived there without intentional or unintentional intervention of humans from an area in which they are native” (definition from Pysek et al. (2004)).', null, 'native', 0),
-('For some taxa there is uncertainty as to whether the populations present in a given jurisdiction represent native or naturalised plants or a combination of the two former categories. In these cases, the jurisdiction is listed with the parenthetical qualifier “(uncertain origin)”. Comment fields may be added under the APC reference to indicate the nature of this uncertainty.', null, 'uncertain origin', 5);
+('“taxa that have originated in a given area without human involvement or that have arrived there without intentional or unintentional intervention of humans from an area in which they are native�? (definition from Pysek et al. (2004)).', null, 'native', 0),
+('For some taxa there is uncertainty as to whether the populations present in a given jurisdiction represent native or naturalised plants or a combination of the two former categories. In these cases, the jurisdiction is listed with the parenthetical qualifier “(uncertain origin)�?. Comment fields may be added under the APC reference to indicate the nature of this uncertainty.', null, 'uncertain origin', 5);
 
 insert into dist_status_dist_status (dist_status_combining_status_id, dist_status_id)
     (SELECT comb.id, ds.id from dist_status ds, dist_status comb where ds.name = 'naturalised' and comb.name = 'uncertain origin');
@@ -3200,3 +3219,7 @@ GRANT SELECT ON instance_resource_vw TO read_only;
 GRANT SELECT ON name_detail_synonyms_vw TO read_only;
 GRANT SELECT ON name_details_vw TO read_only;
 GRANT SELECT ON name_detail_commons_vw TO read_only;
+
+
+
+

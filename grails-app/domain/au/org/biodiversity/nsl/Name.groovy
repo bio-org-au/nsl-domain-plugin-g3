@@ -63,6 +63,9 @@ class Name {
     String sourceIdString
     Namespace namespace
 
+    Name basionym
+    Instance primaryInstance
+
     String updatedBy
     Timestamp updatedAt
     String createdBy
@@ -147,6 +150,8 @@ class Name {
         verbatimRank nullable: true, maxSize: 50
         apniJson nullable: true
         publishedYear nullable: true, max: 2500, min: 1700
+        basionym nullable: true
+        primaryInstance nullable: true
     }
 
     @Override

@@ -11,7 +11,7 @@ buildscript {
     }
 }
 
-version "3.4.0-SNAPSHOT"
+version "3.5.0-SNAPSHOT"
 group "au.org.biodiversity.grails.plugins"
 
 apply plugin:"eclipse"
@@ -68,7 +68,7 @@ dependencies {
 
     implementation "org.grails:grails-plugin-domain-class"
 
-    implementation 'org.postgresql:postgresql:42.2.1.jre7'
+    implementation 'org.postgresql:postgresql:42.5.3'
     implementation 'com.google.code.gson:gson:2.10'
 
 
@@ -124,6 +124,9 @@ assets {
 //    exclude "grails-app/views/error.gsp"
 //}
 //println "user ${System.getenv('BINTRAY_USER')}"
+
+
+// ./gradlew publishToMavenLocal
 publishing {
     publications {
         maven(MavenPublication) {
@@ -139,4 +142,9 @@ publishing {
             from components.java
         }
     }
+}
+
+// Without this, schema generation doesn't work for some strange reason. See Grails issue 11588
+runCommand {
+    systemProperty "spring.devtools.restart.enabled", false
 }
