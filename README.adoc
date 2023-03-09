@@ -28,7 +28,7 @@ image:https://travis-ci.org/bio-org-au/nsl-domain-plugin-g3.svg?branch=master["B
 [source,bash]
 ----
 ~/IdeaProjects/NSL/nsl-domain-plugin-g3$ grails --version
-| Grails Version: 3.3.10
+| Grails Version: 5.2.5
 | JVM Version: 1.8.0_232
 ----
 
@@ -42,7 +42,7 @@ CREATE DATABASE nslimport WITH OWNER nsldev;
 === Install
 
 . With that in place, you can now run `./gradlew build` from the project root
-. Once that succeeds, you can install the plugin using the command `grails install`
+. Once that succeeds, you can install the plugin using the command `./gradlew publishToMavenLocal`
 . This installs the plugin in the maven directory as below
 
 [source,bash]
@@ -75,9 +75,9 @@ and this means your changes need to appear in an update script and the nsl-ddl.s
 ==== Adding/Changing a view, trigger, index or default data
 
 If you are adding a view, trigger, index or default data:
- 1. first add your changes to an appropriate file in the `/web-app/sql/views` directory
+ 1. first add your changes to an appropriate file in the `/src/main/resources/sql/views` directory
  1. run `grails generate-nsl-ddl` to regenerate the nsl-ddl.sql file with your changes included
- 1. Add your change to the latest `update-to-nn.sql` file in the `/web-app/sql` directory
+ 1. Add your change to the latest `update-to-nn.sql` file in the `src/main/resources/sql` directory
 
 Remember the update-to-nn script is updating a database from the previous version, so you must take into account existing
 views and **not loose data**.
