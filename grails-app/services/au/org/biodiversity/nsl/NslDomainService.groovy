@@ -38,7 +38,7 @@ class NslDomainService {
             println "Current version check"
             Integer dbVersion = DbVersion.get(1)?.version
             println "version: $dbVersion"
-            DbVersion.get(1)?.version == currentVersion
+            dbVersion == currentVersion
         } catch (e) {
             log.error e.message
             e.printStackTrace()
