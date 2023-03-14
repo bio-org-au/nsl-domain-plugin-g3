@@ -53,6 +53,7 @@ class NslDomainService {
     @Transactional
     @SuppressWarnings("unused")
     Boolean updateToCurrentVersion(Sql sql, Map params) {
+        println "updateToCurrentVersion"
         Integer dbVersion = DbVersion.get(1)?.version
         println "Current database version: $dbVersion"
         if (!dbVersion) {
