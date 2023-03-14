@@ -50,6 +50,7 @@ class NslDomainService {
     @SuppressWarnings("unused")
     Boolean updateToCurrentVersion(Sql sql, Map params) {
         Integer dbVersion = DbVersion.get(1)?.version
+        println "Current database version: $dbVersion"
         if (!dbVersion) {
             log.error "Database version not found, not updating."
             return false
@@ -62,12 +63,13 @@ class NslDomainService {
         sessionFactory.getCurrentSession().flush()
         sessionFactory.getCurrentSession().clear()
         for (Integer versionNumber in ((dbVersion + 1)..currentVersion)) {
-            log.info "updating to version $versionNumber"
+            log.error "updating to version $versionNumber"
             URL updateFile = getUpdateFile(versionNumber)
             params.putAll(getParamsFile(versionNumber))
             if (updateFile) {
                 String sqlSource = replaceParams(updateFile, params)
                 runSqlBits(splitSql(sqlSource), sql)
+                log.error "updated to version $versionNumber"
             }
         }
         if (params.postUpgradeScript) {
