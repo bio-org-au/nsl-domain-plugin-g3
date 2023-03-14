@@ -35,6 +35,9 @@ class NslDomainService {
 
     Boolean checkUpToDate() {
         try {
+            println "Current version check"
+            Integer dbVersion = DbVersion.get(1)?.version
+            println "version: $dbVersion"
             DbVersion.get(1)?.version == currentVersion
         } catch (e) {
             log.error e.message
