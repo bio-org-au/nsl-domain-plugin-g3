@@ -38,6 +38,7 @@ class NslDomainService {
             DbVersion.get(1)?.version == currentVersion
         } catch (e) {
             log.error e.message
+            e.printStackTrace()
             return false
         }
     }
