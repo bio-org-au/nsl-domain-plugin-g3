@@ -1,4 +1,4 @@
--- create trigger function
+-- yes I know this is the same as #40, but a typo somehow got into production.
 CREATE OR REPLACE FUNCTION update_synonyms_and_cache()
     RETURNS TRIGGER AS $$
 BEGIN
