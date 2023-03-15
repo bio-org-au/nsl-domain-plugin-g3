@@ -183,7 +183,7 @@ BEGIN
         SET cached_synonymy_html = coalesce(synonyms_as_html(instance.id), '<synonyms></synonyms>')
         WHERE instance.id=NEW.id;
         UPDATE instance
-        SET cached_synonymy_h7tml = coalesce(synonyms_as_html(instance.id), '<synonyms></synonyms>')
+        SET cached_synonymy_html = coalesce(synonyms_as_html(instance.id), '<synonyms></synonyms>')
         WHERE instance.id IN (SELECT cited_by_id FROM instance WHERE instance.id=NEW.id);
     END IF;
     RETURN NEW;

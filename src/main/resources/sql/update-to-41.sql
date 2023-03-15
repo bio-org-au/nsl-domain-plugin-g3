@@ -24,5 +24,5 @@ CREATE TRIGGER update_instance_synonyms_and_cache
 
 -- update version
 UPDATE db_version
-SET version = 40
+SET version = 41
 WHERE id = 1;
