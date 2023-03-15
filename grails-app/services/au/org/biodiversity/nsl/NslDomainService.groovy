@@ -35,11 +35,9 @@ class NslDomainService {
 
     Boolean checkUpToDate() {
         try {
-            println "Current version check"
             Integer dbVersion = DbVersion.get(1)?.version
-            boolean rtn = dbVersion == currentVersion
-            println "version2: $dbVersion"
-            return rtn
+            println "Current database version check: $dbVersion"
+            dbVersion == currentVersion
         } catch (e) {
             log.error e.message
             e.printStackTrace()
@@ -54,9 +52,7 @@ class NslDomainService {
     @Transactional
     @SuppressWarnings("unused")
     Boolean updateToCurrentVersion(Sql sql, Map params) {
-        println "updateToCurrentVersion"
         Integer dbVersion = DbVersion.get(1)?.version
-        println "Current database version: $dbVersion"
         if (!dbVersion) {
             log.error "Database version not found, not updating."
             return false
