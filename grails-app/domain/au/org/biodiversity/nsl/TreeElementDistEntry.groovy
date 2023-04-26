@@ -17,4 +17,8 @@ class TreeElementDistEntry {
         table "tree_element_distribution_entries"
         updatedAt sqlType: 'timestamp with time zone'
     }
+
+    String toString() {
+        return "TreeElementDistEntry : $id, $treeElement.id, $distEntry.id:$distEntry.display"
+    }
 }

@@ -20,29 +20,15 @@ appender('STDOUT', ConsoleAppender) {
                         '%clr(%-15.20logger{39}){cyan} %clr(:){faint} ' + // Logger
                         '%msg %ex{1}%nopex%n' // Message
     }
+    logger("StackTrace", ERROR, ['STDOUT'], false)
+    logger("org.hibernate.orm.deprecation", OFF)
+    root(WARN, ['STDOUT'])
 }
-
-appender("dailyFileAppender", RollingFileAppender) {
-    encoder(PatternLayoutEncoder) {
-        charset = Charset.forName('UTF-8')
-
-        pattern =
-                '%clr(%d{yyyy-MM-dd HH:mm:ss}){magenta} ' + // Date
-                        '%clr(%5p) ' + // Log level
-                        '%clr([%4.5t]){green} ' + // Thread
-                        '%clr(%-15.20logger{39}){cyan} %clr(:){faint} ' + // Logger
-                        '%msg %ex{1}%nopex%n' // Message
-    }
-    rollingPolicy(TimeBasedRollingPolicy) {
-        FileNamePattern = "${(System.getProperty('catalina.base') ?: (System.getProperty('user.home') ?: 'target'))}/logs/services-%d{yyyy-MM-dd}.zip"
-    }
-}
-
 
 def targetDir = BuildSettings.TARGET_DIR
 // println ("ENV is ${Environment.getCurrent()}")
 if (Environment.isDevelopmentMode() && targetDir != null) {
-    root(ERROR, ['STDOUT'])
+    root(DEBUG, ['STDOUT'])
     logger("au.org.biodiversity", DEBUG, ['STDOUT'], false)
     logger("services3", DEBUG, ['STDOUT'], false)
 }
