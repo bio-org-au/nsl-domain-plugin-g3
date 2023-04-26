@@ -19,7 +19,7 @@ class TreeElementDistEntry implements Comparable<TreeElementDistEntry> {
     }
 
     @Override
-    int compare(TreeElementDistEntry o1, TreeElementDistEntry o2) {
+    int compareTo(TreeElementDistEntry o1, TreeElementDistEntry o2) {
         return o1.id == o2.id || (o1.treeElement.id == o2.treeElement.id && o1.distEntry.id == o2.distEntry.id)
     }
 
