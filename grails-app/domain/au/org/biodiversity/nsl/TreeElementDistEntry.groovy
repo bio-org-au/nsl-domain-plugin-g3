@@ -18,12 +18,12 @@ class TreeElementDistEntry implements Comparable<TreeElementDistEntry> {
         updatedAt sqlType: 'timestamp with time zone'
     }
 
-    @Override
-    int compareTo(TreeElementDistEntry o1, TreeElementDistEntry o2) {
-        return o1.id == o2.id || (o1.treeElement.id == o2.treeElement.id && o1.distEntry.id == o2.distEntry.id)
-    }
-
     String toString() {
         return "TreeElementDistEntry : $id, $treeElement.id, $distEntry.id:$distEntry.display"
+    }
+
+    @Override
+    int compareTo(TreeElementDistEntry o) {
+        return id == o.id || (treeElement.id == o.treeElement.id && distEntry.id == o.distEntry.id)
     }
 }
