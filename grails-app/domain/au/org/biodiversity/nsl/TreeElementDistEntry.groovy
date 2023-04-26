@@ -19,7 +19,7 @@ class TreeElementDistEntry implements Comparable<TreeElementDistEntry> {
     }
 
     String toString() {
-        return "TreeElementDistEntry : $id, $treeElement.id, $distEntry.id:$distEntry.display"
+        return "TreeElementDistEntry : $id, $treeElement?.id, $distEntry?.id:$distEntry?.display"
     }
 
     @Override
