@@ -24,6 +24,6 @@ class TreeElementDistEntry implements Comparable<TreeElementDistEntry> {
 
     @Override
     int compareTo(TreeElementDistEntry o) {
-        return id ? o?.id ? id.compareTo(o.id) ?: treeElement.id.compareTo(treeElement.id) ?: distEntry.id.compareTo(o.distEntry.id) : 1 : -1
+        return id ? o?.id ? (id.compareTo(o.id) ?: treeElement.id.compareTo(treeElement.id) ?: distEntry.id.compareTo(o.distEntry.id)) : 1 : -1
     }
 }
