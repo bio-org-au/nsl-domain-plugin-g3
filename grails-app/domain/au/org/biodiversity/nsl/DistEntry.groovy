@@ -17,7 +17,7 @@ package au.org.biodiversity.nsl
 
 import groovy.transform.ToString
 
-class DistEntry {
+class DistEntry implements Comparable<DistEntry> {
 
     DistRegion region
     String display
@@ -55,5 +55,10 @@ class DistEntry {
 
     String toString() {
         return "DistEntry : $id, $display"
+    }
+
+    @Override
+    int compare(DistEntry o1, DistEntry o2) {
+        return o1.id == o2.id
     }
 }
