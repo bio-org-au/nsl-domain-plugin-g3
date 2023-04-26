@@ -59,7 +59,6 @@ class DistEntry implements Comparable<DistEntry> {
 
     @Override
     int compareTo(DistEntry o) {
-        log.debug "compareTo $this $o"
         return id ? o?.id ? id?.compareTo(o?.id) : 1 : -1
     }
 }
