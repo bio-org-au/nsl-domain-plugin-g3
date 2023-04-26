@@ -59,6 +59,6 @@ class DistEntry implements Comparable<DistEntry> {
 
     @Override
     int compareTo(DistEntry o) {
-        return id ? o.id ? id.compareTo(o.id) : 1 : -1
+        return id ? o?.id ? id.compareTo(o.id) : 1 : -1
     }
 }
