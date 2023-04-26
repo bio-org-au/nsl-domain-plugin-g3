@@ -53,4 +53,7 @@ class DistEntry {
         return (id != null ? id.hashCode() : 0)
     }
 
+    String toString() {
+        return "DistEntry : $id, $display"
+    }
 }
