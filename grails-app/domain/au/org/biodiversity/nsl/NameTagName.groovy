@@ -44,4 +44,18 @@ class NameTagName implements Serializable {
     static constraints = {
 
     }
+
+    @Override
+    boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NameTagName that = (NameTagName) o;
+        return Objects.equals(name.id, that.name.id) && Objects.equals(tag.id, that.tag.id);
+    }
+
+
+    @Override
+    int hashCode() {
+        return Objects.hash(name.hashCode(), tag.hashCode());
+    }
 }
