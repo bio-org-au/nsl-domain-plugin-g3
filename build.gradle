@@ -11,7 +11,7 @@ buildscript {
     }
 }
 
-version "3.5.1-SNAPSHOT"
+version "3.6.0"
 group "au.org.biodiversity.grails.plugins"
 
 apply plugin:"eclipse"
@@ -57,7 +57,7 @@ dependencies {
     implementation "org.grails.plugins:scaffolding"
     implementation "org.grails.plugins:gsp"
     profile "org.grails.profiles:web-plugin"
-    runtimeOnly "com.bertramlabs.plugins:asset-pipeline-grails:3.3.4"
+    runtimeOnly "com.bertramlabs.plugins:asset-pipeline-grails:3.4.7"
     testImplementation "io.micronaut:micronaut-inject-groovy"
     testImplementation "org.grails:grails-gorm-testing-support"
     testImplementation "org.mockito:mockito-core"
