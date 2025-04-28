@@ -125,7 +125,7 @@ class NslDomainService {
 
 
     Map getParamsFile(Integer versionNumber) {
-        File updatesDir = new File(grailsApplication.config.updates.dir.toString())
+        File updatesDir = new File(grailsApplication.config.getProperty("updates.dir"))
         File file = new File(updatesDir, "UpdateTo${versionNumber}Params.groovy")
         if (file?.exists()) {
             Map params = new GroovyShell().evaluate(file.text, file.name) as Map

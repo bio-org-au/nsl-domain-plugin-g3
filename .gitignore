@@ -83,7 +83,6 @@ tags
 # Logs and databases #
 ######################
 *.log
-*.sql
 *.sqlite
 # general HSQL database files
 *Db.properties
