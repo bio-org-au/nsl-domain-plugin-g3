@@ -32,7 +32,7 @@ class DistEntry implements Comparable<DistEntry> {
 
     static mapping = {
 
-        id generator: 'native', params: [sequence: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
+        id generator: 'native', params: [sequence_name: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"
         sortOrder defaultValue: "0"
     }

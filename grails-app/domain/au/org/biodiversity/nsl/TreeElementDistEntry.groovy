@@ -12,7 +12,7 @@ class TreeElementDistEntry implements Comparable<TreeElementDistEntry> {
     }
 
     static mapping = {
-        id generator: 'native', params: [sequence: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
+        id generator: 'native', params: [sequence_name: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"
         table "tree_element_distribution_entries"
         updatedAt sqlType: 'timestamp with time zone'
