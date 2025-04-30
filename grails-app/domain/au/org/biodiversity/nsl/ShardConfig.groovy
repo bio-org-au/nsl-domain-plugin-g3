@@ -9,7 +9,7 @@ class ShardConfig {
 
     static mapping = {
         version(false)
-        id generator: 'native', params: [sequence_name: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
+        id generator: 'sequence', params: [sequence_name: 'hibernate_sequence'], defaultValue: "nextval('hibernate_sequence')"
         deprecated defaultvalue: "false"
     }
 

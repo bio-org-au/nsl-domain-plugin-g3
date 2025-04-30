@@ -38,7 +38,7 @@ class InstanceNote {
 
     static mapping = {
 
-        id generator: 'native', params: [sequence_name: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
+        id generator: 'sequence', params: [sequence_name: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"
 
         sourceId index: 'Note_Source_Index'

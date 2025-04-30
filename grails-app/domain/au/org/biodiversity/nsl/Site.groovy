@@ -15,7 +15,7 @@ class Site {
 
     static mapping = {
 
-        id generator: 'native', params: [sequence_name: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
+        id generator: 'sequence', params: [sequence_name: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"
 
         updatedAt sqlType: 'timestamp with time zone'
