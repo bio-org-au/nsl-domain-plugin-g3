@@ -36,7 +36,7 @@ class Comment {
     static mapping = {
 
 
-        id generator: 'native', params: [sequence_name: 'hibernate_sequence'], defaultValue: "nextval('hibernate_sequence')"
+        id generator: 'native', params: [sequence_name: 'nsl_global_seq'], defaultValue: "nextval('nsl_global_seq')"
         version column: 'lock_version', defaultValue: "0"
         updatedAt sqlType: 'timestamp with time zone'
         createdAt sqlType: 'timestamp with time zone'

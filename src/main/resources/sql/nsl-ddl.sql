@@ -1,7 +1,7 @@
 create sequence hibernate_sequence start 1 increment 1;
 create sequence nsl_global_seq start 1 increment 1;
 create table author (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, duplicate_of_id int8, namespace_id int8 not null, ipni_id varchar(50), updated_by varchar(255) not null, source_id_string varchar(100), notes varchar(1000), full_name varchar(255), abbrev varchar(150), source_id int8, created_at timestamp with time zone not null, updated_at timestamp with time zone not null, name varchar(1000), source_system varchar(50), date_range varchar(50), created_by varchar(255) not null, uri text, valid_record boolean default false not null, primary key (id));
-create table comment (id int8 default nextval('hibernate_sequence') not null, lock_version int8 default 0 not null, updated_by varchar(50) not null, text text not null, author_id int8, created_at timestamp with time zone not null, updated_at timestamp with time zone not null, name_id int8, created_by varchar(50) not null, instance_id int8, reference_id int8, primary key (id));
+create table comment (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, updated_by varchar(50) not null, text text not null, author_id int8, created_at timestamp with time zone not null, updated_at timestamp with time zone not null, name_id int8, created_by varchar(50) not null, instance_id int8, reference_id int8, primary key (id));
 create table db_version (id int8 not null, version int4 not null, primary key (id));
 create table delayed_jobs (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, created_at timestamp with time zone not null, locked_at timestamp with time zone, last_error oid, queue varchar(4000), priority numeric(19, 2), failed_at timestamp with time zone, updated_at timestamp with time zone not null, handler oid, locked_by varchar(4000), run_at timestamp with time zone, attempts numeric(19, 2), primary key (id));
 create table dist_entry (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, display varchar(255) not null, region_id int8 not null, sort_order int4 default 0 not null, primary key (id));
@@ -18,7 +18,7 @@ create table instance_note_key (id int8 default nextval('nsl_global_seq') not nu
 create table instance_resources (instance_id int8 not null, resource_id int8 not null, primary key (instance_id, resource_id));
 create table instance_type (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, rdf_id varchar(50), description_html text, bidirectional boolean default false not null, secondary_instance boolean default false not null, misapplied boolean default false not null, relationship boolean default false not null, unsourced boolean default false not null, synonym boolean default false not null, protologue boolean default false not null, sort_order int4 default 0 not null, primary_instance boolean default false not null, taxonomic boolean default false not null, standalone boolean default false not null, name varchar(255) not null, pro_parte boolean default false not null, nomenclatural boolean default false not null, doubtful boolean default false not null, has_label varchar(255) not null, deprecated boolean default false not null, citing boolean default false not null, of_label varchar(255) not null, primary key (id));
 create table language (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, iso6391code varchar(2), name varchar(50) not null, iso6393code varchar(3) not null, primary key (id));
-create table media (id int8 default nextval('hibernate_sequence') not null, version int8 not null, mime_type text not null, file_name text not null, data bytea not null, description text not null, primary key (id));
+create table media (id int8 default nextval('nsl_global_seq') not null, version int8 not null, mime_type text not null, file_name text not null, data bytea not null, description text not null, primary key (id));
 create table name (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, family_id int8, duplicate_of_id int8, sanctioning_author_id int8, name_element varchar(255), namespace_id int8 not null, name_rank_id int8 not null, updated_by varchar(50) not null, source_id_string varchar(100), published_year int4, full_name varchar(512), source_dup_of_id int8, author_id int8, source_id int8, changed_combination boolean default false not null, ex_author_id int8, basionym_id int8, created_at timestamp with time zone not null, ex_base_author_id int8, primary_instance_id int8, sort_name varchar(250), second_parent_id int8, name_status_id int8 not null, simple_name varchar(250), updated_at timestamp with time zone not null, source_system varchar(50), apni_json jsonb, simple_name_html varchar(2048), base_author_id int8, verbatim_rank varchar(50), created_by varchar(50) not null, orth_var boolean default false not null, name_type_id int8 not null, status_summary varchar(50), uri text, valid_record boolean default false not null, name_path text not null, full_name_html varchar(2048), parent_id int8, primary key (id));
 create table name_category (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, rdf_id varchar(50), description_html text, requires_family boolean default false not null, takes_rank boolean default false not null, parent_1_help_text text, takes_verbatim_rank boolean default false not null, parent_2_help_text text, takes_hybrid_scoped_parent boolean default false not null, requires_name_element boolean default false not null, sort_order int4 default 0 not null, requires_higher_ranked_parent boolean default false not null, takes_cultivar_scoped_parent boolean default false not null, name varchar(50) not null, max_parents_allowed int4 not null, takes_name_element boolean default false not null, min_parents_required int4 not null, takes_authors boolean default false not null, takes_author_only boolean default false not null, primary key (id));
 create table name_group (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, rdf_id varchar(50), description_html text, name varchar(50), primary key (id));
@@ -35,7 +35,7 @@ create table ref_type (id int8 default nextval('nsl_global_seq') not null, lock_
 create table reference (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, display_title varchar(2000) not null, duplicate_of_id int8, publisher varchar(1000), verbatim_reference varchar(1000), publication_date varchar(50), ref_author_role_id int8 not null, citation varchar(4000), bhl_url varchar(4000), edition varchar(100), published boolean default false not null, published_location varchar(1000), namespace_id int8 not null, doi varchar(255), updated_by varchar(1000) not null, source_id_string varchar(100), notes varchar(1000), isbn varchar(16), tl2 varchar(30), language_id int8 not null, author_id int8 not null, issn varchar(16), iso_publication_date varchar(10), source_id int8, volume varchar(100), title varchar(2000) not null, verbatim_citation varchar(2000), created_at timestamp with time zone not null, verbatim_author varchar(1000), ref_type_id int8 not null, abbrev_title varchar(2000), updated_at timestamp with time zone not null, source_system varchar(50), created_by varchar(255) not null, year int4, citation_html varchar(4000), pages varchar(1000), uri text, valid_record boolean default false not null, parent_id int8, primary key (id));
 create table resource (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, path varchar(2400) not null, updated_by varchar(50) not null, resource_type_id int8 not null, created_at timestamp with time zone not null, updated_at timestamp with time zone not null, created_by varchar(50) not null, site_id int8 not null, primary key (id));
 create table resource_type (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, display boolean default false not null, rdf_id varchar(50), name text not null, css_icon text, deprecated boolean default false not null, media_icon_id int8, description text not null, primary key (id));
-create table shard_config (id int8 default nextval('hibernate_sequence') not null, use_notes varchar(255), name varchar(255) not null, value varchar(5000) not null, deprecated boolean default false not null, primary key (id));
+create table shard_config (id int8 default nextval('nsl_global_seq') not null, use_notes varchar(255), name varchar(255) not null, value varchar(5000) not null, deprecated boolean default false not null, primary key (id));
 create table site (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, created_at timestamp with time zone not null, url varchar(500) not null, name varchar(100) not null, updated_at timestamp with time zone not null, updated_by varchar(50) not null, created_by varchar(50) not null, description varchar(1000) not null, primary key (id));
 create table tree (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, description_html Text default 'Edit me' not null, link_to_home_page Text, reference_id int8, config jsonb not null, host_name Text not null, current_tree_version_id int8, default_draft_tree_version_id int8, accepted_tree boolean default false not null, name Text not null, group_name Text not null, primary key (id));
 create table tree_element (id int8 default nextval('nsl_global_seq') not null, lock_version int8 default 0 not null, instance_link Text not null, profile jsonb not null, rank varchar(50) not null, name_element varchar(255) not null, previous_element_id int8, updated_by varchar(255) not null, name_link Text not null, display_html Text not null, synonyms jsonb, excluded boolean default false not null, source_shard Text not null, synonyms_html Text not null, updated_at timestamp with time zone not null, simple_name Text not null, instance_id int8 not null, name_id int8 not null, source_element_link Text, primary key (id));
@@ -2974,7 +2974,7 @@ BEGIN
   THEN
     INSERT INTO notification (id, version, message, object_id)
       SELECT
-        nextval('hibernate_sequence'),
+        nextval('nsl_global_seq'),
         0,
         'name deleted',
         OLD.id;
@@ -2983,7 +2983,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'name updated',
           NEW.id;
@@ -2992,7 +2992,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'name created',
           NEW.id;
@@ -3017,7 +3017,7 @@ BEGIN
   THEN
     INSERT INTO notification (id, version, message, object_id)
       SELECT
-        nextval('hibernate_sequence'),
+        nextval('nsl_global_seq'),
         0,
         'author deleted',
         OLD.id;
@@ -3026,7 +3026,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'author updated',
           NEW.id;
@@ -3035,7 +3035,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'author created',
           NEW.id;
@@ -3059,7 +3059,7 @@ BEGIN
   THEN
     INSERT INTO notification (id, version, message, object_id)
       SELECT
-        nextval('hibernate_sequence'),
+        nextval('nsl_global_seq'),
         0,
         'reference deleted',
         OLD.id;
@@ -3068,7 +3068,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'reference updated',
           NEW.id;
@@ -3077,7 +3077,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'reference created',
           NEW.id;
@@ -3101,7 +3101,7 @@ BEGIN
   THEN
     INSERT INTO notification (id, version, message, object_id)
       SELECT
-        nextval('hibernate_sequence'),
+        nextval('nsl_global_seq'),
         0,
         'instance deleted',
         OLD.id;
@@ -3110,7 +3110,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'instance updated',
           NEW.id;
@@ -3119,7 +3119,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'instance created',
           NEW.id;

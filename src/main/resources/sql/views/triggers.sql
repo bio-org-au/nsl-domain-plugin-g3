@@ -9,7 +9,7 @@ BEGIN
   THEN
     INSERT INTO notification (id, version, message, object_id)
       SELECT
-        nextval('hibernate_sequence'),
+        nextval('nsl_global_seq'),
         0,
         'name deleted',
         OLD.id;
@@ -18,7 +18,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'name updated',
           NEW.id;
@@ -27,7 +27,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'name created',
           NEW.id;
@@ -52,7 +52,7 @@ BEGIN
   THEN
     INSERT INTO notification (id, version, message, object_id)
       SELECT
-        nextval('hibernate_sequence'),
+        nextval('nsl_global_seq'),
         0,
         'author deleted',
         OLD.id;
@@ -61,7 +61,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'author updated',
           NEW.id;
@@ -70,7 +70,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'author created',
           NEW.id;
@@ -94,7 +94,7 @@ BEGIN
   THEN
     INSERT INTO notification (id, version, message, object_id)
       SELECT
-        nextval('hibernate_sequence'),
+        nextval('nsl_global_seq'),
         0,
         'reference deleted',
         OLD.id;
@@ -103,7 +103,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'reference updated',
           NEW.id;
@@ -112,7 +112,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'reference created',
           NEW.id;
@@ -136,7 +136,7 @@ BEGIN
   THEN
     INSERT INTO notification (id, version, message, object_id)
       SELECT
-        nextval('hibernate_sequence'),
+        nextval('nsl_global_seq'),
         0,
         'instance deleted',
         OLD.id;
@@ -145,7 +145,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'instance updated',
           NEW.id;
@@ -154,7 +154,7 @@ BEGIN
     THEN
       INSERT INTO notification (id, version, message, object_id)
         SELECT
-          nextval('hibernate_sequence'),
+          nextval('nsl_global_seq'),
           0,
           'instance created',
           NEW.id;
